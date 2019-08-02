@@ -5,7 +5,7 @@
 - [x] FORGOT PASS ACIVITY
 - [ ] Main Activity design and mapping
 - [ ] Database design and mapping
-- [ ] Jupiter
+- [ ] UML design 
 - [ ] Saturn
 - [ ] Uranus
 - [ ] Neptune
