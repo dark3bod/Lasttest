@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -29,8 +31,8 @@ public class LogIn extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
 
 
-        // set the view now
-        setContentView(R.layout.activity_log_in);
+        final View vi = findViewById(R.id.activity_main_id);
+
 
 
 
@@ -40,9 +42,7 @@ public class LogIn extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.login);
         btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
 
-        //Get Firebase auth instance
-        /*FirebaseAuth auth = FirebaseAuth.getInstance();
-         */
+
 
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,17 +52,22 @@ public class LogIn extends AppCompatActivity {
         });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(final View v){
             String email = inputEmail.getText().toString();
             final String password = inputPassword.getText().toString();
 
+
                 if (TextUtils.isEmpty(email)) {
-                Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    Snackbar snackbar = Snackbar
+                            .make(v, "Missing Email!", Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 return;
             }
 
                 if (TextUtils.isEmpty(password)) {
-                Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    Snackbar snackbar = Snackbar
+                            .make(v, "Missing Password!", Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 return;
             }
 
@@ -82,7 +87,10 @@ public class LogIn extends AppCompatActivity {
                         if (password.length() < 6) {
                             inputPassword.setError(getString(R.string.invalid_password));
                         } else {
-                            Toast.makeText(LogIn.this, "Wrong email or password", Toast.LENGTH_LONG).show();
+
+                            Snackbar snackbar = Snackbar
+                                    .make(v, "Wrong Email and Password combination!", Snackbar.LENGTH_LONG);
+                            snackbar.show();
                         }
                     } else {
                         Intent intent = new Intent(LogIn.this, MainActivity.class);

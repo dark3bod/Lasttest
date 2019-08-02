@@ -11,7 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResetPasswordActivity"></activity>
+        <activity
+            android:name=".MainPage"
+            android:label="@string/title_activity_main_page"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sultan.lasttest.MainActivity" />
+        </activity>
+        <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".LogIn" />
         <activity
             android:name=".ui.login.LoginActivity"
