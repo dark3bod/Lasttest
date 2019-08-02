@@ -94,4 +94,9 @@ public class LogIn extends AppCompatActivity {
         }
         });
     }
+    ///disable back button while logged out
+    @Override
+    public void onBackPressed() {
+
+    }
 }
