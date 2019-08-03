@@ -29,15 +29,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    TextView name,college;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+        name = (TextView) findViewById(R.id.name);
+        college = (TextView) findViewById(R.id.college);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -51,7 +54,8 @@ public class MainPage extends AppCompatActivity
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Student student = documentSnapshot.toObject(Student.class);
-                Toast.makeText(getApplicationContext(),student.email,Toast.LENGTH_SHORT).show();
+                name.setText("Name: "+student.name+" "+student.lastName);
+                college.setText("ID: "+student.StudentID);
             }
         });
 
