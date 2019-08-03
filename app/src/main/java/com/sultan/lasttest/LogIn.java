@@ -33,7 +33,7 @@ public class LogIn extends AppCompatActivity {
 
         final View vi = findViewById(R.id.activity_main_id);
 
-
+    ///c
 
 
         inputEmail = (EditText) findViewById(R.id.userName);

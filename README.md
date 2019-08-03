@@ -1,12 +1,13 @@
-# Lasttest
+
 ### TODO
 
 - [x] LOGIN ACTIVITY
 - [x] FORGOT PASS ACIVITY
-- [ ] Main Activity design and mapping
+- [x] Main Activity design and mapping
 - [ ] Database design and mapping
 - [ ] UML design 
-- [ ] Saturn
+- [ ] Settings Activity
+- [x] LOGOUT
 - [ ] Uranus
 - [ ] Neptune
 - [ ] Earth
