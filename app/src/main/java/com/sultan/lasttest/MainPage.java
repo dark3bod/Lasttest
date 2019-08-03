@@ -3,6 +3,8 @@ package com.sultan.lasttest;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -16,6 +18,10 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.model.DatabaseId;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -23,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.Toast;
 
 public class MainPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +44,17 @@ public class MainPage extends AppCompatActivity
         if (auth.getCurrentUser() != null) {
             // User is logged in
         }
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String docid = auth.getUid();
+        DocumentReference docRef = db.collection("student").document(docid);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Student student = documentSnapshot.toObject(Student.class);
+                Toast.makeText(getApplicationContext(),student.email,Toast.LENGTH_SHORT).show();
+            }
+        });
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
