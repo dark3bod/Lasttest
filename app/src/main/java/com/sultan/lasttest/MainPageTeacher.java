@@ -1,10 +1,7 @@
 package com.sultan.lasttest;
 
-import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -16,12 +13,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.model.DatabaseId;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -29,36 +20,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
-import android.widget.TextView;
-import android.widget.Toast;
 
-public class MainPage extends AppCompatActivity
+public class MainPageTeacher extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    TextView name,college;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_page);
-        name = (TextView) findViewById(R.id.name);
-        college = (TextView) findViewById(R.id.college);
+        setContentView(R.layout.activity_main_page_teacher);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() != null) {
-            // User is logged in
-        }
-        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String docid = auth.getUid();
-        DocumentReference docRef = db.collection("student").document(docid);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Student student = documentSnapshot.toObject(Student.class);
-                name.setText("Name: "+student.name+" "+student.lastName);
-                college.setText("ID: "+student.StudentID);
-            }
-        });*/
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +38,6 @@ public class MainPage extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -90,7 +60,7 @@ public class MainPage extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_page, menu);
+        getMenuInflater().inflate(R.menu.main_page_teacher, menu);
         return true;
     }
 
@@ -104,20 +74,6 @@ public class MainPage extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        }else if(id == R.id.btn_log_out){
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            if (auth.getCurrentUser() != null) {
-                // User is logged in
-            }
-            auth.signOut();
-
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    if (user == null) {
-                        // user auth state is changed - user is null
-                        // launch login activity
-                        startActivity(new Intent(MainPage.this, LogIn.class));
-                        finish();
-                    }
         }
 
         return super.onOptionsItemSelected(item);
