@@ -1,6 +1,8 @@
 package com.sultan.lasttest;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
     public String email,name,lastName,StudentID;
     public void Student(String email,String name,String lastNmae,String StudentID,String UID){
         this.email=email;

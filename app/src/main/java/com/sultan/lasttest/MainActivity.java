@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),student.StudentID, Toast.LENGTH_SHORT).show();
                             ///goto student main page
                             Intent intent = new Intent(getApplicationContext(), MainPage.class);
+                            intent.putExtra("student",student);
                             startActivity(intent);
                             finish();
                         }else{
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                                             Teacher teacher = document.toObject(Teacher.class);
                                             Toast.makeText(getApplicationContext(),teacher.email, Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(getApplicationContext(), MainPageTeacher.class);
+                                            intent.putExtra("teacher",teacher);
                                             startActivity(intent);
                                             finish();
                                         }

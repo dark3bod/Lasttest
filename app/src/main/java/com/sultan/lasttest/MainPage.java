@@ -47,17 +47,17 @@ public class MainPage extends AppCompatActivity
         if (auth.getCurrentUser() != null) {
             // User is logged in
         }
-        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String docid = auth.getUid();
-        DocumentReference docRef = db.collection("student").document(docid);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Student student = documentSnapshot.toObject(Student.class);
-                name.setText("Name: "+student.name+" "+student.lastName);
-                college.setText("ID: "+student.StudentID);
-            }
-        });*/
+
+
+
+        Intent intent = getIntent();
+        Student student = (Student)intent.getSerializableExtra("student");
+        name.setText("Name: "+student.name+" "+student.lastName);
+        college.setText("ID: "+student.StudentID);
+
+
+
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

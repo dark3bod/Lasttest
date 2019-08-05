@@ -1,18 +1,30 @@
 package com.sultan.lasttest;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -20,14 +32,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class MainPageTeacher extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    TextView name,college,course1,course2;
+    public List<Course> courses ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page_teacher);
+        courses = new ArrayList<>();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -39,6 +61,62 @@ public class MainPageTeacher extends AppCompatActivity
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
+
+
+        name = (TextView) findViewById(R.id.name);
+        college = (TextView) findViewById(R.id.college);
+        course1 = (TextView) findViewById(R.id.course1);
+        course2 = (TextView) findViewById(R.id.course2);
+        setSupportActionBar(toolbar);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            // User is logged in
+        }
+        Intent intent = getIntent();
+        Teacher teacher = (Teacher)intent.getSerializableExtra("teacher");
+        name.setText("Name: "+teacher.name+" "+teacher.lastName);
+        college.setText("ID: "+teacher.email+teacher.course.get(0)+teacher.course.get(1));
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef;
+        docRef = db.collection("course").document(teacher.course.get(0));
+
+        for(int i = 0; i<2;i++){
+            docRef = db.collection("course").document(teacher.course.get(i));
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public Course onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Course c = new Course(document.get("courseCode").toString(),document.get("courseName").toString(),document.get("teacherUID").toString());
+                            System.out.println(" "+c.courseName+" "+c.courseCode+" "+c.teacherUID);
+
+                            System.out.println(" "+courses.get(0).courseName);
+                            return document.toObject(Course.class);
+                        }else{
+                            ///document doesnt exist
+                            Log.d("TAG", "No such document");
+                            return null;
+                        }
+                    } else {
+                        ///task is not succsesful
+                        Log.d("TAG", "get failed with ", task.getException());
+                        return null;
+                    }
+                }
+
+            });
+
+        }
+        course1.setText(courses.get(0).courseCode);
+        //course2.setText(courses.get(1).courseCode);
+
+
+
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -74,6 +152,20 @@ public class MainPageTeacher extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if(id == R.id.btn_log_out){
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            if (auth.getCurrentUser() != null) {
+                // User is logged in
+            }
+            auth.signOut();
+
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user == null) {
+                // user auth state is changed - user is null
+                // launch login activity
+                startActivity(new Intent(MainPageTeacher.this, LogIn.class));
+                finish();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -103,4 +195,6 @@ public class MainPageTeacher extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
