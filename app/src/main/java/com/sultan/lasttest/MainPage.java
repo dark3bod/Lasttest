@@ -34,13 +34,13 @@ import android.widget.Toast;
 
 public class MainPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    TextView name,college;
+    TextView name,studentId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         name = (TextView) findViewById(R.id.name);
-        college = (TextView) findViewById(R.id.college);
+        studentId = (TextView) findViewById(R.id.student_id);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -53,7 +53,7 @@ public class MainPage extends AppCompatActivity
         Intent intent = getIntent();
         Student student = (Student)intent.getSerializableExtra("student");
         name.setText("Name: "+student.name+" "+student.lastName);
-        college.setText("ID: "+student.StudentID);
+        studentId.setText("ID: "+student.StudentID);
 
 
 
@@ -63,7 +63,7 @@ public class MainPage extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Coming soon!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

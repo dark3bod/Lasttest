@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Student implements Serializable {
     public String email,name,lastName,StudentID;
-    public void Student(String email,String name,String lastNmae,String StudentID,String UID){
+    public void Student(String email,String name,String lastNmae,String StudentID){
         this.email=email;
         this.name=name;
         this.lastName=lastNmae;
@@ -16,4 +16,6 @@ public class Student implements Serializable {
         this.lastName=student.lastName;
         this.StudentID=student.StudentID;
     }
+
+
 }

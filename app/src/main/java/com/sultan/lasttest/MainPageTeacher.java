@@ -25,6 +25,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -40,11 +42,15 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 public class MainPageTeacher extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView name,college,course1,course2;
-    public List<Course> courses ;
+    public final String TAG = "MainPageTeacher";
+    public static List<Course> courses ;
+    public static String a,b,c;
+    public int i,z ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +62,7 @@ public class MainPageTeacher extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Coming soon!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -66,8 +72,6 @@ public class MainPageTeacher extends AppCompatActivity
 
         name = (TextView) findViewById(R.id.name);
         college = (TextView) findViewById(R.id.college);
-        course1 = (TextView) findViewById(R.id.course1);
-        course2 = (TextView) findViewById(R.id.course2);
         setSupportActionBar(toolbar);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
@@ -77,41 +81,35 @@ public class MainPageTeacher extends AppCompatActivity
         Teacher teacher = (Teacher)intent.getSerializableExtra("teacher");
         name.setText("Name: "+teacher.name+" "+teacher.lastName);
         college.setText("ID: "+teacher.email+teacher.course.get(0)+teacher.course.get(1));
-
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef;
-        docRef = db.collection("course").document(teacher.course.get(0));
-
-        for(int i = 0; i<2;i++){
+        i = 0;
+        for( i = 0;i<teacher.course.size();i++) {
             docRef = db.collection("course").document(teacher.course.get(i));
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            docRef.get().addOnCompleteListener(MainPageTeacher.this, new OnCompleteListener<DocumentSnapshot>() {
                 @Override
-                public Course onComplete(@NonNull Task<DocumentSnapshot> task) {
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            Course c = new Course(document.get("courseCode").toString(),document.get("courseName").toString(),document.get("teacherUID").toString());
-                            System.out.println(" "+c.courseName+" "+c.courseCode+" "+c.teacherUID);
-
-                            System.out.println(" "+courses.get(0).courseName);
-                            return document.toObject(Course.class);
-                        }else{
+                            System.out.println(document.get("courseCode").toString()+" "+ document.get("courseName").toString()+" "+document.get("teacherUID").toString()+" "+document.get("studentUID").toString());
+                            courses.add(document.toObject(Course.class));
+                        } else {
                             ///document doesnt exist
-                            Log.d("TAG", "No such document");
-                            return null;
+                            Log.d(TAG, "No such Course");
+
                         }
                     } else {
                         ///task is not succsesful
-                        Log.d("TAG", "get failed with ", task.getException());
-                        return null;
+                        Log.d(TAG, "get Course failed with ", task.getException());
+
                     }
                 }
 
             });
-
         }
-        course1.setText(courses.get(0).courseCode);
+        //System.out.println(courses.get(0).courseName);
+        //course1.setText(courses.get(0).courseCode);
         //course2.setText(courses.get(1).courseCode);
 
 
@@ -194,6 +192,10 @@ public class MainPageTeacher extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void saveCourse(){
+
     }
 
 
