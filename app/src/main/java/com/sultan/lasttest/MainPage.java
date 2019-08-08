@@ -52,8 +52,8 @@ public class MainPage extends AppCompatActivity
 
         Intent intent = getIntent();
         Student student = (Student)intent.getSerializableExtra("student");
-        name.setText("Name: "+student.name+" "+student.lastName);
-        studentId.setText("ID: "+student.StudentID);
+        name.setText(student.name+" "+student.lastName);
+        studentId.setText(student.StudentID);
 
 
 
