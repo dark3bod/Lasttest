@@ -14,6 +14,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
@@ -37,6 +38,7 @@ import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -48,9 +50,10 @@ public class MainPageTeacher extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView name,college,course1,course2;
     public final String TAG = "MainPageTeacher";
-    public static List<Course> courses ;
+    public static ArrayList<Course> courses ;
     public static String a,b,c;
     public int i,z ;
+    CardView mCard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +71,17 @@ public class MainPageTeacher extends AppCompatActivity
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
+        mCard = (CardView) findViewById(R.id.cardView2);
+        mCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Courses.class);
+                intent.putExtra("c",courses);
+                startActivity(intent);
 
+
+            }
+        });
 
         name = (TextView) findViewById(R.id.name);
         college = (TextView) findViewById(R.id.college);
@@ -79,8 +92,8 @@ public class MainPageTeacher extends AppCompatActivity
         }
         Intent intent = getIntent();
         Teacher teacher = (Teacher)intent.getSerializableExtra("teacher");
-        name.setText("Name: "+teacher.name+" "+teacher.lastName);
-        college.setText("ID: "+teacher.email+teacher.course.get(0)+teacher.course.get(1));
+        name.setText(teacher.name+" "+teacher.lastName);
+        college.setText(teacher.email+teacher.course.get(0)+teacher.course.get(1));
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef;
         i = 0;
