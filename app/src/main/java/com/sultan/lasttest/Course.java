@@ -1,9 +1,11 @@
 package com.sultan.lasttest;
 
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.List;
 
-public class Course implements Serializable {
+public class Course implements Serializable  {
     public String courseCode, courseName, teacherUID;
     public List<String> studentUID;
     public Course(){
