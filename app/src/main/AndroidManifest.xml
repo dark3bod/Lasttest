@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity_appointment"></activity>
+        <activity android:name=".sendRequestAct"></activity>
+        <activity android:name=".activity_appointment" />
         <activity android:name=".Courses" />
         <activity
             android:name=".MainPageTeacher"
