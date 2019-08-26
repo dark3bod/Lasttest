@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.util.Log;
 import android.view.View;
 
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
@@ -32,14 +36,20 @@ import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView name,studentId;
+    public static ArrayList<Course> courses ;
+    public final String TAG = "MainPage";
+    CardView mCard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         name = (TextView) findViewById(R.id.name);
+        courses = new ArrayList<>();
         studentId = (TextView) findViewById(R.id.student_id);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,11 +59,50 @@ public class MainPage extends AppCompatActivity
         }
 
 
+        mCard = (CardView) findViewById(R.id.cardView2);
+        mCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Courses.class);
+                intent.putExtra("c",courses);
+                startActivity(intent);
+
+
+            }
+        });
 
         Intent intent = getIntent();
         Student student = (Student)intent.getSerializableExtra("student");
         name.setText(student.name+" "+student.lastName);
         studentId.setText(student.StudentID);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef;
+        int i = 0;
+        for( i = 0;i<student.course.size();i++) {
+            docRef = db.collection("course").document(student.course.get(i));
+            docRef.get().addOnCompleteListener(MainPage.this, new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            System.out.println(document.get("courseCode").toString()+" "+ document.get("courseName").toString()+" "+document.get("teacherUID").toString()+" "+document.get("studentUID").toString());
+                            courses.add(document.toObject(Course.class));
+                        } else {
+                            ///document doesnt exist
+                            Log.d(TAG, "No such Course");
+
+                        }
+                    } else {
+                        ///task is not succsesful
+                        Log.d(TAG, "get Course failed with ", task.getException());
+
+                    }
+                }
+
+            });
+        }
 
 
 
@@ -146,5 +195,9 @@ public class MainPage extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void opencalnder(View v){
+        Intent intent = new Intent(MainPage.this,activity_appointment.class);
+        startActivity(intent);
     }
 }

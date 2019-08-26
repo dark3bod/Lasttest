@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Courses"></activity>
+        <activity android:name=".activity_appointment"></activity>
+        <activity android:name=".Courses" />
         <activity
             android:name=".MainPageTeacher"
             android:label="@string/title_activity_main_page_teacher"

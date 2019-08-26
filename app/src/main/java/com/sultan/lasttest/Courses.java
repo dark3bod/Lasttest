@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.sultan.lasttest.R;
 
@@ -13,9 +15,11 @@ import java.util.List;
 
 public class Courses extends AppCompatActivity {
 
+    Button btnreserve;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        btnreserve=(Button)findViewById(R.id.btnReserve);
         setContentView(R.layout.activity_courses);
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.courseRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -26,5 +30,6 @@ public class Courses extends AppCompatActivity {
 
 
     }
+
 
 }
