@@ -15,9 +15,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-
         android:background="#f7ffe6"
-        android:hint="choose Course"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +66,7 @@
         android:layout_marginRight="104dp"
         android:text="Send"
         android:textColor="#fff"
-        android:textSize="20"
+        android:textSize="@dimen/text_size"
         android:background="#ff3377"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

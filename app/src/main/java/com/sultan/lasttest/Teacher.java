@@ -9,17 +9,25 @@ import java.util.stream.Collectors;
 public class Teacher implements Serializable {
     public String email,name,lastName;
     public List<String> course;
-    public void Teacher(String email,String name,String lastNmae){
-        this.email=email;
-        this.name=name;
-        this.lastName=lastNmae;
+    public List<Integer> timeAvailable;
 
+    public Teacher() {
     }
+
+    public Teacher(String email, String name, String lastName, List<String> course, List<Integer> timeAvailable) {
+        this.email = email;
+        this.name = name;
+        this.lastName = lastName;
+        this.course = course;
+        this.timeAvailable = timeAvailable;
+    }
+
     public void Teacher(Teacher teacher){
         this.email=teacher.email;
         this.name=teacher.name;
         this.lastName=teacher.lastName;
         this.course= teacher.course;
+        this.timeAvailable = teacher.timeAvailable;
 
     }
 

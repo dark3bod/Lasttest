@@ -97,6 +97,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/sendrequest"
         android:clickable="true"
+        android:onClick="openSendAct"
         style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="154dp"
         android:layout_height="160dp"

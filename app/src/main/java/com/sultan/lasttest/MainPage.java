@@ -33,9 +33,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainPage extends AppCompatActivity
@@ -198,6 +200,12 @@ public class MainPage extends AppCompatActivity
     }
     public void opencalnder(View v){
         Intent intent = new Intent(MainPage.this,activity_appointment.class);
+        startActivity(intent);
+    }
+    public void openSendAct(View v){
+
+        Intent intent = new Intent(MainPage.this,sendRequestAct.class);
+        intent.putExtra("g",courses);
         startActivity(intent);
     }
 }
