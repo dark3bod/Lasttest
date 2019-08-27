@@ -3,12 +3,17 @@ package com.sultan.lasttest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,17 +24,22 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import io.opencensus.common.Timestamp;
 
 public class sendRequestAct extends AppCompatActivity {
-    public final String TAG = "sendRequestAct";
+    public static final String TAG = "sendRequestAct";
+
     List<Teacher> teachers = new ArrayList<>();
+    private DatePickerDialog.OnDateSetListener mDatelistener;
+    TextView txtselectdate;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        txtselectdate =(TextView)findViewById(R.id.txtselectdate) ;
         setContentView(R.layout.activity_send_request);
         final List<Course> courses = (List<Course>)getIntent().getSerializableExtra("g");
 
@@ -80,5 +90,27 @@ public class sendRequestAct extends AppCompatActivity {
 
             }
         });
+
+
+        txtselectdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int year =cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day =cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(getApplicationContext(),android.R.style.Theme_DeviceDefault_Dialog_MinWidth,mDatelistener,year,month,day);
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+        mDatelistener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                Log.d(TAG ,"onDateSet: Date:" + i + "/" + i1 + "/" + i2);
+            }
+        };
     }
 }
