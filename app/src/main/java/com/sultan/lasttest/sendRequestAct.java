@@ -2,6 +2,7 @@ package com.sultan.lasttest;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,23 +25,25 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import io.opencensus.common.Timestamp;
 
-public class sendRequestAct extends AppCompatActivity {
+public class sendRequestAct extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     public static final String TAG = "sendRequestAct";
-
+    private TextView dateText;
+    Button s;
     List<Teacher> teachers = new ArrayList<>();
-    private DatePickerDialog.OnDateSetListener mDatelistener;
-    TextView txtselectdate;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        txtselectdate =(TextView)findViewById(R.id.txtselectdate) ;
+        s =(Button)findViewById(R.id.btnSend) ;
         setContentView(R.layout.activity_send_request);
         final List<Course> courses = (List<Course>)getIntent().getSerializableExtra("g");
 
@@ -90,27 +94,33 @@ public class sendRequestAct extends AppCompatActivity {
 
             }
         });
+        dateText = findViewById(R.id.txtselectdate);
 
-
-        txtselectdate.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.txtselectdate).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year =cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day =cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog = new DatePickerDialog(getApplicationContext(),android.R.style.Theme_DeviceDefault_Dialog_MinWidth,mDatelistener,year,month,day);
-
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+            public void onClick(View v) {
+                showDatePickerDialog();
             }
         });
-        mDatelistener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                Log.d(TAG ,"onDateSet: Date:" + i + "/" + i1 + "/" + i2);
-            }
-        };
+
+
     }
+
+    public void showDatePickerDialog(){
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                this,
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        String date = dayOfMonth+ "/" + month + "/" + year;
+        dateText.setText(date);
+    }
+
+
 }
