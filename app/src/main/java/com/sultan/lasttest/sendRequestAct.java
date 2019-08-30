@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +30,7 @@ import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -35,8 +38,11 @@ import io.opencensus.common.Timestamp;
 
 public class sendRequestAct extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     public static final String TAG = "sendRequestAct";
-    private TextView dateText;
+    private TextView dateText,timeText;
+    public TimePickerDialog t;
+    int pos = 0,dayOfWeek ;
     Button s;
+    public boolean dateLeget ,timeLeget ;
     List<Teacher> teachers = new ArrayList<>();
     @Override
 
@@ -86,6 +92,10 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                pos = position;
+
+                System.out.println(position);
                 Toast.makeText(parent.getContext(),courses.get(position).courseID,Toast.LENGTH_LONG).show();
             }
 
@@ -96,12 +106,76 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
         });
         dateText = findViewById(R.id.txtselectdate);
 
-        findViewById(R.id.txtselectdate).setOnClickListener(new View.OnClickListener() {
+        dateText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
             }
         });
+
+        timeText = findViewById(R.id.timespicker);
+
+        timeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                t = new TimePickerDialog(sendRequestAct.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                        timeText.setText(hourOfDay + ":" + minutes);
+                        if(dayOfWeek == 7){
+                            System.out.println("SUNDAY"+" Teacher is Available from "+teachers.get(pos).timeAvailable.get(0)+" to "+teachers.get(pos).timeAvailable.get(1));
+                            if(hourOfDay<teachers.get(pos).timeAvailable.get(0)&&hourOfDay>teachers.get(pos).timeAvailable.get(1)){
+                                timeLeget= false;
+
+                            }else{timeLeget= true;}
+                            System.out.println(timeLeget);
+
+                        }else if(dayOfWeek == 1){
+                            System.out.println("MONDAY"+" Teacher is Available from "+teachers.get(pos).timeAvailable.get(2)+" to "+teachers.get(pos).timeAvailable.get(3));
+                            if(hourOfDay<teachers.get(pos).timeAvailable.get(2)&&hourOfDay>teachers.get(pos).timeAvailable.get(3)){
+                                timeLeget= false;
+
+                            }else{timeLeget= true;}
+                            System.out.println(timeLeget);
+
+                        }else if(dayOfWeek == 2){
+                            System.out.println("TUESDAY"+" Teacher is Available from "+teachers.get(pos).timeAvailable.get(4)+" to "+teachers.get(pos).timeAvailable.get(5));
+                            if(hourOfDay<teachers.get(pos).timeAvailable.get(4)&&hourOfDay>teachers.get(pos).timeAvailable.get(5)){
+                                timeLeget= false;
+
+                            }else{timeLeget= true;}
+                            System.out.println(timeLeget);
+
+                        }else if(dayOfWeek == 3){
+                            System.out.println("WEDENSDAY"+" Teacher is Available from "+teachers.get(pos).timeAvailable.get(6)+" to "+teachers.get(pos).timeAvailable.get(7));
+                            if(hourOfDay<teachers.get(pos).timeAvailable.get(6)&&hourOfDay>teachers.get(pos).timeAvailable.get(7)){
+                                timeLeget= false;
+
+                            }else{timeLeget= true;}
+                            System.out.println(timeLeget);
+
+                        }else if(dayOfWeek == 4){
+                            System.out.println("THURSDAY"+" Teacher is Available from "+teachers.get(pos).timeAvailable.get(8)+" to "+teachers.get(pos).timeAvailable.get(9));
+                            if(hourOfDay<teachers.get(pos).timeAvailable.get(8)&&hourOfDay>teachers.get(pos).timeAvailable.get(9)){
+                                timeLeget= false;
+
+                            }else{timeLeget= true;}
+                            System.out.println(timeLeget);
+
+                        }
+                        //if(hourOfDay<teachers.get(pos).timeAvailable.get(dayyy))
+
+
+                    }
+                }, Calendar.getInstance().get(Calendar.HOUR), Calendar.getInstance().get(Calendar.MINUTE), false);
+                t.show();
+
+            }
+        });
+
+
+
 
 
     }
@@ -120,6 +194,28 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String date = dayOfMonth+ "/" + month + "/" + year;
         dateText.setText(date);
+        GregorianCalendar GregorianCalendar = new GregorianCalendar(year, month, dayOfMonth-1);
+
+         dayOfWeek =GregorianCalendar.get(GregorianCalendar.DAY_OF_WEEK);
+
+
+        ///if the currently selected date is old set dateLeget to false true otherwise
+        dateLeget= true;
+        if(Calendar.getInstance().get(Calendar.YEAR)>year){
+            dateLeget = false;
+        }else if(Calendar.getInstance().get(Calendar.YEAR)==year&&Calendar.getInstance().get(Calendar.MONTH)>month){
+            dateLeget = false;
+        }else if(Calendar.getInstance().get(Calendar.YEAR)==year&&Calendar.getInstance().get(Calendar.MONTH)==month&&Calendar.getInstance().get(Calendar.DAY_OF_MONTH)>dayOfMonth){
+            dateLeget = false;
+        }
+
+        if(dayOfWeek == 6 || dayOfWeek == 5){
+            dateLeget = false;
+        }
+
+
+        System.out.println(dateLeget+" "+dayOfWeek);
+
     }
 
 
