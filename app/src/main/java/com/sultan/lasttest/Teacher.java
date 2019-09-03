@@ -7,11 +7,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Teacher implements Serializable {
-    public String email,name,lastName;
+    public String email;
+    public String name;
+    public String lastName;
+
+
+
+
     public List<String> course;
     public List<Integer> timeAvailable;
 
+
     public Teacher() {
+    }
+
+
+    public List<Integer> getTimeAvailable() {
+        return timeAvailable;
+    }
+
+    public void setTimeAvailable(List<Integer> timeAvailable) {
+        this.timeAvailable = timeAvailable;
     }
 
     public Teacher(String email, String name, String lastName, List<String> course, List<Integer> timeAvailable) {
@@ -20,6 +36,8 @@ public class Teacher implements Serializable {
         this.lastName = lastName;
         this.course = course;
         this.timeAvailable = timeAvailable;
+
+
     }
 
     public void Teacher(Teacher teacher){
@@ -28,6 +46,7 @@ public class Teacher implements Serializable {
         this.lastName=teacher.lastName;
         this.course= teacher.course;
         this.timeAvailable = teacher.timeAvailable;
+
 
     }
 

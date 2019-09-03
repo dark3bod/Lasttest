@@ -21,6 +21,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -31,8 +33,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import io.opencensus.common.Timestamp;
 
@@ -44,14 +48,25 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
     Button s;
     public boolean dateLeget ,timeLeget ;
     List<Teacher> teachers = new ArrayList<>();
-    @Override
+    List<Course> courses;
+   TextView txtstudet;
+    Request r;
+   FirebaseFirestore db ;
+    DocumentReference documentReference;
 
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        courses = (List<Course>)getIntent().getSerializableExtra("g");
+          txtstudet=(TextView)findViewById(R.id.student_id);
+          db =FirebaseFirestore.getInstance();
+
         super.onCreate(savedInstanceState);
-        s =(Button)findViewById(R.id.btnSend) ;
+        s =(Button)findViewById(R.id.btnSend);
         setContentView(R.layout.activity_send_request);
-        final List<Course> courses = (List<Course>)getIntent().getSerializableExtra("g");
+
 
         ArrayList<CharSequence> g = new ArrayList<>();
         int i = 0;
@@ -59,7 +74,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
         ) {
             g.add(c.courseName);
         }
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+    db = FirebaseFirestore.getInstance();
         DocumentReference docRef;
         i = 0 ;
 
@@ -86,7 +101,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
             });
         }
-        Spinner spinner1 = findViewById(R.id.spnCourses);
+      Spinner spinner1 = findViewById(R.id.spnCourses);
         ArrayAdapter<CharSequence> adaptSpin = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, g);
         spinner1.setAdapter(adaptSpin);
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -125,7 +140,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
                         timeText.setText(hourOfDay + ":" + minutes);
                         if(dayOfWeek == 7){
                             System.out.println("SUNDAY"+" Teacher is Available from "+teachers.get(pos).timeAvailable.get(0)+" to "+teachers.get(pos).timeAvailable.get(1));
-                            if(hourOfDay<teachers.get(pos).timeAvailable.get(0)&&hourOfDay>teachers.get(pos).timeAvailable.get(1)){
+                            if(hourOfDay<teachers.get(pos).timeAvailable.get(0)||hourOfDay>teachers.get(pos).timeAvailable.get(1)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}
@@ -133,7 +148,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
                         }else if(dayOfWeek == 1){
                             System.out.println("MONDAY"+" Teacher is Available from "+teachers.get(pos).timeAvailable.get(2)+" to "+teachers.get(pos).timeAvailable.get(3));
-                            if(hourOfDay<teachers.get(pos).timeAvailable.get(2)&&hourOfDay>teachers.get(pos).timeAvailable.get(3)){
+                            if(hourOfDay<teachers.get(pos).timeAvailable.get(2)||hourOfDay>teachers.get(pos).timeAvailable.get(3)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}
@@ -141,7 +156,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
                         }else if(dayOfWeek == 2){
                             System.out.println("TUESDAY"+" Teacher is Available from "+teachers.get(pos).timeAvailable.get(4)+" to "+teachers.get(pos).timeAvailable.get(5));
-                            if(hourOfDay<teachers.get(pos).timeAvailable.get(4)&&hourOfDay>teachers.get(pos).timeAvailable.get(5)){
+                            if(hourOfDay<teachers.get(pos).timeAvailable.get(4)||hourOfDay>teachers.get(pos).timeAvailable.get(5)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}
@@ -149,7 +164,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
                         }else if(dayOfWeek == 3){
                             System.out.println("WEDENSDAY"+" Teacher is Available from "+teachers.get(pos).timeAvailable.get(6)+" to "+teachers.get(pos).timeAvailable.get(7));
-                            if(hourOfDay<teachers.get(pos).timeAvailable.get(6)&&hourOfDay>teachers.get(pos).timeAvailable.get(7)){
+                            if(hourOfDay<teachers.get(pos).timeAvailable.get(6)||hourOfDay>teachers.get(pos).timeAvailable.get(7)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}
@@ -157,7 +172,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
                         }else if(dayOfWeek == 4){
                             System.out.println("THURSDAY"+" Teacher is Available from "+teachers.get(pos).timeAvailable.get(8)+" to "+teachers.get(pos).timeAvailable.get(9));
-                            if(hourOfDay<teachers.get(pos).timeAvailable.get(8)&&hourOfDay>teachers.get(pos).timeAvailable.get(9)){
+                            if(hourOfDay<teachers.get(pos).timeAvailable.get(8)||hourOfDay>teachers.get(pos).timeAvailable.get(9)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}
@@ -168,14 +183,11 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
 
                     }
-                }, Calendar.getInstance().get(Calendar.HOUR), Calendar.getInstance().get(Calendar.MINUTE), false);
+                }, Calendar.getInstance().get(Calendar.HOUR), Calendar.getInstance().get(Calendar.MINUTE), true);
                 t.show();
 
             }
         });
-
-
-
 
 
     }
@@ -191,7 +203,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
     }
 
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+    public void onDateSet(DatePicker view, int year, final int month, int dayOfMonth) {
         String date = dayOfMonth+ "/" + month + "/" + year;
         dateText.setText(date);
         GregorianCalendar GregorianCalendar = new GregorianCalendar(year, month, dayOfMonth-1);
@@ -216,7 +228,43 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
         System.out.println(dateLeget+" "+dayOfWeek);
 
+
+    }
+
+
+    //***********************************************here
+public void checkRequest(View view){
+
+
+                if(timeLeget==true){
+                    r = new Request(txtstudet.toString(),courses.get(pos).teacherUID,timeText.toString(),"0",courses.get(pos).courseID,"2223",dateText.toString());
+                    db.collection("request").document()
+                            .set(r)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot successfully written!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error writing document", e);
+                                }
+                            });
+                }
+                else
+                {
+                    Toast.makeText(sendRequestAct.this,"please check time or date",Toast.LENGTH_LONG).show();
+                }
+
+
     }
 
 
 }
+
+
+
+
+

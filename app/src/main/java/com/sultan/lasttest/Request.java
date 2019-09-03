@@ -4,19 +4,51 @@ import java.io.Serializable;
 
 public class Request implements Serializable {
 
-    public String StudentID ,TeacherID ,Time ,status;
 
-    public Request(String studentID, String teacherID, String time, String status) {
+    public String CourseID, reqID,StudentID ,TeacherID ,Time ,status,Date;
+    public Request(){}
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
+
+    public Request(String studentID, String teacherID, String time, String status, String CourseID, String reqID,String Date) {
         StudentID = studentID;
+        this.CourseID=CourseID;
+        this.reqID=reqID;
         TeacherID = teacherID;
         Time = time;
         this.status = status;
+        this.Date= Date;
     }
+
+    public String getCourseID() {
+        return CourseID;
+    }
+
+    public void setCourseID(String courseID) {
+        CourseID = courseID;
+    }
+
+    public String getReqID() {
+        return reqID;
+    }
+
+    public void setReqID(String reqID) {
+        this.reqID = reqID;
+    }
+
     public Request(Request r){
         StudentID = r.StudentID;
         TeacherID = r.TeacherID;
         Time = r.Time;
         status = r.status;
+        reqID=r.reqID;
+        CourseID =r.CourseID;
+        Date = r.Date;
     }
 
     public String getStudentID() {
