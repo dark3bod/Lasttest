@@ -15,11 +15,10 @@ import java.util.List;
 
 public class Courses extends AppCompatActivity {
 
-    Button btnreserve;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        btnreserve=(Button)findViewById(R.id.btnReserve);
         setContentView(R.layout.activity_courses);
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.courseRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

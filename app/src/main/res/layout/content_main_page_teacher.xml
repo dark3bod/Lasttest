@@ -85,7 +85,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
             android:scaleType="centerInside"
-            android:text="My Courses"
+            android:text="Courses"
             android:textColor="#e6e6ff"
             android:textSize="32sp"
             android:textStyle="" />
@@ -106,7 +106,7 @@
         app:layout_constraintEnd_toStartOf="@+id/verticalCenterGuideline"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/profile_card"
-        app:layout_constraintTop_toBottomOf="@+id/profile_card">
+        app:layout_constraintTop_toBottomOf="@+id/profile_card"><![CDATA[
 
 
         android:layout_width="match_parent"
@@ -114,18 +114,21 @@
         android:layout_gravity="center">
 
 
+
+
+        ]]>
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_height="43dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="90dp"
             android:scaleType="centerInside"
-            android:text="Send Request"
+            android:text="received request"
             android:textColor="#e6e6ff"
-            android:textSize="20sp"
+            android:textSize="19sp"
             android:textStyle="" />
-
 
         <ImageView
             android:id="@+id/image1"
@@ -243,11 +246,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="14dp"
             android:scaleType="centerInside"
-            android:text="My Calendar "
+            android:text="recent requests"
             android:textColor="#e6e6ff"
-            android:textSize="32sp"
+            android:textSize="25sp"
             android:textStyle="" />
 
     </androidx.cardview.widget.CardView>

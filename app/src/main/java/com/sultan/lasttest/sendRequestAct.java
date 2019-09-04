@@ -46,7 +46,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
     private TextView dateText,timeText;
     public TimePickerDialog t;
     int pos = 0,dayOfWeek ;
-    Button s;
+    Button s , checktime;
     public boolean dateLeget ,timeLeget ;
     List<Teacher> teachers = new ArrayList<>();
     List<Course> courses;
@@ -61,6 +61,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        checktime =(Button)findViewById(R.id.btnCheckAvalable);
 
         courses = (List<Course>)getIntent().getSerializableExtra("g");
         student = (Student)getIntent().getSerializableExtra("s") ;
@@ -195,6 +196,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
         });
 
 
+
     }
 
     public void showDatePickerDialog(){
@@ -234,6 +236,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
         System.out.println(dateLeget+" "+dayOfWeek);
 
 
+
     }
 
 
@@ -267,6 +270,8 @@ public void checkRequest(View view){
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "DocumentSnapshot successfully written!");
+                                    Toast.makeText(sendRequestAct.this,"your request have been sent",Toast.LENGTH_LONG).show();
+
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -275,11 +280,46 @@ public void checkRequest(View view){
                                     Log.w(TAG, "Error writing document", e);
                                 }
                             });
+
+
                 }
                 else
                 {
                     Toast.makeText(sendRequestAct.this,"please check time or date",Toast.LENGTH_LONG).show();
                 }
+                
+
+
+    }
+    public void checkTimeAvailablity(View v){
+        String timeAvailable ,sun1, mon2 , tues3 , wed4,thus5;
+        if(teachers.get(pos).timeAvailable.get(0)!= -1)
+            sun1= "Sunday "+ teachers.get(pos).timeAvailable.get(0)+" to "+teachers.get(pos).timeAvailable.get(0);
+        else
+            sun1="Sunday unavailable";
+        if(teachers.get(pos).timeAvailable.get(2)!= -1)
+            mon2= "Monday "+ teachers.get(pos).timeAvailable.get(2)+" to "+teachers.get(pos).timeAvailable.get(3);
+        else
+            mon2="Monday unavailable";
+        if(teachers.get(pos).timeAvailable.get(4)!= -1)
+            tues3= "Tuesday "+ teachers.get(pos).timeAvailable.get(4)+" to "+teachers.get(pos).timeAvailable.get(5);
+        else
+            tues3="Tuesday unavailable";
+        if(teachers.get(pos).timeAvailable.get(6)!= -1)
+            wed4= "Wednesday "+ teachers.get(pos).timeAvailable.get(6)+" to "+teachers.get(pos).timeAvailable.get(7);
+        else
+            wed4="Wednesday unavailable";
+        if(teachers.get(pos).timeAvailable.get(8)!= -1)
+            thus5= "Thursday "+ teachers.get(pos).timeAvailable.get(8)+" to "+teachers.get(pos).timeAvailable.get(9);
+        else
+            thus5="Wednesday unavailable";
+
+
+
+        timeAvailable =sun1 + "\n" + mon2 +"\n"+tues3+"\n"+wed4+"\n"+thus5+"\n";
+
+                Toast.makeText(sendRequestAct.this,timeAvailable,Toast.LENGTH_LONG).show();
+
 
 
     }

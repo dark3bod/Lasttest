@@ -48,7 +48,7 @@ import java.util.Map;
 
 public class MainPageTeacher extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    TextView name,college,course1,course2;
+    TextView name,course1,course2;
     public final String TAG = "MainPageTeacher";
     public static ArrayList<Course> courses ;
     public static String a,b,c;
@@ -84,7 +84,7 @@ public class MainPageTeacher extends AppCompatActivity
         });
 
         name = (TextView) findViewById(R.id.name);
-        college = (TextView) findViewById(R.id.college);
+
         setSupportActionBar(toolbar);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
@@ -93,7 +93,6 @@ public class MainPageTeacher extends AppCompatActivity
         Intent intent = getIntent();
         Teacher teacher = (Teacher)intent.getSerializableExtra("teacher");
         name.setText(teacher.name+" "+teacher.lastName);
-        college.setText(teacher.email+teacher.course.get(0)+teacher.course.get(1));
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef;
         i = 0;
