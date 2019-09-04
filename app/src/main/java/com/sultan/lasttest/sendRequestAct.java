@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 import io.opencensus.common.Timestamp;
 
@@ -53,6 +54,8 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
     Request r;
    FirebaseFirestore db ;
     DocumentReference documentReference;
+    public String date ,time;
+    Student student;
 
 
 
@@ -60,6 +63,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
     protected void onCreate(Bundle savedInstanceState) {
 
         courses = (List<Course>)getIntent().getSerializableExtra("g");
+        student = (Student)getIntent().getSerializableExtra("s") ;
           txtstudet=(TextView)findViewById(R.id.student_id);
           db =FirebaseFirestore.getInstance();
 
@@ -137,7 +141,8 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
                 t = new TimePickerDialog(sendRequestAct.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-                        timeText.setText(hourOfDay + ":" + minutes);
+                        time = hourOfDay+":"+minutes;
+                        timeText.setText(time);
                         if(dayOfWeek == 7){
                             System.out.println("SUNDAY"+" Teacher is Available from "+teachers.get(pos).timeAvailable.get(0)+" to "+teachers.get(pos).timeAvailable.get(1));
                             if(hourOfDay<teachers.get(pos).timeAvailable.get(0)||hourOfDay>teachers.get(pos).timeAvailable.get(1)){
@@ -204,7 +209,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
     @Override
     public void onDateSet(DatePicker view, int year, final int month, int dayOfMonth) {
-        String date = dayOfMonth+ "/" + month + "/" + year;
+        date = dayOfMonth+ "/" + month + "/" + year;
         dateText.setText(date);
         GregorianCalendar GregorianCalendar = new GregorianCalendar(year, month, dayOfMonth-1);
 
@@ -233,13 +238,31 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
 
     //***********************************************here
+    public String createUniqueReqId(){
+        Random random = new Random();
+        String idR = String.format("%04d", random.nextInt(10000));
+        return student.StudentID+courses.get(pos).courseID+idR;
+    }
 public void checkRequest(View view){
 
 
-                if(timeLeget==true){
-                    r = new Request(txtstudet.toString(),courses.get(pos).teacherUID,timeText.toString(),"0",courses.get(pos).courseID,"2223",dateText.toString());
-                    db.collection("request").document()
-                            .set(r)
+                if(timeLeget&&dateLeget){
+
+                    Map<String, Object> docData = new HashMap<>();
+                    docData.put("CourseID", courses.get(pos).courseID);
+                    docData.put("Date",date);
+                    docData.put("StudentID",student.StudentID);
+                    docData.put("TeacherID",courses.get(pos).teacherUID);
+
+                    // we need unique req id for each student
+                    docData.put("reqID",createUniqueReqId());
+                    docData.put("status","0");
+                    docData.put("Time",time);
+
+                    String id = db.collection("requests").document().getId();
+                    //r = new Request(txtstudet.toString(),courses.get(pos).teacherUID,timeText.toString(),"0",courses.get(pos).courseID,"2223",dateText.toString());
+                    db.collection("request").document(id)
+                            .set(docData)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {

@@ -22,6 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseUser user;
+    public Student student;
+    public Teacher teacher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            Student student = document.toObject(Student.class);
+                            student = document.toObject(Student.class);
                             Toast.makeText(getApplicationContext(),student.StudentID, Toast.LENGTH_SHORT).show();
                             ///goto student main page
                             Intent intent = new Intent(getApplicationContext(), MainPage.class);
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         DocumentSnapshot document = task.getResult();
                                         if (document.exists()) {
-                                            Teacher teacher = document.toObject(Teacher.class);
+                                            teacher = document.toObject(Teacher.class);
                                             Toast.makeText(getApplicationContext(),teacher.email, Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(getApplicationContext(), MainPageTeacher.class);
                                             intent.putExtra("teacher",teacher);

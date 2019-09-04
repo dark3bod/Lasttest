@@ -44,6 +44,7 @@ public class MainPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView name,studentId;
     public static ArrayList<Course> courses ;
+    Student student;
     public final String TAG = "MainPage";
     CardView mCard;
     @Override
@@ -59,13 +60,17 @@ public class MainPage extends AppCompatActivity
         if (auth.getCurrentUser() != null) {
             // User is logged in
         }
-
+        Intent intent = getIntent();
+        student = (Student)intent.getSerializableExtra("student");
+        name.setText(student.name+" "+student.lastName);
+        studentId.setText(student.StudentID);
 
         mCard = (CardView) findViewById(R.id.cardView2);
         mCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),Courses.class);
+
                 intent.putExtra("c",courses);
                 startActivity(intent);
 
@@ -73,10 +78,7 @@ public class MainPage extends AppCompatActivity
             }
         });
 
-        Intent intent = getIntent();
-        Student student = (Student)intent.getSerializableExtra("student");
-        name.setText(student.name+" "+student.lastName);
-        studentId.setText(student.StudentID);
+
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef;
@@ -205,6 +207,7 @@ public class MainPage extends AppCompatActivity
     public void openSendAct(View v){
 
         Intent intent = new Intent(MainPage.this,sendRequestAct.class);
+        intent.putExtra("s",student);
         intent.putExtra("g",courses);
         startActivity(intent);
     }
