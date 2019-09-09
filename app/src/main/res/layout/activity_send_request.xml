@@ -12,7 +12,7 @@
         android:layout_width="239dp"
         android:layout_height="76dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="168dp"
         android:layout_marginEnd="8dp"
         android:background="#f7ffe6"
         android:textAlignment="center"
@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.431"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
 
 
 
@@ -43,18 +43,18 @@
         android:id="@+id/btnSend"
         android:layout_width="225dp"
         android:layout_height="58dp"
-        android:onClick="checkRequest"
         android:layout_marginStart="82dp"
-        android:layout_marginTop="436dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="104dp"
         android:background="#6d6cea"
+        android:onClick="checkRequest"
         android:text="Send"
         android:textColor="#fff"
         android:textSize="@dimen/text_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txtproblem" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
@@ -99,7 +99,7 @@
         android:textAlignment="center"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.846"
+        app:layout_constraintHorizontal_bias="0.769"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spnCourses" />
 
@@ -107,6 +107,7 @@
         android:id="@+id/timespicker"
         android:layout_width="257dp"
         android:layout_height="31dp"
+        android:layout_marginTop="64dp"
         android:text="Select the Time"
         android:textAlignment="center"
         android:textSize="25dp"
@@ -114,24 +115,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.22"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtselectdate"
-        app:layout_constraintVertical_bias="0.441" />
+        app:layout_constraintTop_toTopOf="@+id/txtselectdate"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnCheckAvalable"
         android:layout_width="71dp"
 
-        android:onClick="checkTimeAvailablity"
         android:layout_height="38dp"
         android:layout_marginStart="265dp"
         android:layout_marginTop="105dp"
         android:layout_marginEnd="41dp"
         android:layout_marginBottom="49dp"
+        android:onClick="checkTimeAvailablity"
         android:text="Check"
         app:layout_constraintBottom_toTopOf="@+id/btnSend"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/timespicker"
-        app:layout_constraintTop_toBottomOf="@+id/spnCourses" />
+        app:layout_constraintTop_toBottomOf="@+id/spnCourses"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/txtproblem"
+        android:layout_width="297dp"
+        android:layout_height="86dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="80dp"
+        android:ems="10"
+        android:hint="Write your problem"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/timespicker" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

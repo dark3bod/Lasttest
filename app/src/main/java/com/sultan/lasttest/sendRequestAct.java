@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -46,22 +47,25 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
     private TextView dateText,timeText;
     public TimePickerDialog t;
     int pos = 0,dayOfWeek ;
-    Button s , checktime;
+    Button s , checktime ;
     public boolean dateLeget ,timeLeget ;
     List<Teacher> teachers = new ArrayList<>();
     List<Course> courses;
-   TextView txtstudet;
+   TextView txtstudet ;
+   EditText txtproblem;
     Request r;
    FirebaseFirestore db ;
-    DocumentReference documentReference;
+
     public String date ,time;
     Student student;
+
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         checktime =(Button)findViewById(R.id.btnCheckAvalable);
+
 
         courses = (List<Course>)getIntent().getSerializableExtra("g");
         student = (Student)getIntent().getSerializableExtra("s") ;
@@ -197,6 +201,8 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
 
 
+
+
     }
 
     public void showDatePickerDialog(){
@@ -249,7 +255,10 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 public void checkRequest(View view){
 
 
-                if(timeLeget&&dateLeget){
+
+    txtproblem=(EditText) findViewById(R.id.txtproblem);
+
+             if(timeLeget&&dateLeget){
 
                     Map<String, Object> docData = new HashMap<>();
                     docData.put("CourseID", courses.get(pos).courseID);
@@ -261,6 +270,7 @@ public void checkRequest(View view){
                     docData.put("reqID",createUniqueReqId());
                     docData.put("status","0");
                     docData.put("Time",time);
+                    docData.put("problem",txtproblem.getText().toString());
 
                     String id = db.collection("requests").document().getId();
                     //r = new Request(txtstudet.toString(),courses.get(pos).teacherUID,timeText.toString(),"0",courses.get(pos).courseID,"2223",dateText.toString());
@@ -292,6 +302,8 @@ public void checkRequest(View view){
 
     }
     public void checkTimeAvailablity(View v){
+
+
         String timeAvailable ,sun1, mon2 , tues3 , wed4,thus5;
         if(teachers.get(pos).timeAvailable.get(0)!= -1)
             sun1= "Sunday "+ teachers.get(pos).timeAvailable.get(0)+" to "+teachers.get(pos).timeAvailable.get(0);
