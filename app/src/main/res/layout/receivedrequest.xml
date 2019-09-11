@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/colorPrimary"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    app:cardCornerRadius="10dp"
+   >
+
+    <TextView
+        android:id="@+id/txtid"
+        android:textColor="#ffffff"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Student ID:"
+        android:textSize="20sp" />
+
+    <TextView
+    android:id="@+id/txttime1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="45dp"
+        android:layout_marginLeft="10dp"
+    android:text="Date:" android:textColor="#ffffff"
+    android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/txtdate1"
+        android:layout_width="match_parent"
+        android:textColor="#ffffff"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="200dp"
+        android:text="Time:"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/buttonaccpet"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="90dp"
+        android:background="#4dffb8"
+        android:text="Accpet" />
+
+    <Button
+        android:id="@+id/buttonreject"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="90dp"
+        android:background="#ff3300"
+        android:text="Reject" />
+
+    <Button
+
+        android:id="@+id/buttonreview"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginLeft="240dp"
+        android:background="#f2f2f2"
+        android:layout_marginTop="90dp"
+        android:text="Review" />
+</androidx.cardview.widget.CardView>

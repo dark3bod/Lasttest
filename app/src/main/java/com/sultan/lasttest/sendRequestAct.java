@@ -54,8 +54,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
    TextView txtstudet ;
    EditText txtproblem;
     Request r;
-   FirebaseFirestore db ;
-
+    FirebaseFirestore db ;
     public String date ,time;
     Student student;
 
