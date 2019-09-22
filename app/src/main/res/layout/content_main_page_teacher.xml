@@ -80,14 +80,14 @@
 
         <TextView
             android:id="@+id/txtMyrecent"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
             android:scaleType="centerInside"
-            android:text="Courses"
+            android:text="My Office Hours"
             android:textColor="#e6e6ff"
-            android:textSize="32sp"
+            android:textSize="25sp"
             android:textStyle="" />
 
 
@@ -120,8 +120,8 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="43dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="90dp"
             android:scaleType="centerInside"
