@@ -2,7 +2,7 @@ package com.sultan.lasttest;
 
 import java.io.Serializable;
 
-public class Request implements Serializable {
+public class request implements Serializable {
 
 
     public String CourseID;
@@ -13,6 +13,7 @@ public class Request implements Serializable {
     public String status;
     public String Date;
 
+
     public String getProblem() {
         return problem;
     }
@@ -22,7 +23,7 @@ public class Request implements Serializable {
     }
 
     public String problem;
-    public Request(){}
+    public request(){}
     public String getDate() {
         return Date;
     }
@@ -31,7 +32,7 @@ public class Request implements Serializable {
         Date = date;
     }
 
-    public Request(String studentID, String teacherID, String time, String status, String CourseID, String reqID,String Date,String problem) {
+    public request(String studentID, String teacherID, String time, String status, String CourseID, String reqID, String Date, String problem) {
         StudentID = studentID;
         this.CourseID=CourseID;
         this.reqID=reqID;
@@ -46,8 +47,8 @@ public class Request implements Serializable {
         return CourseID;
     }
 
-    public void setCourseID(String courseID) {
-        CourseID = courseID;
+    public void setCourseID(String CourseID) {
+        this.CourseID = CourseID;
     }
 
     public String getReqID() {
@@ -58,7 +59,7 @@ public class Request implements Serializable {
         this.reqID = reqID;
     }
 
-    public Request(Request r){
+    public request(request r){
         StudentID = r.StudentID;
         TeacherID = r.TeacherID;
         Time = r.Time;

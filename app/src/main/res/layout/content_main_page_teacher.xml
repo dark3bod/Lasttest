@@ -98,6 +98,8 @@
         style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="154dp"
         android:layout_height="160dp"
+        android:clickable="true"
+        android:onClick="openRecentRequstsAct"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="48dp"

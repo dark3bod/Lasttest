@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -13,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -36,15 +34,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
 
 public class MainPageTeacher extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,11 +45,14 @@ public class MainPageTeacher extends AppCompatActivity
     public static String a,b,c;
     public int i,z ;
     CardView mCard;
+    public ArrayList<request>requests;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page_teacher);
         courses = new ArrayList<>();
+        requests = new ArrayList<>();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -133,7 +127,40 @@ public class MainPageTeacher extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+         FirebaseFirestore dd = FirebaseFirestore.getInstance();
+
+
+
+
+
+        ///////////for geting requests to array
+        dd.collection("request")
+                .whereEqualTo("TeacherID", auth.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+
+
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+
+
+
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -207,6 +234,16 @@ public class MainPageTeacher extends AppCompatActivity
     }
 
     public void saveCourse(){
+
+    }
+    public void openRecentRequstsAct(View view){
+
+
+            Intent intent = new Intent(MainPageTeacher.this,actReceivedRequest.class);
+            intent.putExtra("r",requests);
+            startActivity(intent);
+
+
 
     }
 

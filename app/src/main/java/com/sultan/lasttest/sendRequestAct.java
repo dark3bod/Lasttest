@@ -2,12 +2,9 @@ package com.sultan.lasttest;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,18 +26,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
-
-import io.opencensus.common.Timestamp;
 
 public class sendRequestAct extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     public static final String TAG = "sendRequestAct";
@@ -53,7 +45,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
     List<Course> courses;
    TextView txtstudet ;
    EditText txtproblem;
-    Request r;
+    request r;
     FirebaseFirestore db ;
     public String date ,time;
     Student student;
@@ -272,7 +264,7 @@ public void checkRequest(View view){
                     docData.put("problem",txtproblem.getText().toString());
 
                     String id = db.collection("requests").document().getId();
-                    //r = new Request(txtstudet.toString(),courses.get(pos).teacherUID,timeText.toString(),"0",courses.get(pos).courseID,"2223",dateText.toString());
+                    //r = new request(txtstudet.toString(),courses.get(pos).teacherUID,timeText.toString(),"0",courses.get(pos).courseID,"2223",dateText.toString());
                     db.collection("request").document(id)
                             .set(docData)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {

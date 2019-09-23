@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".officeHoursAct"></activity>
-        <activity android:name=".data.actReceivedRequest" />
+        <activity android:name=".actReceivedRequest" />
         <activity android:name=".sendRequestAct" />
         <activity android:name=".activity_appointment" />
         <activity android:name=".Courses" />

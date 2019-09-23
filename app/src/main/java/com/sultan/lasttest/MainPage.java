@@ -210,5 +210,6 @@ public class MainPage extends AppCompatActivity
         intent.putExtra("s",student);
         intent.putExtra("g",courses);
         startActivity(intent);
+
     }
 }
