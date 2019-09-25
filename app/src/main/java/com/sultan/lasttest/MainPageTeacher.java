@@ -45,13 +45,13 @@ public class MainPageTeacher extends AppCompatActivity
     public static String a,b,c;
     public int i,z ;
     CardView mCard;
-    public ArrayList<request>requests;
+    public static ArrayList<request>requests;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page_teacher);
         courses = new ArrayList<>();
-        requests = new ArrayList<>();
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -128,13 +128,17 @@ public class MainPageTeacher extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-         FirebaseFirestore dd = FirebaseFirestore.getInstance();
+
 
 
 
 
 
         ///////////for geting requests to array
+        requests = new ArrayList<>();
+
+        FirebaseFirestore dd = FirebaseFirestore.getInstance();
+
         dd.collection("request")
                 .whereEqualTo("TeacherID", auth.getUid())
                 .get()
@@ -145,6 +149,11 @@ public class MainPageTeacher extends AppCompatActivity
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
+                                 String CourseID = (String)document.get("CourseID"), reqID = (String)document.get("reqID"),StudentID =(String)document.get("StudentID"), TeacherID=(String)document.get("TeacherID"),Time=(String)document.get("Time"), status=(String)document.get("status"), Date=(String)document.get("Date"), problem = (String) document.get("problem");
+                                 request r = new request(StudentID,TeacherID,Time,status,CourseID,reqID,Date,problem);
+                                 requests.add(r);
+
+
                             }
 
 
@@ -237,6 +246,7 @@ public class MainPageTeacher extends AppCompatActivity
 
     }
     public void openRecentRequstsAct(View view){
+
 
 
             Intent intent = new Intent(MainPageTeacher.this,actReceivedRequest.class);

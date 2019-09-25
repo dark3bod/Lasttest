@@ -5,13 +5,7 @@ import java.io.Serializable;
 public class request implements Serializable {
 
 
-    public String CourseID;
-    public String reqID;
-    public String StudentID;
-    public String TeacherID;
-    public String Time;
-    public String status;
-    public String Date;
+    public String CourseID, reqID, StudentID,TeacherID, Time,status,Date,problem;
 
 
     public String getProblem() {
@@ -22,7 +16,7 @@ public class request implements Serializable {
         this.problem = problem;
     }
 
-    public String problem;
+
     public request(){}
     public String getDate() {
         return Date;
