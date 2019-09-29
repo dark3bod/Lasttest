@@ -5,7 +5,24 @@ import java.io.Serializable;
 public class request implements Serializable {
 
 
-    public String CourseID, reqID, StudentID,TeacherID, Time,status,Date,problem;
+    public String CourseID;
+    public String reqID;
+    public String StudentID;
+    public String TeacherID;
+    public String Time;
+    public String status;
+    public String Date;
+    public String problem;
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String ID;
 
 
     public String getProblem() {
@@ -26,7 +43,7 @@ public class request implements Serializable {
         Date = date;
     }
 
-    public request(String studentID, String teacherID, String time, String status, String CourseID, String reqID, String Date, String problem) {
+    public request(String studentID, String teacherID, String time, String status, String CourseID, String reqID, String Date, String problem ) {
         StudentID = studentID;
         this.CourseID=CourseID;
         this.reqID=reqID;

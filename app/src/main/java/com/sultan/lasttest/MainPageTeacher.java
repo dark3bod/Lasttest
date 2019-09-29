@@ -140,7 +140,7 @@ public class MainPageTeacher extends AppCompatActivity
         FirebaseFirestore dd = FirebaseFirestore.getInstance();
 
         dd.collection("request")
-                .whereEqualTo("TeacherID", auth.getUid())
+                .whereEqualTo("TeacherID", auth.getUid()).whereEqualTo("status","0")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -149,8 +149,19 @@ public class MainPageTeacher extends AppCompatActivity
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                 String CourseID = (String)document.get("CourseID"), reqID = (String)document.get("reqID"),StudentID =(String)document.get("StudentID"), TeacherID=(String)document.get("TeacherID"),Time=(String)document.get("Time"), status=(String)document.get("status"), Date=(String)document.get("Date"), problem = (String) document.get("problem");
-                                 request r = new request(StudentID,TeacherID,Time,status,CourseID,reqID,Date,problem);
+                                 /*String CourseID = (String)document.get("CourseID"), reqID = (String)document.get("reqID"),StudentID =(String)document.get("StudentID"), TeacherID=(String)document.get("TeacherID"),Time=(String)document.get("Time"), status=(String)document.get("status"), Date=(String)document.get("Date"), problem = (String) document.get("problem");
+                                 request r = new request(StudentID,TeacherID,Time,status,CourseID,reqID,Date,problem);*/
+                                 request r = new request();
+                                 r.reqID=document.get("reqID").toString();
+                                 r.CourseID=document.get("CourseID").toString();
+                                 r.Date=document.get("Date").toString();
+                                 r.problem = document.get("problem").toString();
+                                 r.StudentID=document.get("StudentID").toString();
+                                 r.status=document.get("status").toString();
+                                 r.TeacherID=document.get("TeacherID").toString();
+                                 r.Time=document.get("Time").toString();
+                                 r.ID=document.getId();
+
                                  requests.add(r);
 
 

@@ -1,10 +1,13 @@
 package com.sultan.lasttest;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,15 +17,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static android.system.Os.close;
 
 public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.MyViewHolder> {
     private List<request> mDataset;
     public final String TAG = "MyRequestesAdapter";
+    EditText reason;
 
 
     // Provide a reference to the views for each data item
@@ -77,9 +87,15 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+
+
+        FirebaseFirestore dd = FirebaseFirestore.getInstance();
+        final DocumentReference updateRequest = dd.collection("request").document(mDataset.get(position).ID);
+
+
 
         holder.studentID.setText("Student ID: "+mDataset.get(position).StudentID);
         holder.time.setText("Time: "+mDataset.get(position).Time);
@@ -94,15 +110,68 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
         });
         holder.reject.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                ////accpted request by put in status atrbute #2
+            public void onClick(final View view) {
+                ////rejected request by put in status atrbute #2
+                final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("...");
+                builder.setMessage("Enter the reason");
+                reason = new EditText(view.getContext());
+                builder.setView(reason);
+                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Map<String, Object> docData = new HashMap<>();
+                        String txt  = reason.getText().toString();
+                        updateRequest.update("status","2");
+                        docData.put("reason",txt);
+                        updateRequest.set(docData,SetOptions.merge());
+                        Toast.makeText(view.getContext(),"Rejected request",Toast.LENGTH_LONG).show();
+                        mDataset.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemChanged(position);
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+
 
             }
         });
         holder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 ////accpted request by put in status atrbute #1
+                final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("...");
+                builder.setMessage("Are you Sure?");
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        updateRequest.update("status","1");
+                        mDataset.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemChanged(position);
+                        Toast.makeText(view.getContext(), "Accepted request", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
             }
         });
     }
@@ -112,4 +181,5 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
     public int getItemCount() {
         return mDataset.size();
     }
+
 }
