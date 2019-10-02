@@ -297,7 +297,7 @@ public void checkRequest(View view){
 
         String timeAvailable ,sun1, mon2 , tues3 , wed4,thus5;
         if(teachers.get(pos).timeAvailable.get(0)!= -1)
-            sun1= "Sunday "+ teachers.get(pos).timeAvailable.get(0)+" to "+teachers.get(pos).timeAvailable.get(0);
+            sun1= "Sunday "+ teachers.get(pos).timeAvailable.get(0)+" to "+teachers.get(pos).timeAvailable.get(1);
         else
             sun1="Sunday unavailable";
         if(teachers.get(pos).timeAvailable.get(2)!= -1)

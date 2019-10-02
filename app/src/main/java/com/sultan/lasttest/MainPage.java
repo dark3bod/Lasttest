@@ -22,10 +22,15 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.model.DatabaseId;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firestore.v1.Document;
+import com.squareup.okhttp.internal.DiskLruCache;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -33,11 +38,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainPage extends AppCompatActivity
@@ -47,6 +49,9 @@ public class MainPage extends AppCompatActivity
     Student student;
     public final String TAG = "MainPage";
     CardView mCard;
+     public  String coursename;
+
+    ArrayList<request> requests;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,6 +133,52 @@ public class MainPage extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        requests = new ArrayList<>();
+
+
+        FirebaseFirestore dd = FirebaseFirestore.getInstance();
+
+        dd.collection("request")
+                .whereEqualTo("StudentID",student.StudentID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+
+
+                                request r = new request();
+                                r.CourseID=document.get("CourseID").toString();
+                                r.Date=document.get("Date").toString();
+                                r.status=document.get("status").toString();
+
+
+                                requests.add(r);
+
+
+                            }
+
+
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+
+
+
+
+
+
+
     }
 
     @Override
@@ -205,10 +256,23 @@ public class MainPage extends AppCompatActivity
         startActivity(intent);
     }
     public void openSendAct(View v){
+        //Open Send request page
 
         Intent intent = new Intent(MainPage.this,sendRequestAct.class);
         intent.putExtra("s",student);
         intent.putExtra("g",courses);
+        startActivity(intent);
+
+    }
+
+
+    public int in;
+    public void openRecentReqsAct(View v){
+        //Open Recent requests page
+
+
+        Intent intent = new Intent(MainPage.this,Actrequests.class);
+        intent.putExtra("r",requests);
         startActivity(intent);
 
     }

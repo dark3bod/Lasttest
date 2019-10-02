@@ -30,7 +30,7 @@ import java.util.Map;
 import static android.system.Os.close;
 
 public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.MyViewHolder> {
-    private List<request> mDataset;
+    private List<request> mDataset ;
     public final String TAG = "MyRequestesAdapter";
     EditText reason;
 
@@ -105,6 +105,7 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
             @Override
             public void onClick(View view) {
                 ////making toast for student prolem
+                Toast.makeText(view.getContext(),mDataset.get(position).problem,Toast.LENGTH_LONG).show();
 
             }
         });

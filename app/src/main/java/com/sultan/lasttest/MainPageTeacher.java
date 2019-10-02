@@ -264,6 +264,8 @@ public class MainPageTeacher extends AppCompatActivity
             intent.putExtra("r",requests);
             startActivity(intent);
 
+            requests = new ArrayList<>();
+
 
 
     }
