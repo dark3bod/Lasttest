@@ -11,18 +11,19 @@
 
         android:layout_width="match_parent"
         android:layout_height="90dp"
+
         android:background="#6d6cea"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
-        />
+
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView555"
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_marginStart="8dp"
@@ -39,11 +40,11 @@
 
     <TextView
         android:id="@+id/labelreq"
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
+        android:layout_width="404dp"
+        android:layout_height="31dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="96dp"
-        android:text="Course ID            Date             Status"
+        android:text="Course Name            Date                     Status"
 
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/toolbar2"

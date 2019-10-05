@@ -41,15 +41,18 @@ import android.view.Menu;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView name,studentId;
     public static ArrayList<Course> courses ;
     Student student;
+    public static ArrayList<Course>courseName;
     public final String TAG = "MainPage";
     CardView mCard;
-     public  String coursename;
+
+
 
     ArrayList<request> requests;
     @Override
@@ -85,7 +88,7 @@ public class MainPage extends AppCompatActivity
 
 
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef;
         int i = 0;
         for( i = 0;i<student.course.size();i++) {
@@ -117,6 +120,7 @@ public class MainPage extends AppCompatActivity
 
 
 
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +144,8 @@ public class MainPage extends AppCompatActivity
 
 
         FirebaseFirestore dd = FirebaseFirestore.getInstance();
+        final String[] xxx = new String[1];
+
 
         dd.collection("request")
                 .whereEqualTo("StudentID",student.StudentID)
@@ -153,11 +159,10 @@ public class MainPage extends AppCompatActivity
                                 Log.d(TAG, document.getId() + " => " + document.getData());
 
 
-                                request r = new request();
-                                r.CourseID=document.get("CourseID").toString();
+                                final request r = new request();
+                                r.CourseID = document.get("CourseID").toString();
                                 r.Date=document.get("Date").toString();
                                 r.status=document.get("status").toString();
-
 
                                 requests.add(r);
 
@@ -171,9 +176,32 @@ public class MainPage extends AppCompatActivity
                         }
                     }
                 });
+        courseName= new ArrayList<>();
+        CollectionReference courseref = db.collection("course");
+
+
+        courseref.whereArrayContains("studentUID",student.StudentID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Course course = new Course();
+                                course = document.toObject(Course.class);
+                                courseName.add(course);
+
+                            }
 
 
 
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
 
 
@@ -255,6 +283,7 @@ public class MainPage extends AppCompatActivity
         Intent intent = new Intent(MainPage.this,activity_appointment.class);
         startActivity(intent);
     }
+    ArrayList<Course>courses1=new ArrayList<>();
     public void openSendAct(View v){
         //Open Send request page
 
@@ -263,17 +292,22 @@ public class MainPage extends AppCompatActivity
         intent.putExtra("g",courses);
         startActivity(intent);
 
+
+
     }
 
 
     public int in;
     public void openRecentReqsAct(View v){
         //Open Recent requests page
-
+        System.out.println(courseName.size());
 
         Intent intent = new Intent(MainPage.this,Actrequests.class);
         intent.putExtra("r",requests);
+        intent.putExtra("c",courseName);
         startActivity(intent);
+        requests = new ArrayList<>();
+        courseName = new ArrayList<>();
 
     }
 }

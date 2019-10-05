@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.List;
 
@@ -21,4 +22,5 @@ public class actReceivedRequest extends AppCompatActivity {
         MyRequestesAdapter mAdapter = new MyRequestesAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
     }
+
 }
