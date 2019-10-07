@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -243,7 +245,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
         String idR = String.format("%04d", random.nextInt(10000));
         return student.StudentID+courses.get(pos).courseID+idR;
     }
-public void checkRequest(View view){
+public void checkRequest(final View view){
 
 
 
@@ -272,6 +274,18 @@ public void checkRequest(View view){
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "DocumentSnapshot successfully written!");
                                     Toast.makeText(sendRequestAct.this,"your request have been sent",Toast.LENGTH_LONG).show();
+                                    new CountDownTimer(7000, 1000) {
+
+                                        public void onTick(long millisUntilFinished) {
+                                            view.setEnabled(false);
+                                            view.setBackgroundColor(Color.parseColor("#b3b3cc"));
+                                        }
+
+                                        public void onFinish() {
+                                            view.setEnabled(true);
+                                            view.setBackgroundColor(Color.parseColor("#6d6cea"));
+                                        }
+                                    }.start();
 
                                 }
                             })

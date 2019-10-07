@@ -85,7 +85,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 
 
         if(mDataset.get(position).status.equals("0"))
-            status ="Padding";
+            status ="Pending";
         else if (mDataset.get(position).status.equals("2"))
             status ="Canceled";
         else
@@ -115,6 +115,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 
 
         holder.coursename.setText(cccc);
+
         holder.reqStatus.setText(status);
         holder.reqdate.setText(mDataset.get(position).Date);
 

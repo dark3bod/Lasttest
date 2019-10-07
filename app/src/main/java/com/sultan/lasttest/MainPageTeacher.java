@@ -260,6 +260,7 @@ public class MainPageTeacher extends AppCompatActivity
 
 
 
+        //open requests activity with sending the requests that cames from database
             Intent intent = new Intent(MainPageTeacher.this,actReceivedRequest.class);
             intent.putExtra("r",requests);
             startActivity(intent);

@@ -51,6 +51,7 @@ public class MainPage extends AppCompatActivity
     public static ArrayList<Course>courseName;
     public final String TAG = "MainPage";
     CardView mCard;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
 
@@ -88,7 +89,7 @@ public class MainPage extends AppCompatActivity
 
 
 
-        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         DocumentReference docRef;
         int i = 0;
         for( i = 0;i<student.course.size();i++) {
@@ -115,6 +116,7 @@ public class MainPage extends AppCompatActivity
 
             });
         }
+        ArrayList<Teacher> teachers = new ArrayList<>();
 
 
 
@@ -143,11 +145,12 @@ public class MainPage extends AppCompatActivity
         requests = new ArrayList<>();
 
 
-        FirebaseFirestore dd = FirebaseFirestore.getInstance();
-        final String[] xxx = new String[1];
 
 
-        dd.collection("request")
+
+
+
+        db.collection("request")
                 .whereEqualTo("StudentID",student.StudentID)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -159,6 +162,7 @@ public class MainPage extends AppCompatActivity
                                 Log.d(TAG, document.getId() + " => " + document.getData());
 
 
+                                //getting the requestest for the login student
                                 final request r = new request();
                                 r.CourseID = document.get("CourseID").toString();
                                 r.Date=document.get("Date").toString();
@@ -176,7 +180,7 @@ public class MainPage extends AppCompatActivity
                         }
                     }
                 });
-        courseName= new ArrayList<>();
+      /*  courseName= new ArrayList<>();
         CollectionReference courseref = db.collection("course");
 
 
@@ -201,7 +205,7 @@ public class MainPage extends AppCompatActivity
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
-                });
+                });*/
 
 
 
@@ -297,17 +301,19 @@ public class MainPage extends AppCompatActivity
     }
 
 
-    public int in;
     public void openRecentReqsAct(View v){
         //Open Recent requests page
-        System.out.println(courseName.size());
+       /* System.out.println(courseName.size());*/
 
-        Intent intent = new Intent(MainPage.this,Actrequests.class);
+        /*Intent intent = new Intent(MainPage.this,Actrequests.class);
         intent.putExtra("r",requests);
-        intent.putExtra("c",courseName);
+        intent.putExtra("c",courses);
+        startActivity(intent);*/
+        //requests = new ArrayList<>();
+        //courseName = new ArrayList<>();
+        Intent intent = new Intent(MainPage.this , addCourseAct.class);
+        intent.putExtra("c",courses);
         startActivity(intent);
-        requests = new ArrayList<>();
-        courseName = new ArrayList<>();
 
     }
 }
