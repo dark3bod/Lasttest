@@ -1,6 +1,8 @@
 package com.sultan.lasttest;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,11 +37,13 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainPageTeacher extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    TextView name,course1,course2;
+    TextView name,course1,course2 , txtdate;
     public final String TAG = "MainPageTeacher";
     public static ArrayList<Course> courses ;
     public static String a,b,c;
@@ -51,6 +55,7 @@ public class MainPageTeacher extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page_teacher);
         courses = new ArrayList<>();
+        txtdate=(TextView)findViewById(R.id.txtmydayTecher) ;
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -161,6 +166,25 @@ public class MainPageTeacher extends AppCompatActivity
                                  r.TeacherID=document.get("TeacherID").toString();
                                  r.Time=document.get("Time").toString();
                                  r.ID=document.getId();
+                                try {
+                                    Date s = new SimpleDateFormat("dd/MM/yyyy").parse(document.get("Date").toString());
+
+                                    if (s.after(new Date())){
+
+                                        String x ="dd/MM/yyyy";
+                                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(x);
+                                        String date = simpleDateFormat.format(s);
+                                        txtdate.setText("Date: " +date + "      " + "Time : "+document.get("Time").toString()+"\n"+"Student ID "+document.get("StudentID").toString());
+                                        txtdate.setTextColor(Color.parseColor("#002038"));
+                                        txtdate.setTextSize(20);
+
+                                    }
+
+
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
 
                                  requests.add(r);
 

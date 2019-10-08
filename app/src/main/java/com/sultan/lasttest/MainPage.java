@@ -1,6 +1,8 @@
 package com.sultan.lasttest;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
@@ -38,9 +40,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainPage extends AppCompatActivity
@@ -52,6 +57,8 @@ public class MainPage extends AppCompatActivity
     public final String TAG = "MainPage";
     CardView mCard;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    TextView txtdate;
+    ArrayList<Course> courses2;
 
 
 
@@ -60,6 +67,7 @@ public class MainPage extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+        txtdate=(TextView)findViewById(R.id.txtmyday);
         name = (TextView) findViewById(R.id.name);
         courses = new ArrayList<>();
         studentId = (TextView) findViewById(R.id.student_id);
@@ -74,23 +82,11 @@ public class MainPage extends AppCompatActivity
         name.setText(student.name+" "+student.lastName);
         studentId.setText(student.StudentID);
 
-        mCard = (CardView) findViewById(R.id.cardView2);
-        mCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Courses.class);
-
-                intent.putExtra("c",courses);
-                startActivity(intent);
-
-
-            }
-        });
 
 
 
 
-        DocumentReference docRef;
+         DocumentReference docRef;
         int i = 0;
         for( i = 0;i<student.course.size();i++) {
             docRef = db.collection("course").document(student.course.get(i));
@@ -167,6 +163,25 @@ public class MainPage extends AppCompatActivity
                                 r.CourseID = document.get("CourseID").toString();
                                 r.Date=document.get("Date").toString();
                                 r.status=document.get("status").toString();
+                                try {
+                                    Date s = new SimpleDateFormat("dd/MM/yyyy").parse(document.get("Date").toString());
+
+                                    if (s.after(new Date())){
+
+                                        String x ="dd/MM/yyyy";
+                                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(x);
+                                        String date = simpleDateFormat.format(s);
+                                        txtdate.setText("Date: " +date + "      " + "Time : "+document.get("Time").toString()+"\n"+"Your problem: "+document.get("problem").toString());
+                                        txtdate.setTextColor(Color.parseColor("#002038"));
+                                        txtdate.setTextSize(20);
+
+                                        }
+
+
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
 
                                 requests.add(r);
 
@@ -180,7 +195,7 @@ public class MainPage extends AppCompatActivity
                         }
                     }
                 });
-      /*  courseName= new ArrayList<>();
+        courseName= new ArrayList<>();
         CollectionReference courseref = db.collection("course");
 
 
@@ -205,8 +220,26 @@ public class MainPage extends AppCompatActivity
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
-                });*/
+                });
+      courses2 = new ArrayList<>();
 
+       db.collection("course").get()
+               .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                   @Override
+                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                       if (task.isSuccessful()) {
+                           for (QueryDocumentSnapshot document : task.getResult()) {
+                               courses2.add(document.toObject(Course.class));
+
+                           }
+                       } else {
+                           Log.d(TAG, "Error getting documents: ", task.getException());
+                       }
+
+
+                   }
+               });
 
 
 
@@ -287,7 +320,6 @@ public class MainPage extends AppCompatActivity
         Intent intent = new Intent(MainPage.this,activity_appointment.class);
         startActivity(intent);
     }
-    ArrayList<Course>courses1=new ArrayList<>();
     public void openSendAct(View v){
         //Open Send request page
 
@@ -299,21 +331,32 @@ public class MainPage extends AppCompatActivity
 
 
     }
+    public void openCoursesAct(View v){
+
+                Intent intent = new Intent(getApplicationContext(),Courses.class);
+                intent.putExtra("c",courses);
+
+                intent.putExtra("f",courses2);
+
+                startActivity(intent);
+
+
+    }
 
 
     public void openRecentReqsAct(View v){
         //Open Recent requests page
        /* System.out.println(courseName.size());*/
 
-        /*Intent intent = new Intent(MainPage.this,Actrequests.class);
+        Intent intent = new Intent(MainPage.this,Actrequests.class);
         intent.putExtra("r",requests);
         intent.putExtra("c",courses);
-        startActivity(intent);*/
+        startActivity(intent);
         //requests = new ArrayList<>();
         //courseName = new ArrayList<>();
-        Intent intent = new Intent(MainPage.this , addCourseAct.class);
-        intent.putExtra("c",courses);
-        startActivity(intent);
+
 
     }
+
+
 }

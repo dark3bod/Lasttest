@@ -9,7 +9,20 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/courseRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+
+    <Button
+        android:id="@+id/addCourse"
+        android:layout_width="207dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="12dp"
+        android:text="add Course"
+        android:onClick="openAddCourseAct"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseRecyclerView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,6 +63,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
+        android:onClick="openCoursesAct"
         app:cardBackgroundColor="@color/md_red_A400"
         app:cardCornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="@+id/profile_card"
@@ -137,7 +138,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
         android:layout_width="match_parent"
-        android:layout_height="124dp"
+        android:layout_height="125dp"
         android:layout_marginTop="8dp"
         app:cardBackgroundColor="@color/md_orange_100"
         app:cardCornerRadius="5dp"
@@ -160,7 +161,7 @@
             android:layout_marginLeft="60dp"
             android:layout_marginTop="9dp"
             android:scaleType="centerInside"
-            android:text="My next appointment:"
+            android:text="Your next appointment:"
             android:textColor="#002038"
             android:textSize="20dp"
             android:textStyle="" />
@@ -172,45 +173,9 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="50dp"
             android:scaleType="centerInside"
-            android:text="Day:"
-            android:textColor="#002038"
-            android:textSize="20dp"
-            android:textStyle="" />
-
-        <TextView
-            android:id="@+id/txtmyday1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="50dp"
-            android:scaleType="centerInside"
-            android:text="sunday 8th september 2019"
-            android:textColor="#002038"
-            android:textSize="20dp"
-            android:textStyle="" />
-
-        <TextView
-            android:id="@+id/txtmytime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="80dp"
-            android:scaleType="centerInside"
-            android:text="Time:"
-            android:textColor="#002038"
-            android:textSize="20dp"
-            android:textStyle="" />
-
-        <TextView
-            android:id="@+id/txtmytime1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="80dp"
-            android:scaleType="centerInside"
-            android:text="12:00"
-            android:textColor="#002038"
-            android:textSize="20dp"
+            android:text="There's No appointment!"
+            android:textColor="#b30000"
+            android:textSize="25dp"
             android:textStyle="" />
 
 
