@@ -46,27 +46,15 @@
         android:layout_marginEnd="128dp"
         android:background="#d1d1e0"></Spinner>
 
-    <Spinner
-        android:id="@+id/spinnerAddteachrt"
-        android:layout_width="200dp"
-
-        android:layout_height="40dp"
-        android:layout_below="@+id/spinnerAddCourse"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="66dp"
-        android:layout_marginEnd="128dp"
-        android:background="#d1d1e0"></Spinner>
-
     <Button
         android:id="@+id/btnaddcourse"
         android:layout_width="243dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinnerAddteachrt"
+        android:layout_below="@+id/spinnerAddCourse"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="106dp"
-        android:hint="ADD Course"
-        android:layout_marginEnd="105dp"
-        />
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="86dp"
+        android:hint="ADD Course" />
 
     <TextView
         android:id="@+id/textView2"
@@ -84,8 +72,20 @@
         android:layout_height="30dp"
         android:layout_alignBottom="@+id/toolbar2"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="258dp"
-        android:layout_marginBottom="-210dp"
-        android:hint="Choose a Teacher:" />
+        android:layout_marginEnd="312dp"
+        android:layout_marginBottom="-211dp"
+        android:hint="Teacher:" />
+
+    <TextView
+        android:id="@+id/txtTeachername"
+        android:layout_width="179dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/spinnerAddCourse"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="137dp"
+        android:layout_marginBottom="-87dp"
+        android:text="Teacher Name"
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
 </RelativeLayout>

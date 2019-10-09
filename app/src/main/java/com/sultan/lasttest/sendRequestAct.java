@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -52,6 +53,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
     public String date ,time;
     Student student;
 
+    Spinner spinner1;
 
 
 
@@ -103,7 +105,8 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
             });
         }
-      Spinner spinner1 = findViewById(R.id.spnCourses);
+
+        spinner1 = findViewById(R.id.spnCourses);
         ArrayAdapter<CharSequence> adaptSpin = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, g);
         spinner1.setAdapter(adaptSpin);
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -300,46 +303,52 @@ public void checkRequest(final View view){
                 }
                 else
                 {
-                    Toast.makeText(sendRequestAct.this,"please check time or date",Toast.LENGTH_LONG).show();
+                    Toast toast= Toast.makeText(sendRequestAct.this,"please check time or date",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP,Gravity.CENTER_HORIZONTAL,150);
+                    toast.show();
                 }
                 
 
 
     }
+
     public void checkTimeAvailablity(View v){
 
 
-        String timeAvailable ,sun1, mon2 , tues3 , wed4,thus5;
+               String timeAvailable ,sun1, mon2 , tues3 , wed4,thus5;
         if(teachers.get(pos).timeAvailable.get(0)!= -1)
-            sun1= "Sunday "+ teachers.get(pos).timeAvailable.get(0)+" to "+teachers.get(pos).timeAvailable.get(1);
+            sun1= "Sunday: "+ teachers.get(pos).timeAvailable.get(0)+" to "+teachers.get(pos).timeAvailable.get(1);
         else
-            sun1="Sunday unavailable";
+            sun1="Sunday: unavailable";
         if(teachers.get(pos).timeAvailable.get(2)!= -1)
-            mon2= "Monday "+ teachers.get(pos).timeAvailable.get(2)+" to "+teachers.get(pos).timeAvailable.get(3);
+            mon2= "Monday: "+ teachers.get(pos).timeAvailable.get(2)+" to "+teachers.get(pos).timeAvailable.get(3);
         else
-            mon2="Monday unavailable";
+            mon2="Monday: unavailable";
         if(teachers.get(pos).timeAvailable.get(4)!= -1)
-            tues3= "Tuesday "+ teachers.get(pos).timeAvailable.get(4)+" to "+teachers.get(pos).timeAvailable.get(5);
+            tues3= "Tuesday: "+ teachers.get(pos).timeAvailable.get(4)+" to "+teachers.get(pos).timeAvailable.get(5);
         else
-            tues3="Tuesday unavailable";
+            tues3="Tuesday: unavailable";
         if(teachers.get(pos).timeAvailable.get(6)!= -1)
-            wed4= "Wednesday "+ teachers.get(pos).timeAvailable.get(6)+" to "+teachers.get(pos).timeAvailable.get(7);
+            wed4= "Wednesday: "+ teachers.get(pos).timeAvailable.get(6)+" to "+teachers.get(pos).timeAvailable.get(7);
         else
-            wed4="Wednesday unavailable";
+            wed4="Wednesday: unavailable";
         if(teachers.get(pos).timeAvailable.get(8)!= -1)
-            thus5= "Thursday "+ teachers.get(pos).timeAvailable.get(8)+" to "+teachers.get(pos).timeAvailable.get(9);
+            thus5= "Thursday: "+ teachers.get(pos).timeAvailable.get(8)+" to "+teachers.get(pos).timeAvailable.get(9);
         else
-            thus5="Wednesday unavailable";
+            thus5="Wednesday: unavailable";
 
 
 
         timeAvailable =sun1 + "\n" + mon2 +"\n"+tues3+"\n"+wed4+"\n"+thus5+"\n";
+        TextView t = (TextView) findViewById(R.id.checktimetxt);
+        t.setText(timeAvailable);
 
                 Toast.makeText(sendRequestAct.this,timeAvailable,Toast.LENGTH_LONG).show();
 
 
 
     }
+
 
 
 }
