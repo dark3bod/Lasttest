@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         DocumentSnapshot document = task.getResult();
                                         if (document.exists()) {
+
                                             teacher = document.toObject(Teacher.class);
                                             Toast.makeText(getApplicationContext(),teacher.email, Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(getApplicationContext(), MainPageTeacher.class);

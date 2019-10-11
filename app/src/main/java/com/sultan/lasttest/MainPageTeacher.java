@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -74,8 +75,7 @@ public class MainPageTeacher extends AppCompatActivity
         mCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Courses.class);
-                intent.putExtra("c",courses);
+                Intent intent = new Intent(getApplicationContext(),officeHoursAct.class);
                 startActivity(intent);
 
 
@@ -142,11 +142,10 @@ public class MainPageTeacher extends AppCompatActivity
         ///////////for geting requests to array
         requests = new ArrayList<>();
 
-        FirebaseFirestore dd = FirebaseFirestore.getInstance();
+        final FirebaseFirestore dd = FirebaseFirestore.getInstance();
 
         dd.collection("request")
-                .whereEqualTo("TeacherID", auth.getUid()).whereEqualTo("status","0")
-                .get()
+                .whereEqualTo("TeacherID", auth.getUid()).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -156,7 +155,8 @@ public class MainPageTeacher extends AppCompatActivity
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                  /*String CourseID = (String)document.get("CourseID"), reqID = (String)document.get("reqID"),StudentID =(String)document.get("StudentID"), TeacherID=(String)document.get("TeacherID"),Time=(String)document.get("Time"), status=(String)document.get("status"), Date=(String)document.get("Date"), problem = (String) document.get("problem");
                                  request r = new request(StudentID,TeacherID,Time,status,CourseID,reqID,Date,problem);*/
-                                 request r = new request();
+                                 if(document.get("status").toString().equals("0")) {
+                                     request r = new request();
                                  r.reqID=document.get("reqID").toString();
                                  r.CourseID=document.get("CourseID").toString();
                                  r.Date=document.get("Date").toString();
@@ -166,6 +166,8 @@ public class MainPageTeacher extends AppCompatActivity
                                  r.TeacherID=document.get("TeacherID").toString();
                                  r.Time=document.get("Time").toString();
                                  r.ID=document.getId();
+                                requests.add(r);
+                                 }
                                 try {
                                     Date s = new SimpleDateFormat("dd/MM/yyyy").parse(document.get("Date").toString());
 
@@ -174,9 +176,18 @@ public class MainPageTeacher extends AppCompatActivity
                                         String x ="dd/MM/yyyy";
                                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(x);
                                         String date = simpleDateFormat.format(s);
-                                        txtdate.setText("Date: " +date + "      " + "Time : "+document.get("Time").toString()+"\n"+"Student ID "+document.get("StudentID").toString());
+                                        txtdate.setText("Date: " +date + "      " + "Time: "+document.get("Time").toString()+"\n"+"StudentID: "+document.get("StudentID").toString());
                                         txtdate.setTextColor(Color.parseColor("#002038"));
                                         txtdate.setTextSize(20);
+
+                                    }
+                                    String status = document.get("status").toString();
+                                    if(s.before(new Date()) && status.equals("0")){
+                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                        dd.collection("request").document(document.getId()).update("status","3");
+                                    }else if (s.before(new Date()) && status.equals("2")){
+                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                        dd.collection("request").document(document.getId()).update("status","4");
 
                                     }
 
@@ -186,7 +197,7 @@ public class MainPageTeacher extends AppCompatActivity
                                     e.printStackTrace();
                                 }
 
-                                 requests.add(r);
+
 
 
                             }

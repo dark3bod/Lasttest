@@ -88,8 +88,10 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
             status ="Pending";
         else if (mDataset.get(position).status.equals("2"))
             status ="Canceled";
+        else if(mDataset.get(position).status.equals("3"))
+            status ="Expire";
         else
-            status ="Confirmed";
+            status="Confirm";
 
       /* if(mDataset.get(position).CourseID.equals("0001"))
             cccc ="Data structers";

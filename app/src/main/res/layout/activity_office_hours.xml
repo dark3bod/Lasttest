@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".officeHoursAct">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
 
@@ -45,7 +46,7 @@
     android:layout_marginEnd="24dp"
     android:text="Sunday:"
     android:textSize="20sp"
-    app:layout_constraintEnd_toStartOf="@+id/txtsundayofficehours0"
+    app:layout_constraintEnd_toStartOf="@+id/txtofficehours0"
     app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <TextView
@@ -55,10 +56,10 @@
         android:layout_marginTop="44dp"
         android:layout_marginEnd="8dp"
         android:text="To"
-        app:layout_constraintEnd_toStartOf="@+id/txtsundayofficehours1"
+        app:layout_constraintEnd_toStartOf="@+id/txtofficehours1"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
     <EditText
-        android:id="@+id/txtsundayofficehours0"
+        android:id="@+id/txtofficehours0"
         android:layout_width="71dp"
         android:layout_height="42dp"
         android:layout_marginTop="32dp"
@@ -70,7 +71,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <EditText
-        android:id="@+id/txtsundayofficehours1"
+        android:id="@+id/txtofficehours1"
         android:layout_width="70dp"
         android:layout_height="43dp"
         android:layout_marginTop="32dp"
@@ -88,7 +89,7 @@
 
 
     <EditText
-        android:id="@+id/txtsundayofficehours2"
+        android:id="@+id/txtofficehours2"
         android:layout_width="71dp"
         android:layout_height="42dp"
         android:layout_marginTop="76dp"
@@ -100,7 +101,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <EditText
-        android:id="@+id/txtsundayofficehours3"
+        android:id="@+id/txtofficehours3"
         android:layout_width="70dp"
         android:layout_height="43dp"
         android:layout_marginTop="76dp"
@@ -118,7 +119,7 @@
         android:layout_marginEnd="24dp"
         android:text="Monday:"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/txtsundayofficehours0"
+        app:layout_constraintEnd_toStartOf="@+id/txtofficehours0"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <TextView
@@ -128,7 +129,7 @@
         android:layout_marginTop="89dp"
         android:layout_marginEnd="8dp"
         android:text="To"
-        app:layout_constraintEnd_toStartOf="@+id/txtsundayofficehours1"
+        app:layout_constraintEnd_toStartOf="@+id/txtofficehours1"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
 
@@ -137,7 +138,7 @@
 
 
     <EditText
-        android:id="@+id/txtsundayofficehours4"
+        android:id="@+id/txtofficehours4"
         android:layout_width="71dp"
         android:layout_height="42dp"
         android:layout_marginTop="120dp"
@@ -149,7 +150,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <EditText
-        android:id="@+id/txtsundayofficehours5"
+        android:id="@+id/txtofficehours5"
         android:layout_width="70dp"
         android:layout_height="43dp"
         android:layout_marginTop="120dp"
@@ -167,7 +168,7 @@
         android:layout_marginEnd="24dp"
         android:text="tuesday:"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/txtsundayofficehours0"
+        app:layout_constraintEnd_toStartOf="@+id/txtofficehours0"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <TextView
@@ -177,12 +178,12 @@
         android:layout_marginTop="130dp"
         android:layout_marginEnd="8dp"
         android:text="To"
-        app:layout_constraintEnd_toStartOf="@+id/txtsundayofficehours1"
+        app:layout_constraintEnd_toStartOf="@+id/txtofficehours1"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
 
     <EditText
-        android:id="@+id/txtsundayofficehours6"
+        android:id="@+id/txtofficehours6"
         android:layout_width="71dp"
         android:layout_height="42dp"
         android:layout_marginTop="164dp"
@@ -194,7 +195,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <EditText
-        android:id="@+id/txtsundayofficehours7"
+        android:id="@+id/txtofficehours7"
         android:layout_width="70dp"
         android:layout_height="43dp"
         android:layout_marginTop="165dp"
@@ -212,7 +213,7 @@
         android:layout_marginTop="168dp"
         android:text="Wednesday:"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/txtsundayofficehours0"
+        app:layout_constraintEnd_toStartOf="@+id/txtofficehours0"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <TextView
@@ -222,12 +223,12 @@
         android:layout_marginTop="176dp"
         android:layout_marginEnd="8dp"
         android:text="To"
-        app:layout_constraintEnd_toStartOf="@+id/txtsundayofficehours1"
+        app:layout_constraintEnd_toStartOf="@+id/txtofficehours1"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
 
     <EditText
-        android:id="@+id/txtsundayofficehours9"
+        android:id="@+id/txtofficehours8"
         android:layout_width="71dp"
         android:layout_height="42dp"
         android:layout_marginTop="202dp"
@@ -239,7 +240,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <EditText
-        android:id="@+id/txtsundayofficehours8"
+        android:id="@+id/txtofficehours9"
         android:layout_width="70dp"
         android:layout_height="43dp"
         android:layout_marginTop="202dp"
@@ -257,7 +258,7 @@
         android:layout_marginTop="208dp"
         android:text="Thursday:"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/txtsundayofficehours0"
+        app:layout_constraintEnd_toStartOf="@+id/txtofficehours0"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <TextView
@@ -267,7 +268,7 @@
         android:layout_marginTop="208dp"
         android:layout_marginEnd="8dp"
         android:text="To"
-        app:layout_constraintEnd_toStartOf="@+id/txtsundayofficehours1"
+        app:layout_constraintEnd_toStartOf="@+id/txtofficehours1"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <TextView
@@ -339,13 +340,14 @@
         app:layout_constraintTop_toTopOf="@+id/txttiiig" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnsavehours"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
         android:layout_marginStart="114dp"
         android:layout_marginTop="76dp"
         android:layout_marginEnd="164dp"
         android:background="#6d6cea"
+        android:onClick="saveInfo"
         android:text="Save Information"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
