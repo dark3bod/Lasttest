@@ -25,7 +25,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -43,7 +42,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MainPageTeacher extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        {
     TextView name,course1,course2 , txtdate;
     public final String TAG = "MainPageTeacher";
     public static ArrayList<Course> courses ;
@@ -126,12 +125,12 @@ public class MainPageTeacher extends AppCompatActivity
 
 
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+      /*  NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        toggle.syncState();*/
+        /*navigationView.setNavigationItemSelectedListener(this);*/
 
 
 
@@ -155,8 +154,8 @@ public class MainPageTeacher extends AppCompatActivity
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                  /*String CourseID = (String)document.get("CourseID"), reqID = (String)document.get("reqID"),StudentID =(String)document.get("StudentID"), TeacherID=(String)document.get("TeacherID"),Time=(String)document.get("Time"), status=(String)document.get("status"), Date=(String)document.get("Date"), problem = (String) document.get("problem");
                                  request r = new request(StudentID,TeacherID,Time,status,CourseID,reqID,Date,problem);*/
-                                 if(document.get("status").toString().equals("0")) {
-                                     request r = new request();
+
+                                 request r = new request();
                                  r.reqID=document.get("reqID").toString();
                                  r.CourseID=document.get("CourseID").toString();
                                  r.Date=document.get("Date").toString();
@@ -167,7 +166,7 @@ public class MainPageTeacher extends AppCompatActivity
                                  r.Time=document.get("Time").toString();
                                  r.ID=document.getId();
                                 requests.add(r);
-                                 }
+
                                 try {
                                     Date s = new SimpleDateFormat("dd/MM/yyyy").parse(document.get("Date").toString());
 
@@ -263,8 +262,8 @@ public class MainPageTeacher extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
+   /* @SuppressWarnings("StatementWithEmptyBody")
+   *//* @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
@@ -281,26 +280,50 @@ public class MainPageTeacher extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
-        }
+        }*//*
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
+    }*/
 
     public void saveCourse(){
 
     }
     public void openRecentRequstsAct(View view){
+        ArrayList<request> c = new ArrayList<>();
+
+        for(int i=0 ; i<requests.size();i++){
+            if (requests.get(i).status.equals("0")){
+                c.add(requests.get(i));
+
+            }
+        }
 
 
 
         //open requests activity with sending the requests that cames from database
             Intent intent = new Intent(MainPageTeacher.this,actReceivedRequest.class);
-            intent.putExtra("r",requests);
+            intent.putExtra("r",c);
             startActivity(intent);
+            c =new ArrayList<>();
 
-            requests = new ArrayList<>();
+
+
+
+
+    }
+    public void openAllRequstsAct(View view){
+
+
+
+
+        //open requests activity with sending the requests that cames from database
+        Intent intent = new Intent(MainPageTeacher.this,ActTeacherRequests.class);
+        intent.putExtra("r",requests);
+        startActivity(intent);
+
+
 
 
 

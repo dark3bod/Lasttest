@@ -1,32 +1,17 @@
 package com.sultan.lasttest;
 
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirestoreRegistrar;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firestore.v1.FirestoreGrpc;
-
-import java.util.ArrayList;
 import java.util.List;
 
-public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHolder> {
+public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> {
     private List<request> mDataset;
-    private List<Course> mDataset1;
-    public final String TAG = "StudentAdapter";
+    public final String TAG = "TeacherAdapter";
     String cccc, status;
 
 
@@ -41,11 +26,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 
 
         public CardView textView;
-        public TextView coursename , reqdate , reqStatus;
-        public MyViewHolder(CardView v,TextView coursename , TextView reqdate , TextView reqStatus) {
+        public TextView studentID , reqdate , reqStatus;
+        public MyViewHolder(CardView v,TextView studentID , TextView reqdate , TextView reqStatus) {
             super(v);
             textView = v;
-            this.coursename = coursename;
+            this.studentID = studentID;
             this.reqdate =reqdate;
             this.reqStatus=reqStatus;
 
@@ -53,8 +38,8 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
         }
     }
     // Provide a suitable constructor (depends on the kind of dataset)
-    public StudentAdapter(List<request> myDataset ,List<Course> mDataset1 ) {
-        this.mDataset1 = mDataset1;
+    public TeacherAdapter(List<request> myDataset ) {
+
         mDataset = myDataset;
 
 
@@ -62,16 +47,16 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 
     // Create new views (invoked by the layout manager)
     @Override
-    public StudentAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+    public TeacherAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                           int viewType) {
         // create a new view
         CardView v = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.requesys, parent, false);
         //TextView corseinfo = (TextView) findViewById(R.id._course_info);
-        TextView reqcourse = (TextView) v.findViewById(R.id.requestcousename);
+        TextView studentID = (TextView) v.findViewById(R.id.requestcousename);
         TextView reqdate = (TextView) v.findViewById(R.id.requestdate);
         TextView reqstatus = (TextView) v.findViewById(R.id.requeststatus);
-        MyViewHolder vh = new MyViewHolder(v,reqcourse,reqdate,reqstatus);
+        MyViewHolder vh = new MyViewHolder(v,studentID,reqdate,reqstatus);
 
 
         return vh;
@@ -93,30 +78,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
         else
             status="Confirmed";
 
-      /* if(mDataset.get(position).CourseID.equals("0001"))
-            cccc ="Data structers";
-        else if (mDataset.get(position).CourseID.equals("0002"))
-            cccc ="programing";
-        else if (mDataset.get(position).CourseID.equals("0003"))
-            cccc ="Data analysis";
-       else if (mDataset.get(position).CourseID.equals("0004"))
-           cccc ="Database";*/
-
-
-       for(int i = 0 ; i< mDataset1.size();i++){
-           String id = mDataset.get(position).CourseID;
-           if(id.equals(mDataset1.get(i).courseID)){
-               cccc = mDataset1.get(i).courseName;
-           }
-       }
 
 
 
 
-
-
-
-        holder.coursename.setText(cccc);
+        holder.studentID.setText(mDataset.get(position).StudentID);
 
         holder.reqStatus.setText(status);
         holder.reqdate.setText(mDataset.get(position).Date);

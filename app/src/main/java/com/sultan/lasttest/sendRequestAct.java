@@ -37,12 +37,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import es.dmoral.toasty.Toasty;
+
 public class sendRequestAct extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     public static final String TAG = "sendRequestAct";
     private TextView dateText,timeText;
     public TimePickerDialog t;
     int pos = 0,dayOfWeek ;
-    Button s , checktime ;
+    Button s  ;
     public boolean dateLeget ,timeLeget ;
     List<Teacher> teachers = new ArrayList<>();
     List<Course> courses;
@@ -59,7 +61,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        checktime =(Button)findViewById(R.id.btnCheckAvalable);
+
 
 
         courses = (List<Course>)getIntent().getSerializableExtra("g");
@@ -111,11 +113,50 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
         spinner1.setAdapter(adaptSpin);
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, final View view, final int position, long id) {
 
-                pos = position;
+                db.collection("teacher").document(courses.get(position).teacherUID).get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                DocumentSnapshot d = task.getResult();
+                            Teacher t = new Teacher();
+                            t = d.toObject(Teacher.class);
 
-                System.out.println(position);
+                                String timeAvailable ,sun1, mon2 , tues3 , wed4,thus5;
+                                if(t.timeAvailable.get(0)!= -1)
+                                    sun1= "Sunday: "+ t.timeAvailable.get(0)+" to "+t.timeAvailable.get(1);
+                                else
+                                    sun1="Sunday: unavailable";
+                                if(t.timeAvailable.get(2)!= -1)
+                                    mon2= "Monday: "+ t.timeAvailable.get(2)+" to "+t.timeAvailable.get(3);
+                                else
+                                    mon2="Monday: unavailable";
+                                if(t.timeAvailable.get(4)!= -1)
+                                    tues3= "Tuesday: "+ t.timeAvailable.get(4)+" to "+t.timeAvailable.get(5);
+                                else
+                                    tues3="Tuesday: unavailable";
+                                if(t.timeAvailable.get(6)!= -1)
+                                    wed4= "Wednesday: "+ t.timeAvailable.get(6)+" to "+t.timeAvailable.get(7);
+                                else
+                                    wed4="Wednesday: unavailable";
+                                if(t.timeAvailable.get(8)!= -1)
+                                    thus5= "Thursday: "+ t.timeAvailable.get(8)+" to "+t.timeAvailable.get(9);
+                                else
+                                    thus5="Wednesday: unavailable";
+
+
+
+                                timeAvailable =sun1 + "\n" + mon2 +"\n"+tues3+"\n"+wed4+"\n"+thus5+"\n";
+                                TextView t1 = (TextView) findViewById(R.id.checktimetxt);
+                                t1.setText(timeAvailable);
+
+
+
+
+                            }
+                        });
+
                 Toast.makeText(parent.getContext(),courses.get(position).courseID,Toast.LENGTH_LONG).show();
             }
 
@@ -206,16 +247,18 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
                 this,
                 this,
                 Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.MONTH) ,
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, final int month, int dayOfMonth) {
-        date = dayOfMonth+ "/" + month + "/" + year;
+
+        int i = month + 1;
+        date = dayOfMonth+ "/" + i + "/" + year;
         dateText.setText(date);
-        GregorianCalendar GregorianCalendar = new GregorianCalendar(year, month, dayOfMonth-1);
+        GregorianCalendar GregorianCalendar = new GregorianCalendar(year, month +1, dayOfMonth-1);
 
          dayOfWeek =GregorianCalendar.get(GregorianCalendar.DAY_OF_WEEK);
 
@@ -312,7 +355,7 @@ public void checkRequest(final View view){
 
     }
 
-    public void checkTimeAvailablity(View v){
+/*    public void checkTimeAvailablity(View v){
 
 
                String timeAvailable ,sun1, mon2 , tues3 , wed4,thus5;
@@ -347,7 +390,7 @@ public void checkRequest(final View view){
 
 
 
-    }
+    }*/
 
 
 

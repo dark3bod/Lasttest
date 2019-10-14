@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".officeHoursAct">
+    tools:context=".officeHoursAct"
+    android:layoutDirection="ltr">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -31,6 +32,7 @@
         android:layout_marginBottom="8dp"
         android:text="Your Office Hours"
         android:textSize="20sp"
+        android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
         app:layout_constraintEnd_toEndOf="@+id/toolbar2"
         app:layout_constraintHorizontal_bias="0.124"
@@ -39,317 +41,308 @@
         app:layout_constraintVertical_bias="0.842" />
 
     <TextView
-    android:id="@+id/txtsunday"
-    android:layout_width="85dp"
-    android:layout_height="39dp"
-    android:layout_marginTop="36dp"
-    android:layout_marginEnd="24dp"
-    android:text="Sunday:"
-    android:textSize="20sp"
-    app:layout_constraintEnd_toStartOf="@+id/txtofficehours0"
-    app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        android:id="@+id/txtsunday"
+        android:layout_width="85dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="29dp"
+        android:text="Sunday:"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <TextView
         android:id="@+id/txtto"
         android:layout_width="29dp"
         android:layout_height="30dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="48dp"
         android:text="To"
-        app:layout_constraintEnd_toStartOf="@+id/txtofficehours1"
+        app:layout_constraintStart_toEndOf="@+id/txtofficehours0"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+
     <EditText
         android:id="@+id/txtofficehours0"
         android:layout_width="71dp"
         android:layout_height="42dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="29dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="11:30"
-        app:layout_constraintEnd_toStartOf="@+id/txtto"
+        app:layout_constraintStart_toEndOf="@+id/txtsunday"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <EditText
         android:id="@+id/txtofficehours1"
         android:layout_width="70dp"
         android:layout_height="43dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="104dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="29dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="12:30"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtto"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
-
-
-
-
-
 
 
     <EditText
         android:id="@+id/txtofficehours2"
         android:layout_width="71dp"
         android:layout_height="42dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="11:30"
-        app:layout_constraintEnd_toStartOf="@+id/txtto"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintStart_toEndOf="@+id/txtmonday"
+        app:layout_constraintTop_toBottomOf="@+id/txtofficehours0" />
 
     <EditText
         android:id="@+id/txtofficehours3"
         android:layout_width="70dp"
         android:layout_height="43dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="104dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="12:30"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintStart_toEndOf="@+id/txtto1"
+        app:layout_constraintTop_toBottomOf="@+id/txtofficehours1" />
+
     <TextView
         android:id="@+id/txtmonday"
         android:layout_width="85dp"
         android:layout_height="39dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
         android:text="Monday:"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/txtofficehours0"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtsunday" />
+
 
     <TextView
         android:id="@+id/txtto1"
         android:layout_width="29dp"
         android:layout_height="30dp"
-        android:layout_marginTop="89dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
         android:text="To"
-        app:layout_constraintEnd_toStartOf="@+id/txtofficehours1"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
-
-
-
-
-
+        app:layout_constraintStart_toEndOf="@+id/txtofficehours2"
+        app:layout_constraintTop_toBottomOf="@+id/txtto" />
 
     <EditText
         android:id="@+id/txtofficehours4"
         android:layout_width="71dp"
         android:layout_height="42dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="11:30"
-        app:layout_constraintEnd_toStartOf="@+id/txtto"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintStart_toEndOf="@+id/txttuesday"
+        app:layout_constraintTop_toBottomOf="@+id/txtofficehours2" />
 
     <EditText
         android:id="@+id/txtofficehours5"
         android:layout_width="70dp"
         android:layout_height="43dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="104dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="12:30"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintStart_toEndOf="@+id/txtto2"
+        app:layout_constraintTop_toBottomOf="@+id/txtofficehours3" />
+
     <TextView
         android:id="@+id/txttuesday"
         android:layout_width="85dp"
         android:layout_height="39dp"
-        android:layout_marginTop="125dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
         android:text="tuesday:"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/txtofficehours0"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtmonday" />
 
     <TextView
         android:id="@+id/txtto2"
         android:layout_width="29dp"
         android:layout_height="30dp"
-        android:layout_marginTop="130dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
         android:text="To"
-        app:layout_constraintEnd_toStartOf="@+id/txtofficehours1"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintStart_toEndOf="@+id/txtofficehours4"
+        app:layout_constraintTop_toBottomOf="@+id/txtto1" />
 
 
     <EditText
         android:id="@+id/txtofficehours6"
         android:layout_width="71dp"
         android:layout_height="42dp"
-        android:layout_marginTop="164dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="11:30"
-        app:layout_constraintEnd_toStartOf="@+id/txtto"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintStart_toEndOf="@+id/txtwednesday"
+        app:layout_constraintTop_toBottomOf="@+id/txtofficehours4" />
 
     <EditText
         android:id="@+id/txtofficehours7"
         android:layout_width="70dp"
         android:layout_height="43dp"
-        android:layout_marginTop="165dp"
-        android:layout_marginEnd="104dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="12:30"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintStart_toEndOf="@+id/txtto4"
+        app:layout_constraintTop_toBottomOf="@+id/txtofficehours5" />
 
     <TextView
         android:id="@+id/txtwednesday"
         android:layout_width="113dp"
         android:layout_height="34dp"
-        android:layout_marginTop="168dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
         android:text="Wednesday:"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/txtofficehours0"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txttuesday" />
+
 
     <TextView
         android:id="@+id/txtto4"
         android:layout_width="29dp"
         android:layout_height="30dp"
-        android:layout_marginTop="176dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
         android:text="To"
-        app:layout_constraintEnd_toStartOf="@+id/txtofficehours1"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
-
+        app:layout_constraintStart_toEndOf="@+id/txtofficehours6"
+        app:layout_constraintTop_toBottomOf="@+id/txtto2" />
 
     <EditText
         android:id="@+id/txtofficehours8"
         android:layout_width="71dp"
         android:layout_height="42dp"
-        android:layout_marginTop="202dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="11:30"
-        app:layout_constraintEnd_toStartOf="@+id/txtto"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintStart_toEndOf="@+id/txtthursday"
+        app:layout_constraintTop_toBottomOf="@+id/txtofficehours6" />
 
     <EditText
         android:id="@+id/txtofficehours9"
         android:layout_width="70dp"
         android:layout_height="43dp"
-        android:layout_marginTop="202dp"
-        android:layout_marginEnd="104dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="12:30"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintStart_toEndOf="@+id/txtto5"
+        app:layout_constraintTop_toBottomOf="@+id/txtofficehours7" />
 
     <TextView
         android:id="@+id/txtthursday"
         android:layout_width="113dp"
         android:layout_height="34dp"
-        android:layout_marginTop="208dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:text="Thursday:"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/txtofficehours0"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtwednesday" />
 
     <TextView
         android:id="@+id/txtto5"
-        android:layout_width="29dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="208dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="32dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
         android:text="To"
-        app:layout_constraintEnd_toStartOf="@+id/txtofficehours1"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintStart_toEndOf="@+id/txtofficehours8"
+        app:layout_constraintTop_toBottomOf="@+id/txtto4" />
 
     <TextView
-    android:id="@+id/txttiiig"
-    android:layout_width="162dp"
-    android:layout_height="38dp"
-    android:layout_marginTop="52dp"
-    android:text="Building number:"
-    android:textSize="20sp"
-    app:layout_constraintEnd_toStartOf="@+id/txtto5"
-    app:layout_constraintTop_toTopOf="@+id/txtthursday" />
+        android:id="@+id/txttiiig"
+        android:layout_width="162dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:text="Building number:"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtofficehours8" />
 
     <EditText
         android:id="@+id/txtbuildingNo"
         android:layout_width="33dp"
         android:layout_height="42dp"
-        android:layout_marginEnd="172dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txttiiig" />
+        app:layout_constraintStart_toEndOf="@+id/txttiiig"
+        app:layout_constraintTop_toBottomOf="@+id/txtto5" />
 
     <TextView
         android:id="@+id/txtt111"
         android:layout_width="162dp"
         android:layout_height="38dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
         android:text="Floor Number:"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/txtto5"
-        app:layout_constraintTop_toTopOf="@+id/txtthursday" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txttiiig" />
 
     <EditText
         android:id="@+id/txtFloorNo"
         android:layout_width="33dp"
         android:layout_height="42dp"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="6"
         app:layout_constraintStart_toEndOf="@+id/txtt111"
-        app:layout_constraintStart_toStartOf="@+id/txtt111"
-        app:layout_constraintTop_toTopOf="@+id/txtbuildingNo" />
+        app:layout_constraintTop_toBottomOf="@+id/txtbuildingNo" />
 
     <TextView
         android:id="@+id/txtt1111"
         android:layout_width="162dp"
         android:layout_height="38dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
         android:text="Office Number:"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/txtto5"
-        app:layout_constraintTop_toTopOf="@+id/txtthursday" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtt111" />
 
     <EditText
         android:id="@+id/txtOfficeNo"
         android:layout_width="33dp"
         android:layout_height="42dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="172dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="6"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txtt1111"
-        app:layout_constraintTop_toTopOf="@+id/txttiiig" />
+        app:layout_constraintTop_toBottomOf="@+id/txtFloorNo" />
 
     <Button
         android:id="@+id/btnsavehours"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
-        android:layout_marginStart="114dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="164dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="48dp"
         android:background="#6d6cea"
         android:onClick="saveInfo"
         android:text="Save Information"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="#FFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtt1111" />
+        app:layout_constraintTop_toBottomOf="@+id/txtt1111" />
 </androidx.constraintlayout.widget.ConstraintLayout>

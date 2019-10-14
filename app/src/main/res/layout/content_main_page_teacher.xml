@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
 
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainPageTeacher"
@@ -22,11 +23,9 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/profile_card"
         style="@style/Widget.MaterialComponents.CardView"
-        android:layout_width="404dp"
+        android:layout_width="match_parent"
         android:layout_height="192dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="12dp"
+
         app:cardBackgroundColor="@color/md_moves_50"
         app:cardCornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,14 +68,13 @@
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:clickable="true"
         app:cardBackgroundColor="@color/md_red_A400"
         app:cardCornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="@+id/profile_card"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/cardView1"
-        app:layout_constraintTop_toBottomOf="@+id/profile_card"
-        android:clickable="true"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/profile_card">
 
         <TextView
             android:id="@+id/txtMyrecent"
@@ -109,13 +107,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/profile_card"
         app:layout_constraintTop_toBottomOf="@+id/profile_card"><![CDATA[
-
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center">
-
-
 
 
         ]]>
@@ -203,6 +194,8 @@
         style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="233dp"
         android:layout_height="67dp"
+        android:clickable="true"
+        android:onClick="openAllRequstsAct"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         app:cardBackgroundColor="@color/md_yellow_900"

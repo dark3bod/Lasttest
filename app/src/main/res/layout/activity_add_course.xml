@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".addCourseAct">
+    tools:context=".addCourseAct"
+    android:layoutDirection="ltr">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
@@ -26,7 +27,7 @@
         android:layout_alignBottom="@+id/toolbar2"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="11dp"
         android:text="Choose course:"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
@@ -36,56 +37,101 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar2"
         app:layout_constraintVertical_bias="0.842" />
 
-    <Spinner
-        android:id="@+id/spinnerAddCourse"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/toolbar2"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="106dp"
-        android:layout_marginEnd="128dp"
-        android:background="#d1d1e0"></Spinner>
-
     <Button
         android:id="@+id/btnaddcourse"
         android:layout_width="243dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinnerAddCourse"
+        android:layout_below="@+id/btnAdd"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="86dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="111dp"
         android:hint="ADD Course" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
+    <AutoCompleteTextView
+        android:gravity="start"
+        android:id="@+id/multiAutoCompleteTextView2"
+        android:layout_width="match_parent"
+        android:textSize="25sp"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/toolbar2"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="266dp"
-        android:layout_marginBottom="-103dp"
-        android:hint="Choose a course:" />
-
-    <TextView
-        android:id="@+id/textVie2"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_alignBottom="@+id/toolbar2"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="312dp"
-        android:layout_marginBottom="-211dp"
-        android:hint="Teacher:" />
+        android:layout_marginBottom="-90dp"
+        android:hint="Choose " />
 
     <TextView
         android:id="@+id/txtTeachername"
-        android:layout_width="179dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinnerAddCourse"
+        android:layout_alignBottom="@+id/toolbar2"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="137dp"
-        android:layout_marginBottom="-87dp"
-        android:text="Teacher Name"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        android:layout_marginEnd="158dp"
+        android:layout_marginBottom="-127dp"
+        android:gravity="center"
+        android:hint="Teacher Name"
+        android:textSize="25sp" />
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtTeachername"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="-50dp"
+        android:id="@+id/t1"
+        >
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:weightSum="100"
+            android:id="@+id/tr">
+
+            <TextView
+                android:id="@+id/rowCoursename"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="ssss"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/rowCourseCode"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="left"
+                android:text="ssss"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/rowCourseID"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="ssss"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/rowTeacher"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="ssss"
+                android:textSize="25sp" />
+
+
+        </TableRow>
+
+
+
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/t1"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="190dp"
+        android:text="add" />
 </RelativeLayout>

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="right"
+    android:layout_gravity="left"
+    android:layoutDirection="ltr"
 
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainPage"
@@ -12,14 +13,14 @@
     tools:showIn="@layout/app_bar_main_page">
 
 
+
     <androidx.cardview.widget.CardView
         android:id="@+id/profile_card"
         style="@style/Widget.MaterialComponents.CardView"
-        android:layout_width="404dp"
-        android:layout_height="192dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+
+        android:gravity="left"
         app:cardBackgroundColor="@color/md_moves_50"
         app:cardCornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,20 +28,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+
             android:id="@+id/profilepic"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginBottom="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="50dp"
             app:srcCompat="@drawable/user" />
 
         <TextView
             android:id="@+id/student_id"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="110dp"
+            android:layout_marginLeft="120dp"
             android:layout_marginTop="85dp"
+            android:gravity="left"
             android:text="4381905559"
             android:textColor="#FFFFFFFF"
             android:textSize="@dimen/text_size" />
@@ -49,8 +50,9 @@
             android:id="@+id/name"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:layout_marginStart="110dp"
+            android:layout_marginLeft="120dp"
             android:layout_marginTop="50dp"
+            android:gravity="left"
             android:text="Sultan Al-enzy"
             android:textColor="#FFFFFFFF"
             android:textSize="@dimen/text_size" />
@@ -59,17 +61,18 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
-        android:layout_width="233dp"
+        android:layout_width="210dp"
         android:layout_height="80dp"
-        android:layout_marginStart="8dp"
+        android:layout_gravity="start"
+        android:layout_marginStart="168dp"
         android:layout_marginTop="8dp"
+        android:layout_marginRight="168dp"
         android:clickable="true"
         android:onClick="openCoursesAct"
         app:cardBackgroundColor="@color/md_red_A400"
         app:cardCornerRadius="5dp"
-        app:layout_constraintEnd_toEndOf="@+id/profile_card"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/cardView1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_card">
 
         <TextView
@@ -77,6 +80,7 @@
             android:id="@+id/txtMyrecent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
             android:clickable="true"
@@ -89,33 +93,29 @@
 
     </androidx.cardview.widget.CardView>
 
+
     <androidx.cardview.widget.CardView
         android:id="@+id/sendrequest"
         style="@style/Widget.MaterialComponents.CardView"
-        android:layout_width="154dp"
+        android:layout_width="170dp"
         android:layout_height="160dp"
-        android:layout_marginStart="8dp"
+        android:layout_gravity="left"
+        android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="48dp"
         android:clickable="true"
         android:onClick="openSendAct"
+        android:paddingTop="55dp"
         app:cardBackgroundColor="@color/md_orange_500"
         app:cardCornerRadius="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/verticalCenterGuideline"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/profile_card"
         app:layout_constraintTop_toBottomOf="@+id/profile_card">
-
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center">
 
 
         <ImageView
             android:id="@+id/image1"
             android:layout_width="59dp"
             android:layout_height="60dp"
+            android:layout_gravity="left"
             android:layout_marginLeft="43dp"
             android:layout_marginTop="20dp"
             android:src="@drawable/book2" />
@@ -125,6 +125,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="90dp"
             android:scaleType="centerInside"
@@ -135,11 +136,11 @@
 
     </androidx.cardview.widget.CardView>
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
         android:layout_width="match_parent"
         android:layout_height="125dp"
+        android:layout_gravity="left"
         android:layout_marginTop="8dp"
         app:cardBackgroundColor="@color/md_orange_100"
         app:cardCornerRadius="5dp"
@@ -151,6 +152,7 @@
             android:id="@+id/myInfopic"
             android:layout_width="35dp"
             android:layout_height="30dp"
+            android:layout_gravity="left"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="9dp"
             app:srcCompat="@drawable/recentrequest" />
@@ -159,6 +161,7 @@
             android:id="@+id/txtmyappointment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:layout_marginLeft="60dp"
             android:layout_marginTop="9dp"
             android:scaleType="centerInside"
@@ -171,6 +174,7 @@
             android:id="@+id/txtmyday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="50dp"
             android:scaleType="centerInside"
@@ -185,17 +189,15 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
         style="@style/Widget.MaterialComponents.CardView"
-        android:layout_width="233dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="210dp"
+        android:layout_height="70dp"
+        android:layout_gravity="left"
+        android:layout_marginTop="8dp"
         android:clickable="true"
         android:onClick="opencalnder"
         app:cardBackgroundColor="@color/md_yellow_900"
         app:cardCornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="@+id/cardView2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/cardView3"
         app:layout_constraintTop_toBottomOf="@+id/cardView2">
 
 
@@ -203,6 +205,7 @@
             android:id="@+id/txtcalnder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="8dp"
             android:scaleType="centerInside"
@@ -215,10 +218,11 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView5"
-
         android:layout_width="match_parent"
+
         android:layout_height="73dp"
-        android:layout_marginTop="16dp"
+        android:layout_gravity="left"
+        android:layout_marginTop="8dp"
         android:clickable="true"
         android:onClick="openRecentReqsAct"
         app:cardBackgroundColor="@color/md_moves_50"
@@ -233,6 +237,7 @@
             android:id="@+id/txtrequests"
             android:layout_width="237dp"
             android:layout_height="43dp"
+            android:layout_gravity="left"
             android:layout_marginHorizontal="40pt"
             android:layout_marginTop="8dp"
             android:scaleType="centerInside"
@@ -247,6 +252,7 @@
         android:id="@+id/verticalCenterGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="left"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.50121653" />
 

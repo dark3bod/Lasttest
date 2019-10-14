@@ -22,7 +22,8 @@ public class activity_appointment extends AppCompatActivity {
         cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                String Date = i + "/"+i1+"/"+i2;
+                int x = i1 + 1;
+                String Date = i + "/"+x+"/"+i2;
                 txtdata.setText(Date);
                 //change the textview when calender changed
 
