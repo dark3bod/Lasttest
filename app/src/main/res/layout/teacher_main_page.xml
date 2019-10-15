@@ -5,9 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layoutDirection="ltr"
-    tools:context=".MainPage"
-    android:background="#f2f2f2"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    tools:context=".MainPageTeacher"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,6 +21,7 @@
         android:layoutDirection="ltr"
         android:weightSum="100"
         android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -37,44 +41,43 @@
 
             </com.google.android.material.appbar.AppBarLayout>
         </RelativeLayout>
+
         <RelativeLayout
-            android:background="@color/md_moves_50"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            >
+            android:layout_height="160dp"
+            android:background="@color/md_moves_50">
 
             <ImageView
+                android:id="@+id/imgProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imgProfile"
-                android:layout_marginTop="50dp"
                 android:layout_marginLeft="50dp"
+                android:layout_marginTop="50dp"
                 android:background="@drawable/user" />
 
             <TextView
-                android:id="@+id/txtStdid"
-
+                android:id="@+id/txtTeacherEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="11dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="80dp"
                 android:layout_toEndOf="@+id/imgProfile"
                 android:text="555555555"
-                android:textColor="#cccccc"
-                android:textSize="@dimen/text_size"
-                android:textStyle="bold" />
+                android:textColor="#FFFFFFFF"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
                 android:id="@+id/name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginLeft="8dp"
+                android:layout_marginTop="48dp"
                 android:layout_toEndOf="@+id/imgProfile"
                 android:text="Sultan alamzi"
-                android:textColor="#cccccc"
-                android:textSize="@dimen/text_size"
-                android:textStyle="bold"/>
+                android:textColor="#FFFFFFFF"
+                android:textSize="20sp" />
 
 
         </RelativeLayout>
@@ -82,16 +85,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_margin="5dp"
+            android:layout_margin="2.5dp"
             android:gravity="center"
             >
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/crdsendrequest"
+                android:id="@+id/crdReceivedrequest"
                 android:layout_width="150dp"
                 android:layout_height="148dp"
                 android:clickable="true"
-                android:onClick="openSendAct"
+                android:onClick="openRecentRequstsAct"
                 app:cardBackgroundColor="@color/md_orange_500"
                 app:cardCornerRadius="5dp">
 
@@ -100,10 +103,10 @@
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="3dp"
                     android:layout_marginTop="90dp"
-                    android:text="Send request"
-                    android:textColor="#cccccc"
+                    android:text="received request"
+                    android:textColor="#ffffff"
                     android:textSize="19sp"
                     android:textStyle="bold" />
 
@@ -117,33 +120,25 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/Cardcourses"
+                android:id="@+id/CardofficeHours"
                 android:layout_width="230dp"
                 android:layout_height="73dp"
-                android:layout_toEndOf="@+id/crdsendrequest"
+                android:layout_toEndOf="@+id/crdReceivedrequest"
                 android:clickable="true"
-                android:onClick="openCoursesAct"
+                android:onClick="openOfficehoursAct"
                 android:layout_margin="3dp"
                 app:cardBackgroundColor="@color/md_red_A400"
                 app:cardCornerRadius="5dp"
                >
 
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_width="59dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="8dp"
-                    android:src="@drawable/course" />
-
                 <TextView
                     android:id="@+id/txtMyrecent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="70dp"
-                    android:layout_marginTop="20dp"
-                    android:text="Courses"
-                    android:textColor="#cccccc"
+                    android:layout_margin="18dp"
+                    android:scaleType="centerInside"
+                    android:text="Office Hours"
+                    android:textColor="#e6e6ff"
                     android:textSize="25sp"
                     android:textStyle="bold" />
 
@@ -151,16 +146,15 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardCalnder"
+                android:id="@+id/cardView4"
                 style="@style/Widget.MaterialComponents.CardView"
                 android:layout_width="230dp"
                 android:layout_height="73dp"
-                android:layout_below="@+id/Cardcourses"
+                android:layout_below="@+id/CardofficeHours"
                 android:layout_margin="3dp"
-                android:layout_marginTop="3dp"
-                android:layout_toEndOf="@+id/crdsendrequest"
+                android:layout_toEndOf="@+id/crdReceivedrequest"
                 android:clickable="true"
-                android:onClick="opencalnder"
+                android:onClick="openAllRequstsAct"
                 app:cardBackgroundColor="@color/md_yellow_800"
                 app:cardCornerRadius="5dp">
 
@@ -169,73 +163,29 @@
                     android:id="@+id/txtcalnder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_margin="15dp"
                     android:scaleType="centerInside"
-                    android:text="Calendar"
-                    android:textColor="#cccccc"
+                    android:text="recent requests"
+                    android:textColor="#e6e6ff"
                     android:textSize="25sp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/imagec"
-                    android:layout_width="41dp"
-                    android:layout_height="43dp"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginTop="8dp"
-
-                    android:src="@drawable/calender" />
-
             </androidx.cardview.widget.CardView>
 
 
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView5"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:clickable="true"
-                android:layout_margin="2.5dp"
-                android:onClick="openRecentReqsAct"
-                app:cardBackgroundColor="@color/md_blue_300"
-                app:cardCornerRadius="5dp">
-                <ImageView
-                android:id="@+id/imager"
-                android:layout_width="41dp"
-                android:layout_height="43dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="12dp"
-
-                android:src="@drawable/recent" />
-
-
-
-                <TextView
-                    android:id="@+id/txtrequests"
-                    android:layout_width="237dp"
-                    android:layout_height="43dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="90dp"
-                    android:text="Recent requests "
-                    android:textColor="#cccccc"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
-            </androidx.cardview.widget.CardView>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="150dp">
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:layout_margin="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 app:cardBackgroundColor="@color/md_orange_100"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="8dp"
 
                 >
 
@@ -259,6 +209,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="9dp"
                     app:srcCompat="@drawable/recentrequest" />
+
                 <TextView
                     android:id="@+id/txtmydayTecher"
                     android:layout_width="wrap_content"
@@ -270,13 +221,6 @@
                     android:textColor="@color/md_red_500"
                     android:textSize="25dp"
                     android:textStyle="" />
-
-
-
-
-
-
-
 
 
             </androidx.cardview.widget.CardView>

@@ -66,11 +66,11 @@ public class MainPage extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_page);
+        setContentView(R.layout.student_main_page);
         txtdate=(TextView)findViewById(R.id.txtmyday);
         name = (TextView) findViewById(R.id.name);
         courses = new ArrayList<>();
-        studentId = (TextView) findViewById(R.id.student_id);
+        studentId = (TextView) findViewById(R.id.txtStdid);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -119,22 +119,22 @@ public class MainPage extends AppCompatActivity
 
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+      /*  FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Coming soon!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+/*        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);*/
 
 
 

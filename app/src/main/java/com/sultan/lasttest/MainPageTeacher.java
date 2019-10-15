@@ -43,43 +43,24 @@ import java.util.Date;
 
 public class MainPageTeacher extends AppCompatActivity
         {
-    TextView name,course1,course2 , txtdate;
+    TextView name, txtdate , txtEmail;
     public final String TAG = "MainPageTeacher";
     public static ArrayList<Course> courses ;
-    public static String a,b,c;
-    public int i,z ;
-    CardView mCard;
+    public int i ;
     public static ArrayList<request>requests;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_page_teacher);
+        setContentView(R.layout.teacher_main_page);
         courses = new ArrayList<>();
         txtdate=(TextView)findViewById(R.id.txtmydayTecher) ;
+        txtEmail=(TextView)findViewById(R.id.txtTeacherEmail);
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Coming soon!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-
-        mCard = (CardView) findViewById(R.id.cardView2);
-        mCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),officeHoursAct.class);
-                startActivity(intent);
 
 
-            }
-        });
 
         name = (TextView) findViewById(R.id.name);
 
@@ -91,6 +72,7 @@ public class MainPageTeacher extends AppCompatActivity
         Intent intent = getIntent();
         Teacher teacher = (Teacher)intent.getSerializableExtra("teacher");
         name.setText(teacher.name+" "+teacher.lastName);
+        txtEmail.setText(teacher.email);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef;
         i = 0;
@@ -327,6 +309,10 @@ public class MainPageTeacher extends AppCompatActivity
 
 
 
+    }
+    public void openOfficehoursAct(View view){
+        Intent intent = new Intent(getApplicationContext(),officeHoursAct.class);
+        startActivity(intent);
     }
 
 
