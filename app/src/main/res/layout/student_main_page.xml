@@ -82,7 +82,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_margin="5dp"
+            android:layout_margin="3dp"
             android:gravity="center"
             >
 
@@ -229,11 +229,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="150dp">
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:layout_margin="5dp"
+                android:layout_marginTop="3dp"
                 app:cardBackgroundColor="@color/md_orange_100"
                 app:cardCornerRadius="5dp"
 
@@ -248,9 +249,9 @@
                     android:layout_marginTop="9dp"
                     android:scaleType="centerInside"
                     android:text="Your next appointment:"
-                    android:textColor="#002038"
+                    android:textColor="#b3b3b3"
                     android:textSize="20dp"
-                    android:textStyle="" />
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/myInfopic"
@@ -258,7 +259,8 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="9dp"
-                    app:srcCompat="@drawable/recentrequest" />
+                    app:srcCompat="@drawable/time" />
+
                 <TextView
                     android:id="@+id/txtmydayTecher"
                     android:layout_width="wrap_content"
@@ -266,17 +268,10 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="50dp"
                     android:scaleType="centerInside"
-                    android:text="There's No appointment!"
+                    android:text="There's no appointment!"
                     android:textColor="@color/md_red_500"
-                    android:textSize="25dp"
-                    android:textStyle="" />
-
-
-
-
-
-
-
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
 
             </androidx.cardview.widget.CardView>

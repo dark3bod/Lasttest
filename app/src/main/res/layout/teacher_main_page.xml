@@ -36,7 +36,7 @@
                     app:title="welcome"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="@color/md_blue_500"
+                    android:background="@color/md_blue_700"
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
 
             </com.google.android.material.appbar.AppBarLayout>
@@ -59,9 +59,9 @@
                 android:id="@+id/txtTeacherEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="11dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginStart="15dp"
+
+                android:layout_marginTop="85dp"
                 android:layout_toEndOf="@+id/imgProfile"
                 android:text="555555555"
                 android:textColor="#FFFFFFFF"
@@ -71,8 +71,7 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="48dp"
                 android:layout_toEndOf="@+id/imgProfile"
                 android:text="Sultan alamzi"

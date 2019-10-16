@@ -71,7 +71,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
         super.onCreate(savedInstanceState);
         s =(Button)findViewById(R.id.btnSend);
-        setContentView(R.layout.activity_send_request);
+        setContentView(R.layout.send_appointment_act);
 
 
         ArrayList<CharSequence> g = new ArrayList<>();

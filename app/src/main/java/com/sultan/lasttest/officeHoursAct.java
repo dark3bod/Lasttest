@@ -39,7 +39,7 @@ public class officeHoursAct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_office_hours);
+        setContentView(R.layout.office_hours_activity);
          e0 =(EditText) findViewById(R.id.txtofficehours0);
         e1 =(EditText) findViewById(R.id.txtofficehours1);
          e2 =(EditText) findViewById(R.id.txtofficehours2);
