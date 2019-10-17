@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private void checkCurrentUser(FirebaseUser user) {
         // [START check_current_user]
 
-        if (user != null) {
+        if (user != null && user.isEmailVerified()) {
             //splash screen is over go to main menu
             FirebaseAuth auth = FirebaseAuth.getInstance();
             FirebaseFirestore db = FirebaseFirestore.getInstance();

@@ -19,6 +19,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import es.dmoral.toasty.Toasty;
+
 
 public class LogIn extends AppCompatActivity {
     private EditText inputEmail, inputPassword;
@@ -93,9 +95,14 @@ public class LogIn extends AppCompatActivity {
                             snackbar.show();
                         }
                     } else {
-                        Intent intent = new Intent(LogIn.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        if(auth.getCurrentUser().isEmailVerified()) {
+                            Intent intent = new Intent(LogIn.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else{
+                            Toasty.error(getApplicationContext(),"Please verify your email").show();
+                        }
                     }
                 }
             });
@@ -106,5 +113,9 @@ public class LogIn extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+    }
+    public void openSignUpAct(View v){
+        Intent intent = new Intent(LogIn.this,sign_up.class);
+        startActivity(intent);
     }
 }

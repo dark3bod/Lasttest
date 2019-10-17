@@ -89,28 +89,30 @@ public class MainPage extends AppCompatActivity
          DocumentReference docRef;
         int i = 0;
         for( i = 0;i<student.course.size();i++) {
-            docRef = db.collection("course").document(student.course.get(i));
-            docRef.get().addOnCompleteListener(MainPage.this, new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            System.out.println(document.get("courseCode").toString()+" "+ document.get("courseName").toString()+" "+document.get("teacherUID").toString()+" "+document.get("studentUID").toString());
-                            courses.add(document.toObject(Course.class));
+            if(!student.course.get(i).equals("")) {
+                docRef = db.collection("course").document(student.course.get(i));
+                docRef.get().addOnCompleteListener(MainPage.this, new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                System.out.println(document.get("courseCode").toString() + " " + document.get("courseName").toString() + " " + document.get("teacherUID").toString() + " " + document.get("studentUID").toString());
+                                courses.add(document.toObject(Course.class));
+                            } else {
+                                ///document doesnt exist
+                                Log.d(TAG, "No such Course");
+
+                            }
                         } else {
-                            ///document doesnt exist
-                            Log.d(TAG, "No such Course");
+                            ///task is not succsesful
+                            Log.d(TAG, "get Course failed with ", task.getException());
 
                         }
-                    } else {
-                        ///task is not succsesful
-                        Log.d(TAG, "get Course failed with ", task.getException());
-
                     }
-                }
 
-            });
+                });
+            }
         }
         ArrayList<Teacher> teachers = new ArrayList<>();
 

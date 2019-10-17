@@ -10,12 +10,31 @@ public class Teacher implements Serializable {
     public String email;
     public String name;
     public String lastName;
-
-
-
-
+    String  floor;
+    String building;
+    String officeNO;
+    String password;
     public List<String> course;
     public List<Integer> timeAvailable;
+
+    public Teacher(String email, String name, String lastName, String floor, String building, String officeNO, String password, List<String> course, List<Integer> timeAvailable) {
+        this.email = email;
+        this.name = name;
+        this.lastName = lastName;
+        this.floor = floor;
+        this.building = building;
+        this.officeNO = officeNO;
+        this.password = password;
+        this.course = course;
+        this.timeAvailable = timeAvailable;
+    }
+
+
+
+
+
+
+
 
 
     public Teacher() {

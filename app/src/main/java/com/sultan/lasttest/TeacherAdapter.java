@@ -12,7 +12,7 @@ import java.util.List;
 public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> {
     private List<request> mDataset;
     public final String TAG = "TeacherAdapter";
-    String cccc, status;
+    String  status;
 
 
 
