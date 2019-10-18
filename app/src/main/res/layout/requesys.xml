@@ -11,46 +11,49 @@
     app:cardCornerRadius="6dp"
     android:layoutDirection="ltr">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left">
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:layout_marginStart="3dp">
+
+            <TextView
+                android:id="@+id/requestcousename"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Data structure"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/requestdate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="144dp"
+                android:layout_centerInParent="true"
+                android:text="10/10/2019"
+                android:textSize="20sp"
+                 />
+
+            <TextView
+                android:id="@+id/requeststatus"
+                android:layout_width="16mm"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:text="calnceled"
+                android:textSize="20sp" />
 
 
-        <TextView
-            android:id="@+id/requestcousename"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Data structure"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+        </RelativeLayout>
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/requestdate"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="144dp"
-            android:text="10/10/2019"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/requeststatus"
-            android:layout_width="16mm"
-            android:layout_height="match_parent"
-            android:text="calnceled"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.cardview.widget.CardView>

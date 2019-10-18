@@ -95,14 +95,14 @@ public class LogIn extends AppCompatActivity {
                             snackbar.show();
                         }
                     } else {
-                        if(auth.getCurrentUser().isEmailVerified()) {
+                        /*if(auth.getCurrentUser().isEmailVerified()) {*/
                             Intent intent = new Intent(LogIn.this, MainActivity.class);
                             startActivity(intent);
                             finish();
-                        }
+                        /*}
                         else{
                             Toasty.error(getApplicationContext(),"Please verify your email").show();
-                        }
+                        }*/
                     }
                 }
             });

@@ -168,7 +168,7 @@ public class MainPage extends AppCompatActivity
                                 try {
                                     Date s = new SimpleDateFormat("dd/MM/yyyy").parse(document.get("Date").toString());
 
-                                    if (s.after(new Date())){
+                                    if (s.after(new Date()) && !r.status.equals("0")){
 
                                         String x ="dd/MM/yyyy";
                                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(x);
