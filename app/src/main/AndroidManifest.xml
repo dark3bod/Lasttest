@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".sign_up"></activity>
+        <activity android:name=".add_new_course"></activity>
+        <activity android:name=".manageCourses" />
+        <activity android:name=".sign_up" />
         <activity android:name=".ActTeacherRequests" />
         <activity android:name=".addCourseAct" />
         <activity android:name=".Actrequests" />

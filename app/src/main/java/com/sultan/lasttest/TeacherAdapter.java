@@ -51,7 +51,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHo
                                                           int viewType) {
         // create a new view
         CardView v = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.requesys, parent, false);
+                .inflate(R.layout.requests_status, parent, false);
         //TextView corseinfo = (TextView) findViewById(R.id._course_info);
         TextView studentID = (TextView) v.findViewById(R.id.requestcousename);
         TextView reqdate = (TextView) v.findViewById(R.id.requestdate);
@@ -70,13 +70,13 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHo
 
 
         if(mDataset.get(position).status.equals("0"))
-            status ="Pending";
+            status ="قيد الانتظار";
         else if (mDataset.get(position).status.equals("2"))
-            status ="Canceled";
+            status ="تم الرفض";
         else if(mDataset.get(position).status.equals("3"))
-            status ="Expire";
+            status ="ماضي";
         else
-            status="Confirmed";
+            status="تمت الموافقه";
 
 
 

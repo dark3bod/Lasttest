@@ -42,8 +42,8 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
         // each data item is just a string in this case
         public CardView textView;
         public TextView studentID ,time , date;
-        public Button review , accept , reject;
-        public MyViewHolder(CardView v,TextView s,TextView t , TextView d , Button r ,Button a,Button re ) {
+        public CardView review , accept , reject;
+        public MyViewHolder(CardView v,TextView s,TextView t , TextView d , CardView r ,CardView a,CardView re ) {
             super(v);
 
             this.studentID = s;
@@ -75,9 +75,9 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
         TextView studentid = (TextView) v.findViewById(R.id.txtstudntid);
         TextView time = (TextView) v.findViewById(R.id.txttime1 );
         TextView date = (TextView) v.findViewById(R.id.txtdate1);
-        Button accept = (Button)v.findViewById(R.id.buttonaccpet) ;
-        Button reject = (Button)v.findViewById(R.id.buttonreject) ;
-        Button review = (Button)v.findViewById(R.id.buttonreview) ;
+        CardView accept = (CardView) v.findViewById(R.id.buttonaccpet) ;
+        CardView reject = (CardView) v.findViewById(R.id.buttonreject) ;
+        CardView review = (CardView) v.findViewById(R.id.buttonreview) ;
 
         MyViewHolder vh = new MyViewHolder(v,studentid,time,date,review,accept,reject);
 

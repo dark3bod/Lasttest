@@ -8,8 +8,7 @@
     android:layout_marginTop="2dp"
     android:layout_marginLeft="4dp"
     android:layout_marginRight="4dp"
-    app:cardCornerRadius="6dp"
-    android:layoutDirection="ltr">
+    app:cardCornerRadius="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +32,7 @@
                 android:id="@+id/requestdate"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="144dp"
+
                 android:layout_centerInParent="true"
                 android:text="10/10/2019"
                 android:textSize="20sp"
@@ -41,7 +40,8 @@
 
             <TextView
                 android:id="@+id/requeststatus"
-                android:layout_width="16mm"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:text="calnceled"

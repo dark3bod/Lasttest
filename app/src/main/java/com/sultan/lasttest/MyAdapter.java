@@ -39,7 +39,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                                                      int viewType) {
         // create a new view
         CardView v = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_view, parent, false);
+                .inflate(R.layout.student_courses, parent, false);
         //TextView corseinfo = (TextView) findViewById(R.id._course_info);
         TextView corseinfo = (TextView) v.findViewById(R.id._course_info);
         TextView coursename = (TextView) v.findViewById(R.id.course_code_name);

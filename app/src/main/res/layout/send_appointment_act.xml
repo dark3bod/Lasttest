@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layoutDirection="ltr"
     tools:context=".sendRequestAct"
     android:background="#f2f2f2"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -30,8 +29,8 @@
                     android:layout_width="162dp"
                     android:layout_height="49dp"
                     android:layout_margin="50dp"
-                    android:text="Choose Course"
-                    android:textColor="#cccccc"
+                    android:text="@string/chooseCourse"
+                    android:textColor="@color/colortext"
                     android:textSize="20sp"
                     android:textStyle="bold"
 
@@ -57,9 +56,9 @@
                 android:id="@+id/checktimetxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
-                android:text="Time available"
-                android:textSize="15dp"
+                android:layout_marginStart="1dp"
+                android:text="@string/timeAvailable"
+                android:textSize="15sp"
                 android:layout_toEndOf="@id/spnCourses"
            />
         </RelativeLayout>
@@ -78,15 +77,15 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="30dp">
             <TextView
                 android:id="@+id/txtselectdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:text="Select the Date"
+                android:text="@string/chooseDate"
                 android:textAlignment="center"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
 
              />
@@ -99,9 +98,9 @@
                 android:id="@+id/timespicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Select the Time"
+                android:text="@string/chooseTime"
                 android:textAlignment="center"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold"/>
         </RelativeLayout>
         <RelativeLayout
@@ -116,7 +115,7 @@
                 android:layout_margin="25dp"
 
                 android:ems="10"
-                android:hint="Write your problem"
+                android:hint="@string/writeReason"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 />
@@ -143,8 +142,8 @@
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Send you request"
-                    android:textColor="#cccccc"
+                    android:text="@string/sendRequest"
+                    android:textColor="@color/colortext"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 

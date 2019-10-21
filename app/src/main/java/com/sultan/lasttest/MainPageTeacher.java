@@ -41,6 +41,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
+
 public class MainPageTeacher extends AppCompatActivity
         {
     TextView name, txtdate , txtEmail;
@@ -48,11 +49,13 @@ public class MainPageTeacher extends AppCompatActivity
     public static ArrayList<Course> courses ;
     public int i ;
     public static ArrayList<request>requests;
+    CardView cardMangecourses;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_main_page);
         courses = new ArrayList<>();
+        cardMangecourses = findViewById(R.id.cardMangecourses);
         txtdate=(TextView)findViewById(R.id.txtmydayTecher) ;
         txtEmail=(TextView)findViewById(R.id.txtTeacherEmail);
 
@@ -150,24 +153,23 @@ public class MainPageTeacher extends AppCompatActivity
                                 requests.add(r);
 
                                 try {
+                                    String status = document.get("status").toString();
                                     Date s = new SimpleDateFormat("dd/MM/yyyy").parse(document.get("Date").toString());
 
-                                    if (s.after(new Date())){
+                                    if (s.after(new Date()) && status.equals("1")){
 
                                         String x ="dd/MM/yyyy";
                                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(x);
                                         String date = simpleDateFormat.format(s);
-                                        txtdate.setText("Date: " +date + "      " + "Time: "+document.get("Time").toString()+"\n"+"StudentID: "+document.get("StudentID").toString());
-                                        txtdate.setTextColor(Color.parseColor("#002038"));
+                                        txtdate.setText("التاريخ: " +date + "      " + "الوقت: "+document.get("Time").toString()+"\n"+"رقم الطالب: "+document.get("StudentID").toString());
+                                        
                                         txtdate.setTextSize(20);
 
                                     }
-                                    String status = document.get("status").toString();
+
                                     if(s.before(new Date()) && status.equals("0")){
-                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
                                         dd.collection("request").document(document.getId()).update("status","3");
                                     }else if (s.before(new Date()) && status.equals("2")){
-                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
                                         dd.collection("request").document(document.getId()).update("status","4");
 
                                     }
@@ -198,7 +200,7 @@ public class MainPageTeacher extends AppCompatActivity
 
 
 
-    @Override
+ /*   @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -206,7 +208,7 @@ public class MainPageTeacher extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -312,6 +314,11 @@ public class MainPageTeacher extends AppCompatActivity
     }
     public void openOfficehoursAct(View view){
         Intent intent = new Intent(getApplicationContext(),officeHoursAct.class);
+        startActivity(intent);
+    }
+    public void openManageCoursesAct(View view){
+        Intent intent = new Intent(MainPageTeacher.this , manageCourses.class);
+        intent.putExtra("c",courses);
         startActivity(intent);
     }
 

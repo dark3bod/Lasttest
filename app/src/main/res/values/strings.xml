@@ -7,24 +7,38 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_password">الرقم السري اقل من 5 حروف وارقام!!</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="btn_forgot_password">Forgot your password?</string>
+    <string name="btn_forgot_password">هل نسيت كلمة المرور؟</string>
     <string name="login">login</string>
     <string name="password">Password</string>
     <string name="user_name">Email</string>
-    <string name="btn_reset_password">Reset password</string>
-    <string name="btn_back">Back</string>
-    <string name="hint_email">Enter your email</string>
-    <string name="lbl_forgot_password">Forgot password?</string>
-    <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
-    <string name="title_activity_main_page">Office Hours</string>
+    <string name="or">أو</string>
+    <string name="studentID">معرف الطالب</string>
+    <string name="review">مراجعة</string>
+    <string name="date">التاريخ</string>
+    <string name="CourseName">اسم المقرر:  </string>
+    <string name="status">الحاله</string>
+    <string name="btn_reset_password">هل نسيت كلمة المرور</string>
+    <string name="yourCourses">مقرراتك</string>
+    <string name="addnewCourse">اضافة المقرر جديد</string>
+    <string name="add">اضافة</string>
+    <string name="techerName">اسم الدكتور: </string>
+    <string name="techerID">معرف الدكتور: </string>
+    <string name="courseCode">رمز المقرر: </string>
+    <string name="secion">الشعبه: </string>
+    <string name="btn_back">رجوع</string>
+
+    <string name="hint_email">ادخل ايميلك</string>
+    <string name="lbl_forgot_password">نسيت الرمز؟</string>
+    <string name="forgot_password_msg">الرجاء ادخال الايميل حتى يتم ارسال رابط تغيير الرقم السري</string>
+    <string name="title_activity_main_page">الساعات المكتبيه</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">اعدادات</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
@@ -35,4 +49,52 @@
     <string name="contact">OH@officehoursksu.firbase.com</string>
     <string name="log_out">Logout</string>
     <string name="title_activity_main_page_teacher">MainPageTeacher</string>
+    <string name="sendRequest">ارسال طلب</string>
+    <string name="manageCourses">ادارة المقررات</string>
+    <string name="receivedRequest">حالة الطلبات</string>
+    <string name="nextAppointment">موعدك القادم</string>
+    <string name="officeHourse">الساعات المكتبيه</string>
+    <string name="requests">الطلبات المتلقاه</string>
+    <string name="welcome1">مرحبا</string>
+    <string name="noAppointment">لا يوجد لديك موعد</string>
+    <string name="courses">المقررات</string>
+    <string name="calender">التقويم</string>
+    <string name="recentReqs">الطلبات السابقة</string>
+    <string name="chooseCourse">اختر مقرر</string>
+    <string name="chooseDate">حدد اليوم</string>
+    <string name="chooseTime">حدد الوقت</string>
+    <string name="writeReason"> هل يوجد لديك سبب</string>
+    <string name="timeAvailable">الاوقات المتاح فيها</string>
+    <string name="confirm">تأكيد</string>
+    <string name="reject">رفض</string>
+    <string name="sunday">الاحد</string>
+    <string name="moday">الاثنين</string>
+    <string name="tuesday">الثلاثاء</string>
+    <string name="wednesday">الاربعاء</string>
+    <string name="thursday">الخميس</string>
+    <string name="to">الى</string>
+    <string name="saveInfo">حفظ المعلومات</string>
+    <string name="building">المبنى</string>
+    <string name="floor">الطابق</string>
+    <string name="office">المكتب</string>
+    <string name="addCourse">اضافة مقرر</string>
+    <string name="addtheCourse">اضافة المقرر</string>
+    <string name="areYou">هل انت</string>
+    <string name="firstName">الاسم الأول</string>
+    <string name="lastName">الأسم الأخير</string>
+    <string name="email">الايميل</string>
+    <string name="password1">الرقم السري</string>
+    <string name="signUp">تسجيل جديد</string>
+    <string name="sing">تسجيل</string>
+
+
+
+
+
+
+
+
+
+
+
 </resources>

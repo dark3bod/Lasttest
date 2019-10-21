@@ -2,6 +2,7 @@ package com.sultan.lasttest;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -133,25 +134,25 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
                                 String timeAvailable ,sun1, mon2 , tues3 , wed4,thus5;
                                 if(t.timeAvailable.get(0)!= -1)
-                                    sun1= "Sunday: "+ t.timeAvailable.get(0)+" to "+t.timeAvailable.get(1);
+                                    sun1= "الاحد: "+ t.timeAvailable.get(0)+" الى "+t.timeAvailable.get(1);
                                 else
-                                    sun1="Sunday: unavailable";
+                                    sun1="الاحد:غير متاح";
                                 if(t.timeAvailable.get(2)!= -1)
-                                    mon2= "Monday: "+ t.timeAvailable.get(2)+" to "+t.timeAvailable.get(3);
+                                    mon2= "الاثنين: "+ t.timeAvailable.get(2)+" الى "+t.timeAvailable.get(3);
                                 else
-                                    mon2="Monday: unavailable";
+                                    mon2="الاثنين:غير متاح";
                                 if(t.timeAvailable.get(4)!= -1)
-                                    tues3= "Tuesday: "+ t.timeAvailable.get(4)+" to "+t.timeAvailable.get(5);
+                                    tues3= "الثلاثاء: "+ t.timeAvailable.get(4)+" الى "+t.timeAvailable.get(5);
                                 else
-                                    tues3="Tuesday: unavailable";
+                                    tues3="الثلاثاء:غير متاح";
                                 if(t.timeAvailable.get(6)!= -1)
-                                    wed4= "Wednesday: "+ t.timeAvailable.get(6)+" to "+t.timeAvailable.get(7);
+                                    wed4= "الاربعاء: "+ t.timeAvailable.get(6)+" الى "+t.timeAvailable.get(7);
                                 else
-                                    wed4="Wednesday: unavailable";
+                                    wed4="الاربعاء:غير متاح";
                                 if(t.timeAvailable.get(8)!= -1)
-                                    thus5= "Thursday: "+ t.timeAvailable.get(8)+" to "+t.timeAvailable.get(9);
+                                    thus5= "الخميس: "+ t.timeAvailable.get(8)+" الى "+t.timeAvailable.get(9);
                                 else
-                                    thus5="Wednesday: unavailable";
+                                    thus5="الخميس:غير متاح";
 
 
 
@@ -335,11 +336,14 @@ public void checkRequest(final View view){
                                         public void onTick(long millisUntilFinished) {
                                             view.setEnabled(false);
                                             view.setBackgroundColor(Color.parseColor("#b3b3cc"));
+
                                         }
 
                                         public void onFinish() {
                                             view.setEnabled(true);
-                                            view.setBackgroundColor(Color.parseColor("#6d6cea"));
+                                            view.setBackgroundColor(getResources().getColor(R.color.md_blue_700));
+
+
                                         }
                                     }.start();
 

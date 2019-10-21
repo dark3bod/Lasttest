@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layoutDirection="ltr"
     tools:context=".MainPageTeacher"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
@@ -15,10 +14,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_gravity="left"
         android:clickable="true"
-        android:gravity="left"
-        android:layoutDirection="ltr"
+
+
+        android:layoutDirection="rtl"
         android:weightSum="100"
         android:orientation="vertical">
 
@@ -33,7 +32,7 @@
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     app:titleTextColor="#FFF"
-                    app:title="welcome"
+                    app:title="@string/welcome1"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/md_blue_700"
@@ -45,14 +44,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:background="@color/md_moves_50">
+            android:layoutDirection="rtl"
+            android:background="@color/md_blue_400"
+            >
 
             <ImageView
                 android:id="@+id/imgProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="45dp"
                 android:background="@drawable/user" />
 
             <TextView
@@ -65,7 +66,7 @@
                 android:layout_marginTop="85dp"
                 android:layout_toEndOf="@+id/imgProfile"
                 android:text="555555555"
-                android:textColor="#FFFFFFFF"
+                android:textColor="@color/colortext"
                 android:textSize="20sp" />
 
             <TextView
@@ -76,9 +77,9 @@
                 android:layout_marginTop="48dp"
                 android:layout_toEndOf="@+id/imgProfile"
                 android:text="Sultan alamzi"
-                android:textColor="#FFFFFFFF"
-                android:textStyle="bold"
-                android:textSize="20sp" />
+                android:textColor="@color/colortext"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
 
         </RelativeLayout>
@@ -92,11 +93,11 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/crdReceivedrequest"
-                android:layout_width="150dp"
+                android:layout_width="160dp"
                 android:layout_height="148dp"
                 android:clickable="true"
                 android:onClick="openRecentRequstsAct"
-                app:cardBackgroundColor="@color/md_orange_500"
+                app:cardBackgroundColor="@color/md_orange_600"
                 app:cardCornerRadius="5dp">
 
 
@@ -104,20 +105,19 @@
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
+                    android:gravity="center"
                     android:layout_marginTop="90dp"
-                    android:text="received request"
-                    android:textColor="#ffffff"
-                    android:textSize="19sp"
+                    android:text="@string/requests"
+                    android:textColor="@color/colortext"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/image1"
                     android:layout_width="59dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="43dp"
-                    android:layout_marginTop="20dp"
-                    android:src="@drawable/book2" />
+                    android:layout_height="50dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/mail" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -132,15 +132,23 @@
                 app:cardCornerRadius="5dp"
                >
 
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="45dp"
+
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/officeinfo" />
                 <TextView
                     android:id="@+id/txtMyrecent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="18dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="45dp"
                     android:scaleType="centerInside"
-                    android:text="Office Hours"
-                    android:textColor="#e6e6ff"
-                    android:textSize="25sp"
+                    android:text="@string/officeHourse"
+                    android:textColor="@color/colortext"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
 
@@ -156,7 +164,7 @@
                 android:layout_toEndOf="@+id/crdReceivedrequest"
                 android:clickable="true"
                 android:onClick="openAllRequstsAct"
-                app:cardBackgroundColor="@color/md_yellow_800"
+                app:cardBackgroundColor="@color/md_green_600"
                 app:cardCornerRadius="5dp">
 
 
@@ -164,12 +172,21 @@
                     android:id="@+id/txtcalnder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="20dp"
                     android:scaleType="centerInside"
-                    android:text="recent requests"
-                    android:textColor="#e6e6ff"
-                    android:textSize="25sp"
+                    android:text="@string/receivedRequest"
+                    android:textColor="@color/colortext"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/recent" />
+
 
             </androidx.cardview.widget.CardView>
 
@@ -183,19 +200,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:clickable="true"
+                android:onClick="openManageCoursesAct"
 
                 app:cardCornerRadius="6dp"
-                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardBackgroundColor="@color/md_blue_700"
                 android:id="@+id/cardMangecourses">
 
                 <TextView
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Manage your courses"
-                    android:textColor="#cccccc"
-                    android:textSize="23dp"
+                    android:text="@string/manageCourses"
+                    android:textColor="@color/colortext"
+                    android:textSize="20dp"
                     android:textStyle="bold"/>
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="90dp"
+                    android:layout_marginTop="18dp"
+                    android:src="@drawable/edit" />
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
         <RelativeLayout
@@ -205,7 +229,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 app:cardBackgroundColor="@color/md_orange_100"
@@ -218,11 +242,11 @@
                     android:id="@+id/txtmyappointment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
+                    android:layout_marginStart="60dp"
                     android:layout_marginTop="9dp"
                     android:scaleType="centerInside"
-                    android:text="Your next appointment:"
-                    android:textColor="#002038"
+                    android:text="@string/nextAppointment"
+                    android:textColor="#b3b3b3"
                     android:textSize="20dp"
                     android:textStyle="" />
 
@@ -230,21 +254,24 @@
                     android:id="@+id/myInfopic"
                     android:layout_width="35dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="9dp"
-                    app:srcCompat="@drawable/recentrequest" />
+                    app:srcCompat="@drawable/time" />
 
                 <TextView
                     android:id="@+id/txtmydayTecher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
                     android:layout_marginTop="50dp"
                     android:scaleType="centerInside"
-                    android:text="There's No appointment!"
+                    android:text="@string/noAppointment"
                     android:textColor="@color/md_red_500"
                     android:textSize="25dp"
-                    android:textStyle="" />
+                    android:textStyle="bold" />
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="110dp" />
 
 
             </androidx.cardview.widget.CardView>

@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".actReceivedRequest"
-    android:layoutDirection="ltr">
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
 
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:background="#6d6cea"
+        android:background="@color/md_blue_700"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,9 +27,9 @@
         android:layout_width="162dp"
         android:layout_height="49dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Your Requests:"
+        android:textColor="@color/colortext"
+        android:textStyle="bold"
+        android:text="@string/requests"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
         app:layout_constraintEnd_toEndOf="@+id/toolbar2"
@@ -39,6 +39,7 @@
         app:layout_constraintVertical_bias="0.842" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="5dp"
         android:id="@+id/requestRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

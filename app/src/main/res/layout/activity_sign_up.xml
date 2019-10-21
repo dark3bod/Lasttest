@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="ltr"
     tools:context=".sign_up"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <LinearLayout
@@ -29,8 +28,8 @@
                     android:layout_width="162dp"
                     android:layout_height="49dp"
                     android:layout_margin="50dp"
-                    android:text="Registeration"
-                    android:textColor="#cccccc"
+                    android:text="@string/signUp"
+                    android:textColor="@color/colortext"
                     android:textSize="20sp"
                     android:textStyle="bold"
 
@@ -48,7 +47,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="are you?"/>
+                android:hint="@string/areYou"/>
 
             <Spinner
                 android:layout_width="150dp"
@@ -74,7 +73,7 @@
             android:id="@+id/signUpFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="First name"/>
+            android:hint="@string/firstName"/>
 
     </RelativeLayout>
         <RelativeLayout
@@ -89,7 +88,7 @@
                 android:id="@+id/signUplastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Last name"/>
+                android:hint="@string/lastName"/>
 
         </RelativeLayout>
 
@@ -98,14 +97,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="25dp">
+            android:layout_marginTop="25dp"
+            android:layoutDirection="ltr">
 
             <EditText
                 android:id="@+id/signUpemail"
                 android:layout_width="150dp"
+
+
                 android:layout_marginStart="15dp"
                 android:layout_height="wrap_content"
-                android:hint="Email" />
+                android:hint="@string/email" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -131,10 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="15dp"
-                android:clickable="false"
-                android:hint="Password"
+                android:hint="@string/password1"
                 android:inputType="textPassword" />
 
         </RelativeLayout>
@@ -157,8 +156,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="SIGN UP"
-                    android:textColor="#cccccc"
+                    android:text="@string/sing"
+                    android:textSize="15sp"
+                    android:textColor="@color/colortext"
                     android:textStyle="bold" />
             </androidx.cardview.widget.CardView>
         </RelativeLayout>

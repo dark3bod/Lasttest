@@ -1,26 +1,12 @@
 package com.sultan.lasttest;
 
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirestoreRegistrar;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firestore.v1.FirestoreGrpc;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHolder> {
@@ -66,7 +52,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
                                                           int viewType) {
         // create a new view
         CardView v = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.requesys, parent, false);
+                .inflate(R.layout.requests_status, parent, false);
         //TextView corseinfo = (TextView) findViewById(R.id._course_info);
         TextView reqcourse = (TextView) v.findViewById(R.id.requestcousename);
         TextView reqdate = (TextView) v.findViewById(R.id.requestdate);
@@ -85,13 +71,13 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 
 
         if(mDataset.get(position).status.equals("0"))
-            status ="Pending";
+            status ="قيد الانتظار";
         else if (mDataset.get(position).status.equals("2"))
-            status ="Canceled";
+            status ="تم الرفض";
         else if(mDataset.get(position).status.equals("3"))
-            status ="Expire";
+            status ="ماضي";
         else
-            status="Confirmed";
+            status="تمت الموافقه";
 
       /* if(mDataset.get(position).CourseID.equals("0001"))
             cccc ="Data structers";

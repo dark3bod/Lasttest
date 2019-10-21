@@ -4,18 +4,15 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layoutDirection="ltr"
     tools:context=".officeHoursAct"
     android:background="#f2f2f2"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_gravity="left"
         android:clickable="true"
-        android:gravity="left"
-        android:layoutDirection="ltr"
         android:weightSum="100"
+        android:gravity="center"
         android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -38,9 +35,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:text="Your Office Hours"
+                    android:text="@string/officeHourse"
                     android:textStyle="bold"
-                    android:textColor="#cccccc"
+                    android:textColor="@color/colortext"
                     android:textSize="20sp" />
 
             </androidx.appcompat.widget.Toolbar>
@@ -56,20 +53,18 @@
 
             <TextView
                 android:id="@+id/txtsunday"
-                android:layout_width="85dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
                 android:layout_marginTop="10dp"
-                android:text="Sunday:"
-                android:textSize="20sp"
-              />
+                android:text="@string/sunday"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/txtofficehours0"
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="20dp"
                 android:layout_toEndOf="@+id/txtsunday"
                 android:ems="10"
                 android:inputType="number"
@@ -83,7 +78,7 @@
 
                 android:layout_marginTop="15dp"
                 android:layout_toEndOf="@+id/txtofficehours0"
-                android:text="To" />
+                android:text="@string/to" />
 
             <EditText
                 android:id="@+id/txtofficehours1"
@@ -106,11 +101,11 @@
 
             <TextView
                 android:id="@+id/txtmonday"
-                android:layout_width="85dp"
-                android:layout_height="match_parent"
-                android:text="Monday:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/moday"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
+
                 android:textSize="20sp"
                 />
 
@@ -118,7 +113,7 @@
                 android:id="@+id/txtofficehours2"
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="10dp"
                 android:layout_toEndOf="@+id/txtmonday"
                 android:ems="10"
                 android:inputType="number"
@@ -132,7 +127,7 @@
 
                 android:layout_marginTop="15dp"
                 android:layout_toEndOf="@+id/txtofficehours2"
-                android:text="To" />
+                android:text="@string/to" />
 
             <EditText
                 android:id="@+id/txtofficehours3"
@@ -155,10 +150,11 @@
 
             <TextView
                 android:id="@+id/txtthuesday"
-                android:layout_width="85dp"
-                android:layout_height="match_parent"
-                android:text="Tuesday:"
-                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tuesday"
+
+                android:layout_marginTop="10dp"
                 android:textSize="20sp"
                 />
 
@@ -167,7 +163,7 @@
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/txtthuesday"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="10dp"
                 android:ems="10"
                 android:inputType="number"
                 android:text="11:30" />
@@ -180,7 +176,7 @@
 
                 android:layout_marginTop="15dp"
                 android:layout_toEndOf="@+id/txtofficehours4"
-                android:text="To" />
+                android:text="@string/to" />
 
             <EditText
                 android:id="@+id/txtofficehours5"
@@ -204,10 +200,10 @@
             <TextView
                 android:id="@+id/txtwednesday"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Wednesday:"
+                android:layout_height="wrap_content"
+                android:text="@string/wednesday"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
+
                 android:textSize="20sp" />
 
             <EditText
@@ -229,7 +225,7 @@
 
                 android:layout_marginTop="15dp"
                 android:layout_toEndOf="@+id/txtofficehours6"
-                android:text="To" />
+                android:text="@string/to" />
 
             <EditText
                 android:id="@+id/txtofficehours7"
@@ -254,8 +250,8 @@
                 android:id="@+id/txtthursday"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Thursday:"
-                android:layout_margin="10dp"
+                android:text="@string/thursday"
+                android:layout_marginTop="10dp"
                 android:textSize="20sp"
                 />
 
@@ -263,7 +259,7 @@
                 android:id="@+id/txtofficehours8"
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="8dp"
                 android:layout_toEndOf="@+id/txtthursday"
                 android:ems="10"
                 android:inputType="number"
@@ -277,7 +273,7 @@
 
                 android:layout_marginTop="15dp"
                 android:layout_toEndOf="@+id/txtofficehours8"
-                android:text="To" />
+                android:text="@string/to" />
 
             <EditText
                 android:id="@+id/txtofficehours9"
@@ -298,19 +294,22 @@
             android:layout_marginTop="20dp"
 
             >
+
             <TextView
                 android:id="@+id/txttiiig"
-                android:layout_width="162dp"
-                android:layout_height="38dp"
-                android:text="Building number:"
-                android:layout_margin="10dp"
-                android:textSize="20sp"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/building"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/txtbuildingNo"
                 android:layout_width="33dp"
                 android:layout_height="42dp"
+                android:layout_marginStart="25dp"
                 android:layout_toEndOf="@+id/txttiiig"
 
                 android:ems="10"
@@ -324,10 +323,10 @@
             >
             <TextView
                 android:id="@+id/txtt111"
-                android:layout_width="162dp"
-                android:layout_height="38dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Floor Number:"
+                android:text="@string/floor"
                 android:textSize="20sp" />
 
             <EditText
@@ -335,6 +334,7 @@
                 android:layout_width="33dp"
                 android:layout_height="42dp"
                 android:ems="10"
+                android:layout_marginStart="25dp"
                 android:layout_toEndOf="@+id/txtt111"
                 android:inputType="textPersonName"
                 android:text="6" />
@@ -346,16 +346,17 @@
             android:layout_marginStart="50dp">
             <TextView
                 android:id="@+id/txtt1111"
-                android:layout_width="162dp"
-                android:layout_height="38dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Office Number:"
+                android:text="@string/office"
                 android:textSize="20sp"
                 />
 
             <EditText
                 android:id="@+id/txtOfficeNo"
                 android:layout_width="33dp"
+                android:layout_marginStart="20dp"
                 android:layout_height="42dp"
                 android:layout_toEndOf="@+id/txtt1111"
                 android:ems="10"
@@ -385,8 +386,8 @@
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Save Information"
-                    android:textColor="#cccccc"
+                    android:text="@string/saveInfo"
+                    android:textColor="@color/colortext"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 

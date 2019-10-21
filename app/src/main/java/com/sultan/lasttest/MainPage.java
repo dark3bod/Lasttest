@@ -55,10 +55,13 @@ public class MainPage extends AppCompatActivity
     Student student;
     public static ArrayList<Course>courseName;
     public final String TAG = "MainPage";
-    CardView mCard;
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     TextView txtdate;
     ArrayList<Course> courses2;
+    String nextAppointment;
+    int che=0;
+
 
 
 
@@ -67,7 +70,8 @@ public class MainPage extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_main_page);
-        txtdate=(TextView)findViewById(R.id.txtmyday);
+
+        txtdate=(TextView)findViewById(R.id.txtmydayTecher);
         name = (TextView) findViewById(R.id.name);
         courses = new ArrayList<>();
         studentId = (TextView) findViewById(R.id.txtStdid);
@@ -168,16 +172,44 @@ public class MainPage extends AppCompatActivity
                                 try {
                                     Date s = new SimpleDateFormat("dd/MM/yyyy").parse(document.get("Date").toString());
 
-                                    if (s.after(new Date()) && !r.status.equals("0")){
+                                    if (s.after(new Date()) && r.status.equals("1")&& che==0){
+                                        che++;
 
-                                        String x ="dd/MM/yyyy";
+                                        String x ="EEE yyyy/MM/dd";
                                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(x);
                                         String date = simpleDateFormat.format(s);
-                                        txtdate.setText("Date: " +date + "      " + "Time : "+document.get("Time").toString()+"\n"+"Your problem: "+document.get("problem").toString());
-                                        txtdate.setTextColor(Color.parseColor("#002038"));
-                                        txtdate.setTextSize(20);
+                                        nextAppointment ="التاريخ: " +date + "      " + "الوقت: "+document.get("Time").toString();
+
+                                        db.collection("teacher").document(document.get("TeacherID").toString()).get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if(task.isSuccessful()){
+                                                            DocumentSnapshot documentSnapshot = task.getResult();
+                                                            nextAppointment += "\n"+"المبنى: "+ documentSnapshot.get("BuildingNO").toString()
+                                                                    +"\n"+"الدور: "+documentSnapshot.get("FloorNO").toString() +"\n"+"المكتب: "+documentSnapshot.get("OfficeNO").toString();
+
+
+                                                            txtdate.setTextColor(Color.parseColor("#ff3333"));
+                                                            txtdate.setTextSize(20);
+                                                            txtdate.setText(nextAppointment);
+
+
+
+                                                        }
+                                                    }
+                                                });
+
+
 
                                         }
+
+                                    if(s.before(new Date()) && r.status.equals("0")){
+                                        db.collection("request").document(document.getId()).update("status","3");
+                                    }else if (s.before(new Date()) && r.status.equals("2")){
+                                        db.collection("request").document(document.getId()).update("status","4");
+
+                                    }
 
 
 

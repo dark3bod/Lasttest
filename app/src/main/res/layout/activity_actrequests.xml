@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="ltr"
+
     tools:context=".actReceivedRequest">
     <LinearLayout
 
@@ -21,18 +21,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
 
-                android:background="#6d6cea"
+                android:background="@color/md_blue_700"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme" />
             <TextView
-                android:layout_margin="20dp"
+                android:layout_margin="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
-                android:layout_marginBottom="8dp"
-                android:text="Your recent Requests:"
+                android:text="@string/receivedRequest"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#cccccc"/>
+                android:textColor="@color/colortext"/>
 
         </RelativeLayout>
         <RelativeLayout
@@ -51,7 +50,7 @@
                 android:layout_height="wrap_content"
 
 
-                android:text="Course Name"
+                android:text="@string/CourseName"
                 android:textSize="20dp"
                 />
 
@@ -62,8 +61,8 @@
                 android:layout_centerVertical="true"
 
                 android:layout_centerHorizontal="true"
-                android:text="Date"
-                android:textSize="20dp" />
+                android:text="@string/date"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -73,8 +72,8 @@
                 android:layout_alignParentEnd="true"
 
 
-                android:text="Status"
-                android:textSize="20dp" />
+                android:text="@string/status"
+                android:textSize="20sp" />
 
 
 
