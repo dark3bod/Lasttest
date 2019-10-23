@@ -3,6 +3,8 @@ package com.sultan.lasttest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -27,9 +29,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,6 +65,8 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
 
     Spinner spinner1;
+    ArrayList<Course>courseName;
+    String studentid;
 
 
 
@@ -68,7 +75,6 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
 
 
-        courses = (List<Course>)getIntent().getSerializableExtra("g");
         student = (Student)getIntent().getSerializableExtra("s") ;
 
           txtstudet=(TextView)findViewById(R.id.student_id);
@@ -79,12 +85,12 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
         setContentView(R.layout.send_appointment_act);
 
 
-        ArrayList<CharSequence> g = new ArrayList<>();
+       /* ArrayList<CharSequence> g = new ArrayList<>();
         int i = 0;
         for (Course c: courses
         ) {
             g.add(c.courseName);
-        }
+        }*/
     db = FirebaseFirestore.getInstance();
         DocumentReference docRef;
      /*   i = 0 ;
@@ -113,68 +119,100 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
             });
         }*/
 
-        spinner1 = findViewById(R.id.spnCourses);
-        ArrayAdapter<CharSequence> adaptSpin = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, g);
-        spinner1.setAdapter(adaptSpin);
-        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, final View view,  int position, long id) {
-                pos = position;
-
-                db.collection("teacher").document(courses.get(position).teacherUID).get()
-                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                DocumentSnapshot d = task.getResult();
-                            t = new Teacher();
-
-                            t = d.toObject(Teacher.class);
-                             teachername = findViewById(R.id.txtTeachername);
-                             teachername.setText(t.name + " "+t.lastName);
-
-                                String timeAvailable ,sun1, mon2 , tues3 , wed4,thus5;
-                                if(t.timeAvailable.get(0)!= -1)
-                                    sun1= "الاحد: "+ t.timeAvailable.get(0)+" الى "+t.timeAvailable.get(1);
-                                else
-                                    sun1="الاحد:غير متاح";
-                                if(t.timeAvailable.get(2)!= -1)
-                                    mon2= "الاثنين: "+ t.timeAvailable.get(2)+" الى "+t.timeAvailable.get(3);
-                                else
-                                    mon2="الاثنين:غير متاح";
-                                if(t.timeAvailable.get(4)!= -1)
-                                    tues3= "الثلاثاء: "+ t.timeAvailable.get(4)+" الى "+t.timeAvailable.get(5);
-                                else
-                                    tues3="الثلاثاء:غير متاح";
-                                if(t.timeAvailable.get(6)!= -1)
-                                    wed4= "الاربعاء: "+ t.timeAvailable.get(6)+" الى "+t.timeAvailable.get(7);
-                                else
-                                    wed4="الاربعاء:غير متاح";
-                                if(t.timeAvailable.get(8)!= -1)
-                                    thus5= "الخميس: "+ t.timeAvailable.get(8)+" الى "+t.timeAvailable.get(9);
-                                else
-                                    thus5="الخميس:غير متاح";
+        courseName= new ArrayList<>();
+        CollectionReference courseref = db.collection("course");
 
 
+        courseref.whereArrayContains("studentUID",student.StudentID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
 
-                                timeAvailable =sun1 + "\n" + mon2 +"\n"+tues3+"\n"+wed4+"\n"+thus5+"\n";
-                                TextView t1 = (TextView) findViewById(R.id.checktimetxt);
-                                t1.setText(timeAvailable);
-
-
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Course course = new Course();
+                                course = document.toObject(Course.class);
+                                courseName.add(course);
 
 
                             }
-                        });
+                            spinner1 = findViewById(R.id.spnCourses);
+                            ArrayList<CharSequence> g = new ArrayList<>();
+                            int i = 0;
+                            for (Course c: courseName) {
+                                g.add(c.courseName);
+                            }
+                            ArrayAdapter<CharSequence> adaptSpin = new ArrayAdapter<>(sendRequestAct.this, android.R.layout.simple_spinner_item, g);
+                            spinner1.setAdapter(adaptSpin);
+                            spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, final View view,  int position, long id) {
+                                    pos = position;
+
+                                    db.collection("teacher").document(courseName.get(position).teacherUID).get()
+                                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    DocumentSnapshot d = task.getResult();
+                                                    t = new Teacher();
+
+                                                    t = d.toObject(Teacher.class);
+                                                    teachername = findViewById(R.id.txtTeachername);
+                                                    teachername.setText(t.name + " "+t.lastName);
+
+                                                    String timeAvailable ,sun1, mon2 , tues3 , wed4,thus5;
+                                                    if(t.timeAvailable.get(0)!= -1)
+                                                        sun1= "الاحد: "+ t.timeAvailable.get(0)+" الى "+t.timeAvailable.get(1);
+                                                    else
+                                                        sun1="الاحد:غير متاح";
+                                                    if(t.timeAvailable.get(2)!= -1)
+                                                        mon2= "الاثنين: "+ t.timeAvailable.get(2)+" الى "+t.timeAvailable.get(3);
+                                                    else
+                                                        mon2="الاثنين:غير متاح";
+                                                    if(t.timeAvailable.get(4)!= -1)
+                                                        tues3= "الثلاثاء: "+ t.timeAvailable.get(4)+" الى "+t.timeAvailable.get(5);
+                                                    else
+                                                        tues3="الثلاثاء:غير متاح";
+                                                    if(t.timeAvailable.get(6)!= -1)
+                                                        wed4= "الاربعاء: "+ t.timeAvailable.get(6)+" الى "+t.timeAvailable.get(7);
+                                                    else
+                                                        wed4="الاربعاء:غير متاح";
+                                                    if(t.timeAvailable.get(8)!= -1)
+                                                        thus5= "الخميس: "+ t.timeAvailable.get(8)+" الى "+t.timeAvailable.get(9);
+                                                    else
+                                                        thus5="الخميس:غير متاح";
 
 
-                Toast.makeText(parent.getContext(),parent.getSelectedItem().toString(),Toast.LENGTH_LONG).show();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                                                    timeAvailable =sun1 + "\n" + mon2 +"\n"+tues3+"\n"+wed4+"\n"+thus5+"\n";
+                                                    TextView t1 = (TextView) findViewById(R.id.checktimetxt);
+                                                    t1.setText(timeAvailable);
 
-            }
-        });
+
+
+
+                                                }
+                                            });
+
+
+                                    Toast.makeText(parent.getContext(),parent.getSelectedItem().toString(),Toast.LENGTH_LONG).show();
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+
+                });
+
         dateText = findViewById(R.id.txtselectdate);
 
         dateText.setOnClickListener(new View.OnClickListener() {
@@ -300,7 +338,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
     public String createUniqueReqId(){
         Random random = new Random();
         @SuppressLint("DefaultLocale") String idR = String.format("%04d", random.nextInt(10000));
-        return student.StudentID+courses.get(pos).courseID+idR;
+        return student.StudentID+courseName.get(pos).courseID+idR;
     }
 public void checkRequest(final View view){
 
@@ -311,10 +349,10 @@ public void checkRequest(final View view){
              if(timeLeget&&dateLeget){
 
                     Map<String, Object> docData = new HashMap<>();
-                    docData.put("CourseID", courses.get(pos).courseID);
+                    docData.put("CourseID", courseName.get(pos).courseID);
                     docData.put("Date",date);
                     docData.put("StudentID",student.StudentID);
-                    docData.put("TeacherID",courses.get(pos).teacherUID);
+                    docData.put("TeacherID",courseName.get(pos).teacherUID);
 
                     // we need unique req id for each student
                     docData.put("reqID",createUniqueReqId());

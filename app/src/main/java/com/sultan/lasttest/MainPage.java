@@ -118,7 +118,7 @@ public class MainPage extends AppCompatActivity
                 });
             }
         }
-        ArrayList<Teacher> teachers = new ArrayList<>();
+
 
 
 
@@ -229,7 +229,7 @@ public class MainPage extends AppCompatActivity
                         }
                     }
                 });
-        courseName= new ArrayList<>();
+/*        courseName= new ArrayList<>();
         CollectionReference courseref = db.collection("course");
 
 
@@ -254,7 +254,7 @@ public class MainPage extends AppCompatActivity
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
-                });
+                });*/
       courses2 = new ArrayList<>();
 
        db.collection("course").get()
@@ -280,7 +280,7 @@ public class MainPage extends AppCompatActivity
 
     }
 
-    @Override
+ /*   @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -288,7 +288,7 @@ public class MainPage extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -357,9 +357,10 @@ public class MainPage extends AppCompatActivity
     public void openSendAct(View v){
         //Open Send request page
 
+
+
         Intent intent = new Intent(MainPage.this,sendRequestAct.class);
         intent.putExtra("s",student);
-        intent.putExtra("g",courses);
         startActivity(intent);
 
 
@@ -368,7 +369,7 @@ public class MainPage extends AppCompatActivity
     public void openCoursesAct(View v){
 
                 Intent intent = new Intent(getApplicationContext(),Courses.class);
-                intent.putExtra("c",courses);
+                intent.putExtra("studentid", student.StudentID);
 
                 intent.putExtra("f",courses2);
 

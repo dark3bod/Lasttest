@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:layoutDirection="ltr"
-tools:context=".actReceivedRequest">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr"
+    tools:context=".actReceivedRequest">
 <LinearLayout
 
     android:layout_width="match_parent"
@@ -51,7 +50,7 @@ tools:context=".actReceivedRequest">
 
 
             android:text="@string/studentID"
-            android:textSize="20dp"
+            android:textSize="20sp"
             />
 
         <TextView
@@ -62,7 +61,7 @@ tools:context=".actReceivedRequest">
 
             android:layout_centerHorizontal="true"
             android:text="@string/date"
-            android:textSize="20dp" />
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/textView3"
@@ -73,7 +72,7 @@ tools:context=".actReceivedRequest">
 
 
             android:text="@string/status"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
 
 

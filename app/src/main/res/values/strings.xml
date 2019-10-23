@@ -19,7 +19,7 @@
     <string name="date">التاريخ</string>
     <string name="CourseName">اسم المقرر:  </string>
     <string name="status">الحاله</string>
-    <string name="btn_reset_password">هل نسيت كلمة المرور</string>
+    <string name="btn_reset_password">ارسال </string>
     <string name="yourCourses">مقرراتك</string>
     <string name="addnewCourse">اضافة المقرر جديد</string>
     <string name="add">اضافة</string>
@@ -81,6 +81,8 @@
     <string name="addtheCourse">اضافة المقرر</string>
     <string name="areYou">هل انت</string>
     <string name="firstName">الاسم الأول</string>
+    <string name="notavailable">**اذا كنت غير متاح في يوم معين الرجاء وضع اليوم 1-</string>
+
     <string name="lastName">الأسم الأخير</string>
     <string name="email">الايميل</string>
     <string name="password1">الرقم السري</string>

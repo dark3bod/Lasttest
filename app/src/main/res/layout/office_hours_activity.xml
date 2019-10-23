@@ -5,6 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".officeHoursAct"
+    android:layoutDirection="rtl"
+
+
     android:background="#f2f2f2"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <LinearLayout
@@ -61,6 +64,9 @@
                 android:textSize="20sp" />
 
             <EditText
+
+                android:textAlignment="center"
+                android:textDirection="ltr"
                 android:id="@+id/txtofficehours0"
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
@@ -81,6 +87,8 @@
                 android:text="@string/to" />
 
             <EditText
+                android:textAlignment="center"
+                android:textDirection="ltr"
                 android:id="@+id/txtofficehours1"
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
@@ -110,6 +118,8 @@
                 />
 
             <EditText
+                android:textAlignment="center"
+                android:textDirection="ltr"
                 android:id="@+id/txtofficehours2"
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
@@ -130,6 +140,8 @@
                 android:text="@string/to" />
 
             <EditText
+                android:textAlignment="center"
+                android:textDirection="ltr"
                 android:id="@+id/txtofficehours3"
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
@@ -159,6 +171,8 @@
                 />
 
             <EditText
+                android:textAlignment="center"
+                android:textDirection="ltr"
                 android:id="@+id/txtofficehours4"
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
@@ -179,6 +193,8 @@
                 android:text="@string/to" />
 
             <EditText
+                android:textAlignment="center"
+                android:textDirection="ltr"
                 android:id="@+id/txtofficehours5"
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
@@ -207,6 +223,8 @@
                 android:textSize="20sp" />
 
             <EditText
+                android:textAlignment="center"
+                android:textDirection="ltr"
                 android:id="@+id/txtofficehours6"
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
@@ -228,6 +246,8 @@
                 android:text="@string/to" />
 
             <EditText
+                android:textAlignment="center"
+                android:textDirection="ltr"
                 android:id="@+id/txtofficehours7"
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
@@ -256,6 +276,8 @@
                 />
 
             <EditText
+                android:textAlignment="center"
+                android:textDirection="ltr"
                 android:id="@+id/txtofficehours8"
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
@@ -276,6 +298,8 @@
                 android:text="@string/to" />
 
             <EditText
+                android:textAlignment="center"
+                android:textDirection="ltr"
                 android:id="@+id/txtofficehours9"
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
@@ -306,15 +330,17 @@
                 android:textSize="20sp" />
 
             <EditText
+                android:textAlignment="center"
                 android:id="@+id/txtbuildingNo"
                 android:layout_width="33dp"
                 android:layout_height="42dp"
                 android:layout_marginStart="25dp"
                 android:layout_toEndOf="@+id/txttiiig"
-
                 android:ems="10"
+
                 android:inputType="textPersonName"
-                android:text="6" />
+                android:text="6"
+                android:textDirection="ltr" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -330,6 +356,8 @@
                 android:textSize="20sp" />
 
             <EditText
+                android:textAlignment="center"
+                android:textDirection="ltr"
                 android:id="@+id/txtFloorNo"
                 android:layout_width="33dp"
                 android:layout_height="42dp"
@@ -354,6 +382,8 @@
                 />
 
             <EditText
+                android:textAlignment="center"
+                android:textDirection="ltr"
                 android:id="@+id/txtOfficeNo"
                 android:layout_width="33dp"
                 android:layout_marginStart="20dp"
@@ -363,6 +393,16 @@
                 android:inputType="textPersonName"
                 android:text="6"
               />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/notavailable"/>
         </RelativeLayout>
 
 
