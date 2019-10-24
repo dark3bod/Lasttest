@@ -30,7 +30,7 @@
                     android:layout_width="162dp"
                     android:layout_height="49dp"
                     android:layout_margin="50dp"
-                    android:text="@string/chooseCourse"
+                    android:text="@string/reserveAppointment"
                     android:textColor="@color/colortext"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -107,20 +107,39 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp">
+
+            <Spinner
+                android:id="@+id/spnReaason"
+                android:layout_width="190dp"
+                android:layout_height="60dp"
+                android:background="#d1d1e0"
+                android:text="@string/chooseTime"
+                android:layout_centerHorizontal="true"
+
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:gravity="center">
             <EditText
-                android:id="@+id/txtproblem"
-                android:layout_width="297dp"
-                android:layout_height="86dp"
-                android:layout_margin="25dp"
+            android:id="@+id/txtproblem"
+            android:layout_width="297dp"
+            android:layout_height="86dp"
+            android:layout_margin="25dp"
+                android:visibility="invisible"
 
-                android:ems="10"
-                android:hint="@string/writeReason"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                />
+            android:ems="10"
+            android:hint="@string/writeٌReason1"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -53,18 +53,20 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
     int pos ,dayOfWeek ;
     Button s  ;
     public boolean dateLeget ,timeLeget ;
+    List<String> reasonArray= new ArrayList<String>();
     //List<Teacher> teachers = new ArrayList<>();
+
     List<Course> courses;
    TextView txtstudet , teachername ;
    EditText txtproblem;
    public Teacher t;
     request r;
     FirebaseFirestore db ;
-    public String date ,time;
+    public String date ,time , reason;
     Student student;
 
 
-    Spinner spinner1;
+    Spinner spinner1 ;
     ArrayList<Course>courseName;
     String studentid;
 
@@ -82,6 +84,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
         super.onCreate(savedInstanceState);
         s =(Button)findViewById(R.id.btnSend);
+
         setContentView(R.layout.send_appointment_act);
 
 
@@ -91,8 +94,42 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
         ) {
             g.add(c.courseName);
         }*/
-    db = FirebaseFirestore.getInstance();
+       db = FirebaseFirestore.getInstance();
         DocumentReference docRef;
+        reasonArray.add(" ");
+        reasonArray.add("مشكلة اجتماعية");
+        reasonArray.add("بخصوص الاختبار");
+        reasonArray.add("بخصوص الدرجات");
+        reasonArray.add("مناقشة عامه");
+        reasonArray.add("اخرى");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item,  reasonArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        final Spinner reasonSpinner = (Spinner) findViewById(R.id.spnReaason);
+        reasonSpinner.setAdapter(adapter);
+        reasonSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+               String select = reasonSpinner.getSelectedItem().toString();
+               txtproblem=(EditText) findViewById(R.id.txtproblem);
+                if(select.equals("اخرى")){
+                   txtproblem.setVisibility(View.VISIBLE);
+               }else{
+                   txtproblem.setVisibility(View.GONE);
+                   reason = select;
+               }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+
      /*   i = 0 ;
 
         for( i = 0;i<courses.size();i++) {
@@ -288,6 +325,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
 
 
+
     }
 
     public void showDatePickerDialog(){
@@ -343,8 +381,12 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 public void checkRequest(final View view){
 
 
+        if(txtproblem.getVisibility()==View.VISIBLE){
+            reason = txtproblem.getText().toString();
+        }
 
-    txtproblem=(EditText) findViewById(R.id.txtproblem);
+
+
 
              if(timeLeget&&dateLeget){
 
@@ -358,7 +400,7 @@ public void checkRequest(final View view){
                     docData.put("reqID",createUniqueReqId());
                     docData.put("status","0");
                     docData.put("Time",time);
-                    docData.put("problem",txtproblem.getText().toString());
+                    docData.put("problem",reason);
 
                     String id = db.collection("requests").document().getId();
                     //r = new request(txtstudet.toString(),courses.get(pos).teacherUID,timeText.toString(),"0",courses.get(pos).courseID,"2223",dateText.toString());

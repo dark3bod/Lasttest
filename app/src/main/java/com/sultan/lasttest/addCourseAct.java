@@ -33,7 +33,7 @@ public class addCourseAct extends AppCompatActivity  {
    TextView txtsearchable ;
 
 
-    Button btn , btntable;
+    Button btn ;
     Teacher teacher;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth auth = FirebaseAuth.getInstance();

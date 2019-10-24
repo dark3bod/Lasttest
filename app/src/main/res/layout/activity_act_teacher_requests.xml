@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
-    tools:context=".actReceivedRequest">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    tools:context=".ActTeacherRequests">
 <LinearLayout
 
     android:layout_width="match_parent"
@@ -14,8 +16,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar2"
+        <Toolbar
+            android:id="@+id/toolbar22"
 
             android:layout_width="match_parent"
             android:layout_height="90dp"
