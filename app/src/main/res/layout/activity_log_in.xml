@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/activity_log_in_layout"
-    tools:context=".LogIn"
+    tools:context=".main.LogIn"
     android:layoutDirection="rtl">
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -52,15 +52,16 @@
             android:id="@+id/userName"
             style="@android:style/Widget.AutoCompleteTextView"
             android:layout_width="match_parent"
+            android:textDirection="ltr"
             android:layout_height="wrap_content"
             android:layout_marginTop="214dp"
             android:layout_marginBottom="19dp"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
             android:autofillHints=""
-            android:ems="10"
+
             android:hint="@string/email"
-            android:inputType="textEmailAddress"
+            android:inputType="textWebEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/pass"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,7 +73,6 @@
                 android:layout_marginTop="64dp"
                 android:layout_marginEnd="270dp"
                 android:layout_marginBottom="8dp"
-                android:contentDescription="TODO"
                 app:layout_constraintBottom_toTopOf="@+id/userName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -128,6 +128,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <Button
+            android:id="@+id/openAddCourseActAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="open add course act"
+            android:onClick="openAddCourseActAdmin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

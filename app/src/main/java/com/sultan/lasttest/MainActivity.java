@@ -2,34 +2,52 @@ package com.sultan.lasttest;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.sultan.lasttest.database.Student;
+import com.sultan.lasttest.database.Teacher;
+import com.sultan.lasttest.database.department;
+import com.sultan.lasttest.main.LogIn;
+import com.sultan.lasttest.student.MainPage;
+import com.sultan.lasttest.teacher.MainPageTeacher;
+
+import java.util.ArrayList;
+
+import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity {
 
     FirebaseUser user;
     public Student student;
     public Teacher teacher;
+    String deptid;
+    ArrayList<department> departments;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         user = FirebaseAuth.getInstance().getCurrentUser();
         checkCurrentUser(user);
+
     }
     private void checkCurrentUser(FirebaseUser user) {
         // [START check_current_user]
@@ -50,11 +68,27 @@ public class MainActivity extends AppCompatActivity {
                         if (document.exists()) {
                             student = document.toObject(Student.class);
                             Toast.makeText(getApplicationContext(),student.StudentID, Toast.LENGTH_SHORT).show();
-                            ///goto student main page
+
                             Intent intent = new Intent(getApplicationContext(), MainPage.class);
                             intent.putExtra("student",student);
-                            startActivity(intent);
+
+                            showRegisterDialog(student.deptID,"student" , FirebaseAuth.getInstance().getCurrentUser().getUid() ,intent);
+
+
+
+
+                            /*startActivity(intent);
                             finish();
+*/
+
+
+
+
+
+
+
+                            ///goto student main page
+
                         }else{
                             FirebaseAuth auth = FirebaseAuth.getInstance();
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -72,8 +106,10 @@ public class MainActivity extends AppCompatActivity {
                                             Toast.makeText(getApplicationContext(),teacher.email, Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(getApplicationContext(), MainPageTeacher.class);
                                             intent.putExtra("teacher",teacher);
-                                            startActivity(intent);
-                                            finish();
+                                            showRegisterDialog(teacher.deptID,"teacher" , FirebaseAuth.getInstance().getCurrentUser().getUid() ,intent);
+
+                                          /*  startActivity(intent);
+                                            finish();*/
                                         }
                                     } else {
                                         ///task is not succsesful
@@ -114,6 +150,97 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         // [END check_current_user]
+    }
+    private void showRegisterDialog( String dep , final String collectionName , final String UID ,final Intent intent ) {
+
+
+        if(dep.equals("0")) {
+            departments = new ArrayList<>();
+
+            db.collection("department").get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (DocumentSnapshot d : task.getResult()) {
+                                    departments.add(d.toObject(department.class));
+                                }
+
+                                ArrayList<String> deptName = new ArrayList<>();
+                                androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(MainActivity.this);
+                                builder.setTitle("...");
+                                builder.setMessage("الرجاء تعبيه المعلومات");
+                                View itemView = LayoutInflater.from(MainActivity.this).inflate(R.layout.choose_department_view, null);
+                                Spinner spn = (Spinner) itemView.findViewById(R.id.spnDepartment);
+
+                                for (department d : departments) {
+                                    deptName.add(d.dptName);
+                                }
+
+                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item, deptName);
+                                spn.setAdapter(arrayAdapter);
+                                spn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        String temp = adapterView.getSelectedItem().toString();
+
+                                        for (int i1 = 0; i1 < departments.size(); i1++) {
+                                            if (departments.get(i1).dptName.equals(temp)) {
+                                                deptid = departments.get(i1).dptID;
+                                            }
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                    }
+                                });
+                                // dialog.setView(itemView);
+                                builder.setNegativeButton("cancel ", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+
+                                    }
+                                });
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        db.collection(collectionName).document(UID).update("deptID", deptid)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Toasty.success(getApplicationContext(), "تم اختيار القسم الخاص فيك بنجاح").show();
+                                                            startActivity(intent);
+                                                            finish();
+                                                        } else {
+                                                            Toasty.error(getApplicationContext(), "الرجاء المحاولة في وقت لاحق").show();
+                                                        }
+
+                                                    }
+                                                });
+                                    }
+                                });
+                                builder.setView(itemView);
+
+                                androidx.appcompat.app.AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                        }
+                    });
+
+        }else
+        {
+            startActivity(intent);
+            finish();
+
+        }
+
+
     }
 
 

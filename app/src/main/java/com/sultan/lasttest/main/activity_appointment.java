@@ -1,4 +1,4 @@
-package com.sultan.lasttest;
+package com.sultan.lasttest.main;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,8 @@ import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.widget.CalendarView;
 import android.widget.TextView;
+
+import com.sultan.lasttest.R;
 
 import java.util.Calendar;
 import java.util.Date;

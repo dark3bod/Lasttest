@@ -7,7 +7,7 @@
     android:layoutDirection="ltr"
 
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainPageTeacher"
+    tools:context=".teacher.MainPageTeacher"
     tools:showIn="@layout/app_bar_main_page_teacher">
     ><androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalCenterGuideline"

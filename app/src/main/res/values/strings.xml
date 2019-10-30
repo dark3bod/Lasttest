@@ -21,13 +21,21 @@
     <string name="status">الحاله</string>
     <string name="btn_reset_password">ارسال </string>
     <string name="yourCourses">مقرراتك</string>
-    <string name="addnewCourse">اضافة المقرر جديد</string>
+    <string name="addnewCourse">اضافة مقرر جديد</string>
     <string name="add">اضافة</string>
-    <string name="techerName">اسم الدكتور: </string>
-    <string name="techerID">معرف الدكتور: </string>
+    <string name="info">المعلومات الشخصية</string>
+    <string name="name">الاسم:</string>
+    <string name="studentid">الرقم الجامعي:</string>
+    <string name="depatment">القسم</string>
+    <string name="depatment1">القسم:</string>
+    <string name="techerName">اسم عضو هيئة التدريس: </string>
+    <string name="techerID">معرف عضو هيئة التدريس: </string>
     <string name="courseCode">رمز المقرر: </string>
     <string name="secion">الشعبه: </string>
     <string name="btn_back">رجوع</string>
+    <string name="chooseDeprtment">الرجاء اختيار القسم الخاص فيك</string>
+
+    <string name="chooseSection">اختر الشعبة</string>
 
     <string name="hint_email">ادخل ايميلك</string>
     <string name="lbl_forgot_password">نسيت الرمز؟</string>
@@ -88,18 +96,10 @@
     <string name="writeٌReason1">الرجاء كتابة السبب هنا</string>
     <string name="lastName">الأسم الأخير</string>
     <string name="email">الايميل</string>
+    <string name="email1">الايميل:</string>
     <string name="password1">الرقم السري</string>
     <string name="signUp">تسجيل جديد</string>
     <string name="sing">تسجيل</string>
-
-
-
-
-
-
-
-
-
 
 
 </resources>

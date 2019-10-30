@@ -1,4 +1,4 @@
-package com.sultan.lasttest;
+package com.sultan.lasttest.main;
 
 import android.os.Bundle;
 
@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.sultan.lasttest.R;
 
 public class ResetPasswordActivity extends AppCompatActivity {
 
@@ -48,7 +49,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 String email = inputEmail.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), "الرجاء ادخال الايميل", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -58,9 +59,9 @@ public class ResetPasswordActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(ResetPasswordActivity.this, "We have sent you instructions to your Email!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ResetPasswordActivity.this, "الرجاء فتح الرابط على الايميل لاستعادة كلمة المرور", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(ResetPasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ResetPasswordActivity.this, "فشل استعادة كلمة المرور", Toast.LENGTH_SHORT).show();
                                 }
 
                                 progressBar.setVisibility(View.GONE);

@@ -1,35 +1,31 @@
-package com.sultan.lasttest;
+package com.sultan.lasttest.teacher;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.view.GravityCompat;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import androidx.drawerlayout.widget.DrawerLayout;
+import com.sultan.lasttest.main.LogIn;
+import com.sultan.lasttest.R;
+import com.sultan.lasttest.database.Teacher;
+import com.sultan.lasttest.database.Course;
+import com.sultan.lasttest.database.request;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -40,6 +36,8 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+
+import es.dmoral.toasty.Toasty;
 
 
 public class MainPageTeacher extends AppCompatActivity
@@ -78,9 +76,31 @@ public class MainPageTeacher extends AppCompatActivity
         txtEmail.setText(teacher.email);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef;
-        i = 0;
-        for( i = 0;i<teacher.course.size();i++) {
+
+       /* i = 0;
+        for( i = 0;i<teacher.section.size();i++) {
+            db.collection("course").whereArrayContains("sections", teacher.section.get(i))
+                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+
+                        for (QueryDocumentSnapshot q : task.getResult()){
+                            courses.add(q.toObject(Course.class));
+                            Toasty.success(getApplicationContext(),courses.get(0).courseName).show();
+
+                        }
+
+                    }
+
+                }
+            });
+        }*/
+
+/*        for( i = 0;i<teacher.course.size();i++) {
+
             docRef = db.collection("course").document(teacher.course.get(i));
+
             docRef.get().addOnCompleteListener(MainPageTeacher.this, new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -89,6 +109,7 @@ public class MainPageTeacher extends AppCompatActivity
                         if (document.exists()) {
                             System.out.println(document.get("courseCode").toString()+" "+ document.get("courseName").toString()+" "+document.get("teacherUID").toString()+" "+document.get("studentUID").toString());
                             courses.add(document.toObject(Course.class));
+
                         } else {
                             ///document doesnt exist
                             Log.d(TAG, "No such Course");
@@ -102,7 +123,7 @@ public class MainPageTeacher extends AppCompatActivity
                 }
 
             });
-        }
+        }*/
         //System.out.println(courses.get(0).courseName);
         //course1.setText(courses.get(0).courseCode);
         //course2.setText(courses.get(1).courseCode);
@@ -158,7 +179,7 @@ public class MainPageTeacher extends AppCompatActivity
 
                                     if (s.after(new Date()) && status.equals("1")){
 
-                                        String x ="dd/MM/yyyy";
+                                        String x ="EEE yyyy/MM/dd";
                                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(x);
                                         String date = simpleDateFormat.format(s);
                                         txtdate.setText("التاريخ: " +date + "      " + "الوقت: "+document.get("Time").toString()+"\n"+"رقم الطالب: "+document.get("StudentID").toString());
@@ -287,7 +308,7 @@ public class MainPageTeacher extends AppCompatActivity
 
 
         //open requests activity with sending the requests that cames from database
-            Intent intent = new Intent(MainPageTeacher.this,actReceivedRequest.class);
+            Intent intent = new Intent(MainPageTeacher.this, actReceivedRequest.class);
             intent.putExtra("r",c);
             startActivity(intent);
             c =new ArrayList<>();
@@ -303,7 +324,7 @@ public class MainPageTeacher extends AppCompatActivity
 
 
         //open requests activity with sending the requests that cames from database
-        Intent intent = new Intent(MainPageTeacher.this,ActTeacherRequests.class);
+        Intent intent = new Intent(MainPageTeacher.this, ActTeacherRequests.class);
         intent.putExtra("r",requests);
         startActivity(intent);
 
@@ -313,13 +334,13 @@ public class MainPageTeacher extends AppCompatActivity
 
     }
     public void openOfficehoursAct(View view){
-        Intent intent = new Intent(getApplicationContext(),officeHoursAct.class);
+        Intent intent = new Intent(getApplicationContext(), officeHoursAct.class);
         startActivity(intent);
     }
     public void openManageCoursesAct(View view){
         Intent intent = new Intent(MainPageTeacher.this , manageCourses.class);
-        intent.putExtra("c",courses);
         startActivity(intent);
+
     }
 
 

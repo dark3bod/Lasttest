@@ -1,23 +1,22 @@
-package com.sultan.lasttest;
+package com.sultan.lasttest.database;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Teacher implements Serializable {
     public String email;
     public String name;
     public String lastName;
-    String  floor;
-    String building;
-    String officeNO;
-    String password;
+    public String  floor;
+    public String building;
+    public String officeNO;
+    public String password , deptID;
     public List<String> course;
     public List<Integer> timeAvailable;
 
-    public Teacher(String email, String name, String lastName, String floor, String building, String officeNO, String password, List<String> course, List<Integer> timeAvailable) {
+   // public List<String> section;
+
+    public Teacher(String email, String name, String lastName, String floor, String building, String officeNO, String password, List<String> course, List<Integer> timeAvailable , String deptID) {
         this.email = email;
         this.name = name;
         this.lastName = lastName;
@@ -27,15 +26,9 @@ public class Teacher implements Serializable {
         this.password = password;
         this.course = course;
         this.timeAvailable = timeAvailable;
+        this.deptID = deptID;
+
     }
-
-
-
-
-
-
-
-
 
     public Teacher() {
     }
@@ -49,15 +42,6 @@ public class Teacher implements Serializable {
         this.timeAvailable = timeAvailable;
     }
 
-    public Teacher(String email, String name, String lastName, List<String> course, List<Integer> timeAvailable) {
-        this.email = email;
-        this.name = name;
-        this.lastName = lastName;
-        this.course = course;
-        this.timeAvailable = timeAvailable;
-
-
-    }
 
     public void Teacher(Teacher teacher){
         this.email=teacher.email;
@@ -65,7 +49,6 @@ public class Teacher implements Serializable {
         this.lastName=teacher.lastName;
         this.course= teacher.course;
         this.timeAvailable = teacher.timeAvailable;
-
 
     }
 

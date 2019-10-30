@@ -1,29 +1,17 @@
-package com.sultan.lasttest;
+package com.sultan.lasttest.teacher;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.sultan.lasttest.R;
+import com.sultan.lasttest.database.Course;
 
 import java.util.List;
-
-import es.dmoral.toasty.Toasty;
 
 public class teacher_courses_adapter extends RecyclerView.Adapter<teacher_courses_adapter.MyViewHolder> {
     private List<Course> mDataset;
@@ -77,15 +65,15 @@ public class teacher_courses_adapter extends RecyclerView.Adapter<teacher_course
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        final String teacher= mDataset.get(position).teacherUID;
-        final String courseid = mDataset.get(position).courseID;
+        //final String teacher= mDataset.get(position).teacherUID;
+      //  final String courseid = mDataset.get(position).courseID;
 
 
 
         holder.corseinfo.setText("Course: "+mDataset.get(position).courseName+ "\n"+"Section: "+ mDataset.get(position).courseID +"\n");
         holder.coursename.setText(mDataset.get(position).courseCode);
         //holder.textView.setText(mDataset.get(position).courseName);
-        holder.delete.setOnClickListener(new View.OnClickListener() {
+        /*holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
 
@@ -189,7 +177,7 @@ public class teacher_courses_adapter extends RecyclerView.Adapter<teacher_course
             public void onClick(View view) {
 
             }
-        });
+        });*/
 
 
 

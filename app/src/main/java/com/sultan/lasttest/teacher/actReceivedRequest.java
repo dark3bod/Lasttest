@@ -1,4 +1,4 @@
-package com.sultan.lasttest;
+package com.sultan.lasttest.teacher;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -14,14 +13,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.sultan.lasttest.R;
+import com.sultan.lasttest.database.request;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import es.dmoral.toasty.Toasty;
-
 public class actReceivedRequest extends AppCompatActivity {
+
     String teacherid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     List<request> myDataset = new ArrayList<>();
@@ -29,8 +29,9 @@ public class actReceivedRequest extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // activity requests for teacher
         setContentView(R.layout.activity_act_received_request);
-        Toasty.success(getApplicationContext(),teacherid).show();
+        //Toasty.success(getApplicationContext(),teacherid).show();
         db.collection("request").whereEqualTo("TeacherID",teacherid)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

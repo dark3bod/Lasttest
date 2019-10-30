@@ -13,20 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-
-        <activity android:name=".add_new_course" />
-        <activity android:name=".manageCourses" />
-        <activity android:name=".sign_up" />
-        <activity android:name=".ActTeacherRequests" />
-        <activity android:name=".addCourseAct" />
-        <activity android:name=".Actrequests" />
-        <activity android:name=".officeHoursAct" />
-        <activity android:name=".actReceivedRequest" />
-        <activity android:name=".sendRequestAct" />
-        <activity android:name=".activity_appointment" />
-        <activity android:name=".Courses" />
+        <activity android:name=".student.studentInfo"></activity>
+        <activity android:name=".admin.add_new_course_admin" />
+        <activity android:name=".teacher.add_new_section_for_teacher" />
+        <activity android:name=".teacher.manageCourses" />
+        <activity android:name=".main.sign_up" />
+        <activity android:name=".teacher.ActTeacherRequests" />
+        <activity android:name=".student.addCourseAct" />
+        <activity android:name=".student.Actrequests" />
+        <activity android:name=".teacher.officeHoursAct" />
+        <activity android:name=".teacher.actReceivedRequest" />
+        <activity android:name=".student.sendRequestAct" />
+        <activity android:name=".main.activity_appointment" />
+        <activity android:name=".student.Courses" />
         <activity
-            android:name=".MainPageTeacher"
+            android:name=".teacher.MainPageTeacher"
             android:label="@string/title_activity_main_page_teacher"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -35,7 +36,7 @@
                 android:value="com.sultan.lasttest.MainActivity" />
         </activity>
         <activity
-            android:name=".MainPage"
+            android:name=".student.MainPage"
             android:label="@string/title_activity_main_page"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -43,16 +44,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sultan.lasttest.MainActivity" />
         </activity>
-        <activity android:name=".ResetPasswordActivity" />
-        <activity android:name=".LogIn" />
-    <!--    <activity
+        <activity android:name=".main.ResetPasswordActivity" />
+        <activity android:name=".main.LogIn" />
+        <!--
+    <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sultan.lasttest.MainActivity" />
-        </activity>-->
+        </activity>
+        -->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

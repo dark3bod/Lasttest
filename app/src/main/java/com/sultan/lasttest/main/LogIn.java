@@ -1,23 +1,34 @@
-package com.sultan.lasttest;
+package com.sultan.lasttest.main;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.Spinner;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.sultan.lasttest.MainActivity;
+import com.sultan.lasttest.R;
+import com.sultan.lasttest.admin.add_new_course_admin;
+import com.sultan.lasttest.database.department;
+import com.sultan.lasttest.student.studentInfo;
+
+import java.util.ArrayList;
 
 import es.dmoral.toasty.Toasty;
 
@@ -26,13 +37,17 @@ public class LogIn extends AppCompatActivity {
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private ProgressBar progressBar;
-    private Button  btnLogin, btnResetPassword;
+    private Button x;
+    String deptid;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
 
+        x=(Button)findViewById(R.id.openAddCourseActAdmin);
         final View vi = findViewById(R.id.activity_main_id);
 
     ///c
@@ -41,8 +56,8 @@ public class LogIn extends AppCompatActivity {
         inputEmail = (EditText) findViewById(R.id.userName);
         inputPassword = (EditText) findViewById(R.id.pass);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        btnLogin = (Button) findViewById(R.id.login);
-        btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
+        Button btnLogin = (Button) findViewById(R.id.login);
+        Button btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
 
 
 
@@ -115,7 +130,10 @@ public class LogIn extends AppCompatActivity {
 
     }
     public void openSignUpAct(View v){
-        Intent intent = new Intent(LogIn.this,sign_up.class);
-        startActivity(intent);
+       startActivity(new Intent(LogIn.this, sign_up.class));
     }
+    public void openAddCourseActAdmin(View v){
+        startActivity(new Intent(LogIn.this,add_new_course_admin.class));
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.sultan.lasttest;
+package com.sultan.lasttest.student;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -7,32 +7,29 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.util.Log;
 import android.view.View;
 
-import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firestore.v1.Document;
-import com.squareup.okhttp.internal.DiskLruCache;
+import com.sultan.lasttest.main.LogIn;
+import com.sultan.lasttest.R;
+import com.sultan.lasttest.database.Student;
+import com.sultan.lasttest.main.activity_appointment;
+import com.sultan.lasttest.database.Course;
+import com.sultan.lasttest.database.request;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -40,13 +37,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class MainPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -90,23 +85,18 @@ public class MainPage extends AppCompatActivity
 
 
 
+
          DocumentReference docRef;
         int i = 0;
         for( i = 0;i<student.course.size();i++) {
             if(!student.course.get(i).equals("")) {
-                docRef = db.collection("course").document(student.course.get(i));
-                docRef.get().addOnCompleteListener(MainPage.this, new OnCompleteListener<DocumentSnapshot>() {
+               db.collection("course").whereArrayContains("sections",student.course.get(i))
+                       .get().addOnCompleteListener(MainPage.this, new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                System.out.println(document.get("courseCode").toString() + " " + document.get("courseName").toString() + " " + document.get("teacherUID").toString() + " " + document.get("studentUID").toString());
-                                courses.add(document.toObject(Course.class));
-                            } else {
-                                ///document doesnt exist
-                                Log.d(TAG, "No such Course");
-
+                            for(QueryDocumentSnapshot q : task.getResult()){
+                                courses.add(q.toObject(Course.class));
                             }
                         } else {
                             ///task is not succsesful
@@ -257,7 +247,7 @@ public class MainPage extends AppCompatActivity
                 });*/
       courses2 = new ArrayList<>();
 
-       db.collection("course").get()
+       db.collection("course").whereEqualTo("dptID" , student.deptID).get()
                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                    @Override
                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -351,7 +341,7 @@ public class MainPage extends AppCompatActivity
         return true;
     }
     public void opencalnder(View v){
-        Intent intent = new Intent(MainPage.this,activity_appointment.class);
+        Intent intent = new Intent(MainPage.this, activity_appointment.class);
         startActivity(intent);
     }
     public void openSendAct(View v){
@@ -359,7 +349,7 @@ public class MainPage extends AppCompatActivity
 
 
 
-        Intent intent = new Intent(MainPage.this,sendRequestAct.class);
+        Intent intent = new Intent(MainPage.this, sendRequestAct.class);
         intent.putExtra("s",student);
         startActivity(intent);
 
@@ -368,7 +358,7 @@ public class MainPage extends AppCompatActivity
     }
     public void openCoursesAct(View v){
 
-                Intent intent = new Intent(getApplicationContext(),Courses.class);
+                Intent intent = new Intent(getApplicationContext(), Courses.class);
                 intent.putExtra("studentid", student.StudentID);
 
                 intent.putExtra("f",courses2);
@@ -383,7 +373,7 @@ public class MainPage extends AppCompatActivity
         //Open Recent requests page
        /* System.out.println(courseName.size());*/
 
-        Intent intent = new Intent(MainPage.this,Actrequests.class);
+        Intent intent = new Intent(MainPage.this, Actrequests.class);
         intent.putExtra("r",requests);
         intent.putExtra("c",courses);
         startActivity(intent);
@@ -391,6 +381,11 @@ public class MainPage extends AppCompatActivity
         //courseName = new ArrayList<>();
 
 
+    }
+    public void openStudentInfo(View v){
+        Intent intent= new Intent(MainPage.this, studentInfo.class);
+        intent.putExtra("student",student);
+        startActivity(intent);
     }
 
 

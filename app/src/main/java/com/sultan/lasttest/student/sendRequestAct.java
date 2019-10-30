@@ -1,10 +1,7 @@
-package com.sultan.lasttest;
+package com.sultan.lasttest.student;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -13,7 +10,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,12 +25,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.sultan.lasttest.database.Course;
+import com.sultan.lasttest.R;
+import com.sultan.lasttest.database.Student;
+import com.sultan.lasttest.database.Teacher;
+import com.sultan.lasttest.database.request;
+import com.sultan.lasttest.database.section;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,6 +43,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 import es.dmoral.toasty.Toasty;
@@ -55,6 +57,8 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
     public boolean dateLeget ,timeLeget ;
     List<String> reasonArray= new ArrayList<String>();
     //List<Teacher> teachers = new ArrayList<>();
+    ArrayList<section>sectionName;
+    Spinner reasonSpinner;
 
     List<Course> courses;
    TextView txtstudet , teachername ;
@@ -64,7 +68,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
     FirebaseFirestore db ;
     public String date ,time , reason;
     Student student;
-
+    int i ;
 
     Spinner spinner1 ;
     ArrayList<Course>courseName;
@@ -105,12 +109,12 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item,  reasonArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        final Spinner reasonSpinner = (Spinner) findViewById(R.id.spnReaason);
+        reasonSpinner = (Spinner) findViewById(R.id.spnReaason);
         reasonSpinner.setAdapter(adapter);
         reasonSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               String select = reasonSpinner.getSelectedItem().toString();
+               String select = adapterView.getSelectedItem().toString();
                txtproblem=(EditText) findViewById(R.id.txtproblem);
                 if(select.equals("اخرى")){
                    txtproblem.setVisibility(View.VISIBLE);
@@ -156,10 +160,133 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
             });
         }*/
 
-        courseName= new ArrayList<>();
+
+
+        /*db.collection("student").document(studentid).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            student = task.getResult().toObject(Student.class);
+
+                            for(i = 0 ; i < student.section.size();i++){
+                                db.collection("course").whereArrayContains("sections",student.section.get(i))
+                                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if(task.isSuccessful()){
+
+                                            Toasty.success(getApplicationContext(),)
+
+
+
+
+
+
+                                        }
+                                    }
+                                });
+                            }
+
+
+
+
+
+
+
+
+                        }
+                    }
+                });*/
+        sectionName = new ArrayList<>();
+
+        db.collection("section").whereArrayContains("studentUID",student.StudentID)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot q: Objects.requireNonNull(task.getResult())){
+                        sectionName.add(q.toObject(section.class));
+                    }
+                    spinner1 = findViewById(R.id.spnCourses);
+                    ArrayList<CharSequence> g = new ArrayList<>();
+                    int i = 0;
+                    for (section c: sectionName) {
+                        g.add(c.CourseID);
+                    }
+                    ArrayAdapter<CharSequence> adaptSpin = new ArrayAdapter<>(sendRequestAct.this, android.R.layout.simple_spinner_item, g);
+                    spinner1.setAdapter(adaptSpin);
+                    spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, final View view,  int position, long id) {
+                            pos = position;
+
+                            db.collection("teacher").document(sectionName.get(position).teacherUID).get()
+                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @SuppressLint("SetTextI18n")
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            DocumentSnapshot d = task.getResult();
+                                            t = new Teacher();
+
+                                            t = Objects.requireNonNull(d).toObject(Teacher.class);
+                                            teachername = findViewById(R.id.txtTeachername);
+                                            teachername.setText(t.name + " "+t.lastName);
+
+                                            String timeAvailable ,sun1, mon2 , tues3 , wed4,thus5;
+                                            if(t.timeAvailable.get(0)!= -1)
+                                                sun1= "الاحد: "+ t.timeAvailable.get(0)+" الى "+t.timeAvailable.get(1);
+                                            else
+                                                sun1="الاحد:غير متاح";
+                                            if(t.timeAvailable.get(2)!= -1)
+                                                mon2= "الاثنين: "+ t.timeAvailable.get(2)+" الى "+t.timeAvailable.get(3);
+                                            else
+                                                mon2="الاثنين:غير متاح";
+                                            if(t.timeAvailable.get(4)!= -1)
+                                                tues3= "الثلاثاء: "+ t.timeAvailable.get(4)+" الى "+t.timeAvailable.get(5);
+                                            else
+                                                tues3="الثلاثاء:غير متاح";
+                                            if(t.timeAvailable.get(6)!= -1)
+                                                wed4= "الاربعاء: "+ t.timeAvailable.get(6)+" الى "+t.timeAvailable.get(7);
+                                            else
+                                                wed4="الاربعاء:غير متاح";
+                                            if(t.timeAvailable.get(8)!= -1)
+                                                thus5= "الخميس: "+ t.timeAvailable.get(8)+" الى "+t.timeAvailable.get(9);
+                                            else
+                                                thus5="الخميس:غير متاح";
+
+
+
+                                            timeAvailable =sun1 + "\n" + mon2 +"\n"+tues3+"\n"+wed4+"\n"+thus5+"\n";
+                                            TextView t1 = (TextView) findViewById(R.id.checktimetxt);
+                                            t1.setText(timeAvailable);
+
+
+
+
+                                        }
+                                    });
+
+
+                            Toast.makeText(parent.getContext(),parent.getSelectedItem().toString(),Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                }
+                else
+                {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+
+            }
+        });
+
+   /*     courseName= new ArrayList<>();
         CollectionReference courseref = db.collection("course");
-
-
         courseref.whereArrayContains("studentUID",student.StudentID)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -248,7 +375,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
                         }
                     }
 
-                });
+                });*/
 
         dateText = findViewById(R.id.txtselectdate);
 
@@ -376,7 +503,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
     public String createUniqueReqId(){
         Random random = new Random();
         @SuppressLint("DefaultLocale") String idR = String.format("%04d", random.nextInt(10000));
-        return student.StudentID+courseName.get(pos).courseID+idR;
+        return student.StudentID+sectionName.get(pos).CourseID+idR;
     }
 public void checkRequest(final View view){
 
@@ -388,13 +515,14 @@ public void checkRequest(final View view){
 
 
 
+
              if(timeLeget&&dateLeget){
 
                     Map<String, Object> docData = new HashMap<>();
-                    docData.put("CourseID", courseName.get(pos).courseID);
+                    docData.put("CourseID", sectionName.get(pos).CourseID);
                     docData.put("Date",date);
                     docData.put("StudentID",student.StudentID);
-                    docData.put("TeacherID",courseName.get(pos).teacherUID);
+                    docData.put("TeacherID",sectionName.get(pos).teacherUID);
 
                     // we need unique req id for each student
                     docData.put("reqID",createUniqueReqId());
@@ -410,7 +538,12 @@ public void checkRequest(final View view){
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "DocumentSnapshot successfully written!");
-                                    Toast.makeText(sendRequestAct.this,"your request have been sent",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(sendRequestAct.this,"تم ارسال الطلب بنجاح",Toast.LENGTH_LONG).show();
+                                    dateText.setText("حدد اليوم");
+                                    timeText.setText("حدد الوقت");
+                                    reasonSpinner.clearFocus();
+
+
                                     new CountDownTimer(7000, 1000) {
 
                                         public void onTick(long millisUntilFinished) {
@@ -440,7 +573,7 @@ public void checkRequest(final View view){
                 }
                 else
                 {
-                   Toasty.error(view.getContext(),"please check time or date").show();
+                   Toasty.error(view.getContext(),"الرجاء التأكد من الوقت او التاريخ").show();
                 }
                 
 

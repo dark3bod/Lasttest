@@ -1,4 +1,4 @@
-package com.sultan.lasttest;
+package com.sultan.lasttest.student;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -7,10 +7,13 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sultan.lasttest.R;
+import com.sultan.lasttest.database.Course;
+
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    private List<Course> mDataset;
+    public List<Course> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -55,8 +58,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
-        holder.corseinfo.setText("Course: "+mDataset.get(position).courseName+ "\n"+"Section: "+ mDataset.get(position).courseID);
-        holder.coursename.setText(mDataset.get(position).courseCode);
+
+//        holder.corseinfo.setText("Course: "+mDataset.get(position).courseName+ "\n"+"Section: "+ mDataset.get(position).courseID);
+    //    holder.coursename.setText(mDataset.get(position).courseCode);
         //holder.textView.setText(mDataset.get(position).courseName);
 
     }

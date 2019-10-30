@@ -1,4 +1,4 @@
-package com.sultan.lasttest;
+package com.sultan.lasttest.main;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.sultan.lasttest.R;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -89,11 +90,12 @@ public class sign_up extends AppCompatActivity {
                                                 docData.put("BuildingNO",building);
                                                 docData.put("FloorNO",floor);
                                                 docData.put("OfficeNO",office);
-                                                docData.put("course", Arrays.asList(""));
+                                                docData.put("course", Arrays.asList());
                                                 docData.put("timeAvailable", Arrays.asList(0,0,0,0,0,0,0,0,0,0));
                                                 docData.put("email",strEmail);
                                                 docData.put("name" , strFirsname);
                                                 docData.put("lastName",strLastName);
+                                                docData.put("deptID","0");
                                                 String id = auth.getUid();
                                                 db.collection("teacher").document(id).set(docData)
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -155,7 +157,8 @@ public class sign_up extends AppCompatActivity {
                                                 docData.put("email" , strEmail);
                                                 docData.put("name",strFirsname);
                                                 docData.put("lastName" , strLastName);
-                                                docData.put("course",Arrays.asList(""));
+                                                docData.put("course",Arrays.asList());
+                                                docData.put("deptID","0");
                                                 String id = auth.getUid();
                                                 db.collection("student").document(id).set(docData).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override

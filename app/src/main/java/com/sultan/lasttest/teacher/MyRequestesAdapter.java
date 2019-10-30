@@ -1,33 +1,26 @@
-package com.sultan.lasttest;
+package com.sultan.lasttest.teacher;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.sultan.lasttest.R;
+import com.sultan.lasttest.database.request;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static android.system.Os.close;
 
 public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.MyViewHolder> {
     private List<request> mDataset ;
@@ -97,9 +90,9 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
 
 
 
-        holder.studentID.setText("Student ID: "+mDataset.get(position).StudentID);
-        holder.time.setText("Time: "+mDataset.get(position).Time);
-        holder.date.setText("Date: "+mDataset.get(position).Date);
+        holder.studentID.setText("معرف الطالب: "+mDataset.get(position).StudentID);
+        holder.time.setText("الوقت: "+mDataset.get(position).Time);
+        holder.date.setText("التاريخ: "+mDataset.get(position).Date);
 
         holder.review.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,10 +108,10 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
                 ////rejected request by put in status atrbute #2
                 final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle("...");
-                builder.setMessage("Enter the reason");
+                builder.setMessage("هل يوجد سبب (اختياري)");
                 reason = new EditText(view.getContext());
                 builder.setView(reason);
-                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("رفض", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Map<String, Object> docData = new HashMap<>();
@@ -126,14 +119,14 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
                         updateRequest.update("status","2");
                         docData.put("reason",txt);
                         updateRequest.set(docData,SetOptions.merge());
-                        Toast.makeText(view.getContext(),"Rejected request",Toast.LENGTH_LONG).show();
+                        Toast.makeText(view.getContext(),"تم رفض الطلب",Toast.LENGTH_LONG).show();
                         mDataset.remove(position);
                         notifyItemRemoved(position);
                         notifyItemChanged(position);
 
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("الغاء", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -152,21 +145,21 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
                 ////accpted request by put in status atrbute #1
                 final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle("...");
-                builder.setMessage("Are you Sure?");
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                builder.setMessage("هل انت متأكد");
+                builder.setNegativeButton("الغاء", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 });
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("نعم", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         updateRequest.update("status","1");
                         mDataset.remove(position);
                         notifyItemRemoved(position);
                         notifyItemChanged(position);
-                        Toast.makeText(view.getContext(), "Accepted request", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(view.getContext(), "تم قبول الطلب", Toast.LENGTH_SHORT).show();
 
                     }
                 });

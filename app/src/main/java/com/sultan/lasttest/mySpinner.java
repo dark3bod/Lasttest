@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.sultan.lasttest.R;
+import com.sultan.lasttest.database.Course;
 
 import java.util.List;
 

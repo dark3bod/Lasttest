@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".addCourseAct"
+    tools:context=".student.addCourseAct"
     android:layoutDirection="rtl">
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,6 +53,22 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:hint="@string/chooseCourse"
                 android:textSize="20sp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_margin="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <TextView
+                android:id="@+id/spnsection"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:hint="@string/chooseSection"
+                android:textSize="20sp" />
         </RelativeLayout>
 
 
@@ -117,25 +133,7 @@
                 android:layout_toEndOf="@+id/txtCoursecode1"
                 android:textSize="20sp"/>
         </RelativeLayout>
-        <RelativeLayout
-            android:layout_margin="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/secion"
-                android:id="@+id/txtCoursesecion1"
-                android:textSize="20sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text=""
-                android:id="@+id/txtCoursesecion"
-                android:layout_toEndOf="@id/txtCoursesecion1"
-                android:textSize="20sp"/>
-        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

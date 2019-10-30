@@ -1,4 +1,4 @@
-package com.sultan.lasttest;
+package com.sultan.lasttest.database;
 
 import java.io.Serializable;
 
@@ -14,25 +14,23 @@ public class request implements Serializable {
     public String status;
     public String Date;
     public String problem;
+    public String reason;
 
-    public String getID() {
-        return ID;
-    }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public request(String CourseID, String reqID, String StudentID, String TeacherID, String Time, String status, String Date, String problem, String reason) {
+        this.CourseID = CourseID;
+        this.reqID = reqID;
+        this.StudentID = StudentID;
+        this.TeacherID = TeacherID;
+        this.Time = Time;
+        this.status = status;
+        this.Date = Date;
+        this.problem = problem;
+        this.reason = reason;
     }
 
     public String ID;
 
-
-    public String getProblem() {
-        return problem;
-    }
-
-    public void setProblem(String problem) {
-        this.problem = problem;
-    }
 
 
     public request(){}
@@ -44,16 +42,6 @@ public class request implements Serializable {
         Date = date;
     }
 
-    public request(String studentID, String teacherID, String time, String status, String CourseID, String reqID, String Date, String problem ) {
-        StudentID = studentID;
-        this.CourseID=CourseID;
-        this.reqID=reqID;
-        TeacherID = teacherID;
-        Time = time;
-        this.status = status;
-        this.Date= Date;
-        this.problem=problem;
-    }
 
     public String getCourseID() {
         return CourseID;

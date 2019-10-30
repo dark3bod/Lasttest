@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    tools:context=".MainPage"
+    tools:context=".student.MainPage"
     android:background="#f2f2f2"
     android:layoutDirection="rtl"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -196,6 +196,38 @@
             >
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView5"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:clickable="true"
+
+                android:layout_margin="2.5dp"
+                android:onClick="openStudentInfo"
+                app:cardBackgroundColor="#00b3b3"
+                app:cardCornerRadius="5dp">
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+
+                        android:textAlignment="center"
+                        android:text="@string/info"
+                        android:textColor="@color/colortext"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardStudentInfo"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:clickable="true"
@@ -203,14 +235,15 @@
                 android:layout_margin="2.5dp"
                 android:onClick="openRecentReqsAct"
                 app:cardBackgroundColor="@color/md_blue_700"
-                app:cardCornerRadius="5dp">
+                app:cardCornerRadius="5dp"
+                android:layout_toEndOf="@+id/cardView5">
 
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <ImageView
-                        android:id="@+id/imgmanagecorses"
+                        android:id="@+id/imgmanageinfo"
                         android:layout_marginEnd="5dp"
 
                         android:layout_width="35dp"
@@ -229,7 +262,7 @@
 
                         android:text="@string/recentReqs"
                         android:textColor="@color/colortext"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                 </RelativeLayout>
