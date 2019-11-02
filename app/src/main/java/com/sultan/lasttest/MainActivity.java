@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private void checkCurrentUser(FirebaseUser user) {
         // [START check_current_user]
 
+        //if user that came not null
         if (user != null ) {
             //&& user.isEmailVerified()
             //splash screen is over go to main menu
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
+                            //if document is in student table(collection)then will open student page
                             student = document.toObject(Student.class);
                             Toast.makeText(getApplicationContext(),student.StudentID, Toast.LENGTH_SHORT).show();
 
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                             ///goto student main page
 
                         }else{
+                            //if document is in teacher table(collection)then will open teacher page
                             FirebaseAuth auth = FirebaseAuth.getInstance();
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
                             String docid = auth.getUid();
@@ -154,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
     private void showRegisterDialog( String dep , final String collectionName , final String UID ,final Intent intent ) {
 
 
+        //if user not have department this function with display form to choose hir department
         if(dep.equals("0")) {
             departments = new ArrayList<>();
 

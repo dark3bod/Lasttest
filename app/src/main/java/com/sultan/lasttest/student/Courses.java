@@ -100,7 +100,8 @@ public class Courses extends AppCompatActivity {
 
     public void openAddCourseAct(View v){
         if (num>8){
-            Toasty.info(getApplicationContext(), "ماتستطيع اضافة اكثر من 7 مقررات").show();
+            //if student have 8 courses this function will not open add courses activity
+            Toasty.info(getApplicationContext(), "لا تستطيع اضافة اكثر من 7 مقررات").show();
         }else{
         Intent intent = new Intent(getApplicationContext(), addCourseAct.class);
         intent.putExtra("c", (ArrayList<Course>)courses);

@@ -47,7 +47,10 @@ public class Actrequests extends AppCompatActivity {
         setContentView(R.layout.activity_actrequests);
         mdate = new ArrayList<>();
         myDataset1=new ArrayList<>();
+        //getting student id to use to get student requests
         id = getIntent().getSerializableExtra("student").toString();
+
+        //gettins student's requests
         db.collection("request").whereEqualTo("StudentID",id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -71,10 +74,12 @@ public class Actrequests extends AppCompatActivity {
 
 
 
+                                // add requests to arraList
                                 mdate.add(r);
 
                             }
 
+                            //open recycler view to display requests
                             RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.requestStudentRecyclerView);
                             LinearLayoutManager layoutManager = new LinearLayoutManager(Actrequests.this);
                             mRecyclerView.setLayoutManager(layoutManager);

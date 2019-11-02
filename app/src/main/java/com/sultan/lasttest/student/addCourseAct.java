@@ -60,8 +60,10 @@ public class addCourseAct extends AppCompatActivity  {
         setContentView(R.layout.activity_student_add_course);
         btn =(Button)findViewById(R.id.btnaddcourse) ;
 
+        //recept courses that sent from anoter class
         course = (List<Course>) getIntent().getSerializableExtra("c");
 
+        //getting courses from database
        db.collection("student").document(doc).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -77,6 +79,7 @@ public class addCourseAct extends AppCompatActivity  {
 
 
 
+       //getting course name
        for (int i=0;i<course.size();i++){
            courseName.add(course.get(i).courseName);
 
@@ -89,36 +92,23 @@ public class addCourseAct extends AppCompatActivity  {
             @Override
             public void onClick(String item, int position) {
                 txtsearchable.setText(item);
+                //x is item that selected from drop down menu
                 String x=item;
 
 
                 for (int i =0;i<course.size();i++){
                     String temp = course.get(i).courseName;
+
+
                     if(temp.equals(x)){
 
                         final String courseID = course.get(i).courseID;
                         final TextView courseName = findViewById(R.id.txtCoursename);
                         final TextView courseCode = findViewById(R.id.txtCoursecode);
-                        //  final TextView courseSection = findViewById(R.id.txtCoursesecion);
-
-                        //courseSection.setText(" " +course.get(i).courseID);
                         final TextView t =(TextView)findViewById(R.id.txtTeachername);
 
-                       /* db.collection("teacher").document(course.get(i).teacherUID).get()
-                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            DocumentSnapshot documentSnapshot = task.getResult();
-                                            teacher = documentSnapshot.toObject(Teacher.class);
 
-
-
-
-                                        }
-
-                                    }
-                                });*/
+                        //dialog for sections
                         spnSections = new SpinnerDialog(addCourseAct.this, (ArrayList<String>) course.get(i).sections,"اختر الشعبة");
                         final int finalI = i;
                         spnSections.bindOnSpinerListener(new OnSpinerItemClick() {
@@ -133,6 +123,7 @@ public class addCourseAct extends AppCompatActivity  {
                                                if(task.isSuccessful()){
                                                    DocumentSnapshot d = task.getResult();
                                                    section s = d.toObject(section.class);
+                                                   //getting teacher that teach the section
                                                    db.collection("teacher").document(s.teacherUID)
                                                            .get()
                                                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -168,6 +159,7 @@ public class addCourseAct extends AppCompatActivity  {
 
                                                                                           }
                                                                                           if(checkStudnet){
+                                                                                              //if student does not have same course already with add course for student
                                                                                               Map<String, Object> add = new HashMap<>();
                                                                                               add.put("studentUID", FieldValue.arrayUnion(id));
                                                                                               db.collection("section").document(txtsections.getText().toString())
@@ -205,95 +197,17 @@ public class addCourseAct extends AppCompatActivity  {
         txtsearchable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //show courses dialog
                 spinnerDialog.showSpinerDialog();
             }
         });
         txtsections.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //show sections dialog
                 spnSections.showSpinerDialog();
             }
         });
-
-
-      /* multiAutoCompleteTextView = (AutoCompleteTextView)findViewById(R.id.multiAutoCompleteTextView2);
-        ArrayAdapter<String> ad = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item,courseName);
-        multiAutoCompleteTextView.setAdapter(ad);
-        multiAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int posion, long l) {
-                String x=multiAutoCompleteTextView.getText().toString();
-
-
-                for (int i =0;i<course.size();i++){
-                    String temp = course.get(i).courseName + "("+course.get(i).courseID+")";
-                    if(temp.equals(x)){
-                        Toasty.success(getApplicationContext(),course.get(i).courseName).show();
-                        String s = course.get(i).teacherUID;
-                        final String courseID = course.get(i).courseID;
-
-                        db.collection("teacher").document(s).get()
-                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            DocumentSnapshot documentSnapshot = task.getResult();
-                                            teacher = documentSnapshot.toObject(Teacher.class);
-                                            TextView t =(TextView)findViewById(R.id.txtTeachername);
-                                            t.setText(teacher.name + " "+teacher.lastName);
-
-
-                                        }
-
-                                    }
-                                });
-
-                        btn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                db.collection("course").document(courseID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        DocumentSnapshot d = task.getResult();
-                                        Course c = new Course();
-                                        c = d.toObject(Course.class);
-                                        for(int i=0; i <c.studentUID.size();i++){
-                                            if(c.studentUID.get(i).equals(id)){
-                                                Toast.makeText(getApplicationContext(),"You are in course",Toast.LENGTH_LONG).show();
-                                                checkStudnet=false;
-
-
-                                            }
-                                        }
-                                        if(checkStudnet){
-                                            Map<String, Object> add = new HashMap<>();
-                                            add.put("studentUID", FieldValue.arrayUnion(id));
-                                            db.collection("course").document(c.courseID)
-                                                    .update(add);
-                                            Map<String, Object> add1 = new HashMap<>();
-                                            add1.put("course", FieldValue.arrayUnion(c.courseID));
-
-                                            db.collection("student").document(doc)
-                                                    .update(add1);
-                                            Toasty.success(getApplicationContext(),"the course is added",Toast.LENGTH_LONG).show();
-
-                                        }
-
-                                    }
-                                });
-
-
-
-                            }
-                        });
-
-
-                    }
-                }
-
-            }
-        });
-*/
 
 
     }

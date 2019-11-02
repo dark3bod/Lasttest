@@ -47,12 +47,13 @@ public class LogIn extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
 
 
-        x=(Button)findViewById(R.id.openAddCourseActAdmin);
+      //  x=(Button)findViewById(R.id.openAddCourseActAdmin);
         final View vi = findViewById(R.id.activity_main_id);
 
     ///c
 
 
+        //import views
         inputEmail = (EditText) findViewById(R.id.userName);
         inputPassword = (EditText) findViewById(R.id.pass);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -61,12 +62,15 @@ public class LogIn extends AppCompatActivity {
 
 
 
+        //go to reset possword activity
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LogIn.this, ResetPasswordActivity.class));
             }
         });
+
+        //login form
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v){
@@ -74,6 +78,7 @@ public class LogIn extends AppCompatActivity {
             final String password = inputPassword.getText().toString();
 
 
+            //is mail empty
                 if (TextUtils.isEmpty(email)) {
                     Snackbar snackbar = Snackbar
                             .make(v, "Missing Email!", Snackbar.LENGTH_LONG);
@@ -81,6 +86,7 @@ public class LogIn extends AppCompatActivity {
                 return;
             }
 
+                //is pass empty
                 if (TextUtils.isEmpty(password)) {
                     Snackbar snackbar = Snackbar
                             .make(v, "Missing Password!", Snackbar.LENGTH_LONG);
@@ -110,7 +116,9 @@ public class LogIn extends AppCompatActivity {
                             snackbar.show();
                         }
                     } else {
+
                         /*if(auth.getCurrentUser().isEmailVerified()) {*/
+                        //go to mainActivity class
                             Intent intent = new Intent(LogIn.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -132,8 +140,8 @@ public class LogIn extends AppCompatActivity {
     public void openSignUpAct(View v){
        startActivity(new Intent(LogIn.this, sign_up.class));
     }
-    public void openAddCourseActAdmin(View v){
+    /*public void openAddCourseActAdmin(View v){
         startActivity(new Intent(LogIn.this,add_new_course_admin.class));
-    }
+    }*/
 
 }
