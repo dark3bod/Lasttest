@@ -147,7 +147,7 @@
             android:gravity="center">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/btnSend"
+                android:id="@+id/btnSend1"
                 android:layout_width="180dp"
                 android:layout_height="50dp"
                 android:clickable="true"

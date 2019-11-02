@@ -36,7 +36,7 @@ public class Courses extends AppCompatActivity {
     Button add;
     int num ;
     ArrayList<section>sections;
-    ArrayList<Course>courseName;
+   ArrayList<Course>courseName = new ArrayList<>();
     int g =0;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String studentid;
@@ -49,7 +49,7 @@ public class Courses extends AppCompatActivity {
 
         studentid = Objects.requireNonNull(getIntent().getSerializableExtra("studentid")).toString();
         courses =  (List<Course>) getIntent().getSerializableExtra("f");
-        courseName= new ArrayList<>();
+
         CollectionReference courseref = db.collection("section");
 
 
@@ -69,18 +69,20 @@ public class Courses extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         if(task.isSuccessful()){
                                             DocumentSnapshot d = task.getResult();
-                                            courseName.add(d.toObject(Course.class));
+                                            courseName.add(Objects.requireNonNull(d).toObject(Course.class));
 
                                             RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.courseRecyclerView);
                                             LinearLayoutManager layoutManager = new LinearLayoutManager(Courses.this);
                                             mRecyclerView.setLayoutManager(layoutManager);
                                             MyAdapter mAdapter = new MyAdapter(courseName);
                                             mRecyclerView.setAdapter(mAdapter);
+
                                         }
                                     }
                                 });
 
                             }
+
 
 
 

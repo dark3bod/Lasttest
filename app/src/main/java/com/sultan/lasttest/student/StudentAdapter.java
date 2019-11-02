@@ -1,23 +1,45 @@
 package com.sultan.lasttest.student;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.sultan.lasttest.R;
 import com.sultan.lasttest.database.Course;
 import com.sultan.lasttest.database.request;
 
+
 import java.util.List;
+
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHolder> {
     private List<request> mDataset;
-    private List<Course> mDataset1;
+
     public final String TAG = "StudentAdapter";
-    String cccc, status;
+    String  status;
+    String  reason , date , student;
+
+    final String reqstat = "حالة الطلب: " ;
+    final String reqdate = "تاريخ الطلب: " ;
+    final String reqsreson = "سبب الرفض: " ;
+    final String reqstudent = "معرف الطالب: " ;
+    final String cousenem = "اسم المقرر: ";
+    Course c;
+
 
 
 
@@ -31,26 +53,29 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 
 
         public CardView textView;
-        public TextView coursename , reqdate , reqStatus;
-        public MyViewHolder(CardView v,TextView coursename , TextView reqdate , TextView reqStatus) {
+        public TextView coursename , reqdate;
+        Button review;
+        public MyViewHolder(CardView v,TextView coursename , TextView reqdate , Button review) {
             super(v);
             textView = v;
             this.coursename = coursename;
             this.reqdate =reqdate;
-            this.reqStatus=reqStatus;
+            this.review=review;
 
 
         }
     }
     // Provide a suitable constructor (depends on the kind of dataset)
-    public StudentAdapter(List<request> myDataset ,List<Course> mDataset1 ) {
-        this.mDataset1 = mDataset1;
+    public StudentAdapter(List<request> myDataset ) {
+       // this.mDataset1 = mDataset1;
+
         mDataset = myDataset;
 
 
     }
 
     // Create new views (invoked by the layout manager)
+    @NonNull
     @Override
     public StudentAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                           int viewType) {
@@ -59,9 +84,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
                 .inflate(R.layout.requests_status, parent, false);
         //TextView corseinfo = (TextView) findViewById(R.id._course_info);
         TextView reqcourse = (TextView) v.findViewById(R.id.requestcousename);
-        TextView reqdate = (TextView) v.findViewById(R.id.requestdate);
-        TextView reqstatus = (TextView) v.findViewById(R.id.requeststatus);
-        MyViewHolder vh = new MyViewHolder(v,reqcourse,reqdate,reqstatus);
+        TextView reqdate = (TextView) v.findViewById(R.id.requestdate1);
+        Button review = (Button) v.findViewById(R.id.btnReview1);
+        MyViewHolder vh = new MyViewHolder(v,reqcourse,reqdate,review);
 
 
         return vh;
@@ -69,47 +94,122 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
 
-        if(mDataset.get(position).status.equals("0"))
-            status ="قيد الانتظار";
-        else if (mDataset.get(position).status.equals("2"))
-            status ="تم الرفض";
-        else if(mDataset.get(position).status.equals("3"))
-            status ="ماضي";
-        else
-            status="تمت الموافقه";
-
-      /* if(mDataset.get(position).CourseID.equals("0001"))
-            cccc ="Data structers";
-        else if (mDataset.get(position).CourseID.equals("0002"))
-            cccc ="programing";
-        else if (mDataset.get(position).CourseID.equals("0003"))
-            cccc ="Data analysis";
-       else if (mDataset.get(position).CourseID.equals("0004"))
-           cccc ="Database";*/
-
-
-       for(int i = 0 ; i< mDataset1.size();i++){
-           String id = mDataset.get(position).CourseID;
-           if(id.equals(mDataset1.get(i).courseID)){
-               cccc = mDataset1.get(i).courseName;
-           }
-       }
 
 
 
+        switch (mDataset.get(position).status) {
+            case "0":
+                holder.reqdate.setTextColor(Color.parseColor("#666633"));
+                break;
+            case "2":
+
+                holder.reqdate.setTextColor(Color.parseColor("#ff0000"));
+                break;
+            case "3":
+                break;
+            default:
+                holder.reqdate.setTextColor(Color.parseColor("#00b300"));
+
+                break;
+        }
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("course").document(mDataset.get(position).CourseID)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if(task.isSuccessful()){
+
+                    c = new Course();
+                    c=task.getResult().toObject(Course.class);
+                    holder.coursename.setText(c.courseName);
+                    holder.reqdate.setText(mDataset.get(position).Date);
+
+
+
+                }
+            }
+        });
+        date=mDataset.get(position).Date;
+
+
+        holder.review.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+
+
+//                Toasty.success(view.getContext(),mDataset1.get(position).courseName).show();
+
+
+
+                switch (mDataset.get(position).status) {
+                    case "0":
+                        status = "قيد الانتظار";
+                        holder.reqdate.setTextColor(Color.parseColor("#666633"));
+                        break;
+                    case "2":
+                        status = "تم الرفض";
+                        holder.reqdate.setTextColor(Color.parseColor("#ff0000"));
+                        break;
+                    case "3":
+                        status = "ماضي";
+                        break;
+                    default:
+                        holder.reqdate.setTextColor(Color.parseColor("#00b300"));
+                        status = "تمت الموافقه";
+                        break;
+                }
+                if(mDataset.get(position).status.equals("2"))
+                {
+                    if(mDataset.get(position).reason!=null)
+                    {
+                        reason = mDataset.get(position).reason;
+                    }
+
+                    else
+                    {
+                        reason = "لا يوجد";
+                    }
+                }
+
+
+                androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(view.getContext());
+                builder.setTitle("...");
+                View itemView = LayoutInflater.from(view.getContext()).inflate(R.layout.requests_status_view, null);
+                TextView r = (TextView)itemView.findViewById(R.id.txtrequestsStatus) ;
 
 
 
 
-        holder.coursename.setText(cccc);
+                if(mDataset.get(position).status.equals("2"))
+                    r.setText(cousenem + c.courseName +"\n"+reqdate + date +"\n"+reqstat +status +"\n"+ reqsreson +reason );
+                else
+                    r.setText( cousenem +c.courseName +"\n"+reqdate + date+"\n"+reqstat +status );
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-        holder.reqStatus.setText(status);
-        holder.reqdate.setText(mDataset.get(position).Date);
+                        dialogInterface.dismiss();
+
+                    }
+                });
+                builder.setView(itemView);
+
+                androidx.appcompat.app.AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+
+
+
 
 
     }

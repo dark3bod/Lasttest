@@ -8,13 +8,15 @@ public class Course implements Serializable  {
     public String courseName;
    // public String teacherUID;
     public String courseID;
+    public String dptID;
 
-    public Course(String courseCode, String courseName, String courseID, List<String> sections) {
+    public Course(String courseCode, String courseName, String courseID, List<String> sections ,String dptID) {
         this.courseCode = courseCode;
         this.courseName = courseName;
        // this.teacherUID = teacherUID;
         this.courseID = courseID;
         this.sections = sections;
+        this.dptID =dptID;
         //this.studentUID = studentUID;
     }
 

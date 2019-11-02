@@ -42,6 +42,7 @@ public class actReceivedRequest extends AppCompatActivity {
                         if(q.get("status").toString().equals("0")){
                             request r = new request();
                             r.reqID=q.get("reqID").toString();
+
                             r.CourseID=q.get("CourseID").toString();
                             r.Date=q.get("Date").toString();
                             r.problem = q.get("problem").toString();
@@ -59,8 +60,6 @@ public class actReceivedRequest extends AppCompatActivity {
                     RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.requestRecyclerView);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(actReceivedRequest.this);
                     mRecyclerView.setLayoutManager(layoutManager);
-
-
                     MyRequestesAdapter mAdapter = new MyRequestesAdapter(myDataset);
                     mRecyclerView.setAdapter(mAdapter);
                 }

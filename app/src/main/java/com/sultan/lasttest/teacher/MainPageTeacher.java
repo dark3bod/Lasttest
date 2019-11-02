@@ -166,6 +166,7 @@ public class MainPageTeacher extends AppCompatActivity
                                  r.CourseID=document.get("CourseID").toString();
                                  r.Date=document.get("Date").toString();
                                  r.problem = document.get("problem").toString();
+                                r.reason=document.get("reason").toString();
                                  r.StudentID=document.get("StudentID").toString();
                                  r.status=document.get("status").toString();
                                  r.TeacherID=document.get("TeacherID").toString();

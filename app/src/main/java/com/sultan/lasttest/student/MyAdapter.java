@@ -59,8 +59,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // - replace the contents of the view with that element
 
 
-//        holder.corseinfo.setText("Course: "+mDataset.get(position).courseName+ "\n"+"Section: "+ mDataset.get(position).courseID);
-    //    holder.coursename.setText(mDataset.get(position).courseCode);
+
+ holder.corseinfo.setText("Course: "+mDataset.get(position).courseName+ "\n"+"Section: "+ mDataset.get(position).courseID);
+        holder.coursename.setText(mDataset.get(position).courseCode);
         //holder.textView.setText(mDataset.get(position).courseName);
 
     }

@@ -89,7 +89,7 @@
     <string name="addtheCourse">اضافة المقرر</string>
     <string name="areYou">هل انت</string>
     <string name="firstName">الاسم الأول</string>
-    <string name="notavailable">**اذا كنت غير متاح في يوم معين الرجاء وضع اليوم 1-</string>
+    <string name="notavailable">**اذا كنت غير متاح في يوم معين الرجاء وضع اليوم 0</string>
 
     <string name="reserveAppointment">حجز موعد</string>
     <string name="search">بحث</string>

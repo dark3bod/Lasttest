@@ -24,6 +24,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.sultan.lasttest.database.section;
 import com.sultan.lasttest.main.LogIn;
 import com.sultan.lasttest.R;
 import com.sultan.lasttest.database.Student;
@@ -42,6 +43,8 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+
+import es.dmoral.toasty.Toasty;
 
 public class MainPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -155,7 +158,7 @@ public class MainPage extends AppCompatActivity
 
 
                                 //getting the requestest for the login student
-                                final request r = new request();
+                                request r = new request();
                                 r.CourseID = document.get("CourseID").toString();
                                 r.Date=document.get("Date").toString();
                                 r.status=document.get("status").toString();
@@ -347,23 +350,25 @@ public class MainPage extends AppCompatActivity
     public void openSendAct(View v){
         //Open Send request page
 
-
-
         Intent intent = new Intent(MainPage.this, sendRequestAct.class);
         intent.putExtra("s",student);
         startActivity(intent);
 
 
 
+
+
     }
     public void openCoursesAct(View v){
 
-                Intent intent = new Intent(getApplicationContext(), Courses.class);
-                intent.putExtra("studentid", student.StudentID);
+        Intent intent = new Intent(getApplicationContext(), Courses.class);
+        intent.putExtra("studentid", student.StudentID);
 
-                intent.putExtra("f",courses2);
+        intent.putExtra("f",courses2);
 
-                startActivity(intent);
+
+        startActivity(intent);
+
 
 
     }
@@ -376,7 +381,9 @@ public class MainPage extends AppCompatActivity
         Intent intent = new Intent(MainPage.this, Actrequests.class);
         intent.putExtra("r",requests);
         intent.putExtra("c",courses);
+        intent.putExtra("student",student.StudentID);
         startActivity(intent);
+
         //requests = new ArrayList<>();
         //courseName = new ArrayList<>();
 
@@ -386,6 +393,7 @@ public class MainPage extends AppCompatActivity
         Intent intent= new Intent(MainPage.this, studentInfo.class);
         intent.putExtra("student",student);
         startActivity(intent);
+
     }
 
 

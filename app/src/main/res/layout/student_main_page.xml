@@ -318,15 +318,24 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                </RelativeLayout>
+
+
                 <Space
+                    android:background="@color/md_orange_100"
                     android:layout_width="wrap_content"
                     android:layout_height="110dp" />
-
 
             </androidx.cardview.widget.CardView>
 
 
         </RelativeLayout>
+
 
 
 

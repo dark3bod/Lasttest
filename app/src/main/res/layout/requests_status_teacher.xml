@@ -19,45 +19,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
-
-
             android:layout_marginStart="3dp">
 
             <TextView
-                android:id="@+id/requestcousename"
-                android:layout_width="match_parent"
+
+                android:id="@+id/studentidrequest"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:maxLength="150"
-                android:text="اسم المقرر"
+                android:text="111111111"
                 android:textSize="20sp" />
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/requestdate"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-               android:layout_centerInParent="true">
-                <TextView
-                    android:id="@+id/requestdate1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="50dp"
+                android:layout_height="match_parent"
 
-
-                    android:text="10/10/2019"
-                    android:textSize="20sp"
-                    />
-            </RelativeLayout>
-
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@+id/studentidrequest"
+                android:text="10/10/2019"
+                android:textSize="20sp" />
 
 
             <Button
-                android:layout_width="30dp"
-                android:id="@+id/btnReview1"
+                android:layout_width="40dp"
+                android:id="@+id/btnReview"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_height="30dp"
                 android:textSize="20sp"
+
+                android:layout_marginEnd="10dp"
                 android:text="..."
-                android:background="@color/md_blue_400"
+                android:background="@drawable/mybutton"
                 android:textColor="@color/colortext"/>
 
         </RelativeLayout>
