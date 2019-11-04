@@ -5,6 +5,7 @@ import java.util.List;
 
 public class section implements Serializable {
 
+    public String ID;
 
     public List<String>studentUID;
     public String CourseID;

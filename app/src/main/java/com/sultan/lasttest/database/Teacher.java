@@ -7,22 +7,23 @@ public class Teacher implements Serializable {
     public String email;
     public String name;
     public String lastName;
-    public String  floor;
-    public String building;
-    public String officeNO;
+    public String  FloorNO;
+    public String BuildingNO;
+    public String OfficeNO;
     public String password , deptID;
     public List<String> course;
     public List<Integer> timeAvailable;
+    public String ID;
 
    // public List<String> section;
 
-    public Teacher(String email, String name, String lastName, String floor, String building, String officeNO, String password, List<String> course, List<Integer> timeAvailable , String deptID) {
+    public Teacher(String email, String name, String lastName, String FloorNO, String BuildingNO, String OfficeNO, String password, List<String> course, List<Integer> timeAvailable , String deptID) {
         this.email = email;
         this.name = name;
         this.lastName = lastName;
-        this.floor = floor;
-        this.building = building;
-        this.officeNO = officeNO;
+        this.FloorNO = FloorNO;
+        this.BuildingNO = BuildingNO;
+        this.OfficeNO = OfficeNO;
         this.password = password;
         this.course = course;
         this.timeAvailable = timeAvailable;

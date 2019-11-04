@@ -6,9 +6,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="@color/colorPrimary"
     android:layout_marginTop="10dp"
+    android:layoutDirection="rtl"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
-    app:cardCornerRadius="6dp">
+    app:cardCornerRadius="6dp"
+    android:clickable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:id="@+id/_course_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,6 +42,7 @@
             android:textSize="@dimen/text_size"
             app:layout_constraintTop_toBottomOf="@+id/course_code_name"
             tools:layout_editor_absoluteX="0dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

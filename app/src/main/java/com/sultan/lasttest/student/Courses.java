@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.sultan.lasttest.database.Course;
 import com.sultan.lasttest.R;
+import com.sultan.lasttest.database.Teacher;
 import com.sultan.lasttest.database.section;
 
 import java.util.ArrayList;
@@ -35,12 +37,13 @@ public class Courses extends AppCompatActivity {
     private  final  String TAG = "Courses";
     Button add;
     int num ;
-    ArrayList<section>sections;
+    ArrayList<section>sections= new ArrayList<>();
    ArrayList<Course>courseName = new ArrayList<>();
     int g =0;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String studentid;
     List<Course> courses  = new ArrayList<>();
+    ArrayList<Teacher>teachers = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +66,8 @@ public class Courses extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 section x = document.toObject(section.class);
+                                x.ID=document.getId();
+                                sections.add(x);
                                 db.collection("course").document(x.CourseID)
                                         .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
@@ -71,15 +76,29 @@ public class Courses extends AppCompatActivity {
                                             DocumentSnapshot d = task.getResult();
                                             courseName.add(Objects.requireNonNull(d).toObject(Course.class));
 
-                                            RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.courseRecyclerView);
-                                            LinearLayoutManager layoutManager = new LinearLayoutManager(Courses.this);
-                                            mRecyclerView.setLayoutManager(layoutManager);
-                                            MyAdapter mAdapter = new MyAdapter(courseName);
-                                            mRecyclerView.setAdapter(mAdapter);
-
                                         }
                                     }
                                 });
+                                db.collection("teacher").document(x.teacherUID)
+                                        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if(task.isSuccessful()){
+                                            Teacher teacher =task.getResult().toObject(Teacher.class);
+                                            teacher.ID = task.getResult().getId();
+                                            Toasty.info(getApplicationContext(),teacher.OfficeNO).show();
+                                            teachers.add(teacher);
+                                            RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.courseRecyclerView);
+                                            LinearLayoutManager layoutManager = new LinearLayoutManager(Courses.this);
+                                            mRecyclerView.setLayoutManager(layoutManager);
+                                            MyAdapter mAdapter = new MyAdapter(courseName , sections , teachers);
+                                            mRecyclerView.setAdapter(mAdapter);
+                                        }
+
+                                    }
+                                });
+
+
 
                             }
 

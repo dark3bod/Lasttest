@@ -29,6 +29,7 @@ import com.sultan.lasttest.database.request;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.Menu;
 import android.widget.TextView;
@@ -53,6 +54,7 @@ public class MainPageTeacher extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_main_page);
         courses = new ArrayList<>();
+
         cardMangecourses = findViewById(R.id.cardMangecourses);
         txtdate=(TextView)findViewById(R.id.txtmydayTecher) ;
         txtEmail=(TextView)findViewById(R.id.txtTeacherEmail);
