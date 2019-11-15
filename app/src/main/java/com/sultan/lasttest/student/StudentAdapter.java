@@ -36,6 +36,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
     final String reqstat = "حالة الطلب: " ;
     final String reqdate = "تاريخ الطلب: " ;
     final String reqsreson = "سبب الرفض: " ;
+    final String reqscancel = "سبب الإلغاء: " ;
     final String reqstudent = "معرف الطالب: " ;
     final String cousenem = "اسم المقرر: ";
     Course c;
@@ -100,23 +101,34 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 
 
 
+        String stats = mDataset.get(position).status;
+        if(stats.equals("0"))
+            holder.reqdate.setTextColor(Color.parseColor("#666633"));
+        else if(stats.equals("2") || stats.equals("5"))
+            holder.reqdate.setTextColor(Color.parseColor("#ff0000"));
+        else if (stats.equals("3")){}
+        else holder.reqdate.setTextColor(Color.parseColor("#00b300"));
 
 
-        switch (mDataset.get(position).status) {
+
+
+     /*   switch (mDataset.get(position).status) {
             case "0":
                 holder.reqdate.setTextColor(Color.parseColor("#666633"));
                 break;
             case "2":
-
                 holder.reqdate.setTextColor(Color.parseColor("#ff0000"));
                 break;
             case "3":
                 break;
+            case "5":
+                holder.reqdate.setTextColor(Color.parseColor("#ff0000"));
+
             default:
                 holder.reqdate.setTextColor(Color.parseColor("#00b300"));
-
                 break;
         }
+        */
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("course").document(mDataset.get(position).CourseID)
@@ -136,7 +148,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
                 }
             }
         });
-        date=mDataset.get(position).Date;
+
 
 
         holder.review.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +156,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
             @Override
             public void onClick(View view) {
 
+                date=mDataset.get(position).Date;
 
 //                Toasty.success(view.getContext(),mDataset1.get(position).courseName).show();
 
@@ -161,12 +174,27 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
                     case "3":
                         status = "ماضي";
                         break;
+                    case "5":
+                        status = "تم إلغاء الموعد";
+                        break;
                     default:
                         holder.reqdate.setTextColor(Color.parseColor("#00b300"));
                         status = "تمت الموافقه";
                         break;
                 }
                 if(mDataset.get(position).status.equals("2"))
+                {
+                    if(mDataset.get(position).reason!=null)
+                    {
+                        reason = mDataset.get(position).reason;
+                    }
+
+                    else
+                    {
+                        reason = "لا يوجد";
+                    }
+                }
+                if(mDataset.get(position).status.equals("5"))
                 {
                     if(mDataset.get(position).reason!=null)
                     {
@@ -190,6 +218,8 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 
                 if(mDataset.get(position).status.equals("2"))
                     r.setText(cousenem + c.courseName +"\n"+reqdate + date +"\n"+reqstat +status +"\n"+ reqsreson +reason );
+                else if(mDataset.get(position).status.equals("5"))
+                r.setText(cousenem + c.courseName +"\n"+reqdate + date +"\n"+reqstat +status +"\n"+ reqscancel +reason );
                 else
                     r.setText( cousenem +c.courseName +"\n"+reqdate + date+"\n"+reqstat +status );
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

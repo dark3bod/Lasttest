@@ -86,7 +86,7 @@ public class Courses extends AppCompatActivity {
                                         if(task.isSuccessful()){
                                             Teacher teacher =task.getResult().toObject(Teacher.class);
                                             teacher.ID = task.getResult().getId();
-                                            Toasty.info(getApplicationContext(),teacher.OfficeNO).show();
+
                                             teachers.add(teacher);
                                             RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.courseRecyclerView);
                                             LinearLayoutManager layoutManager = new LinearLayoutManager(Courses.this);

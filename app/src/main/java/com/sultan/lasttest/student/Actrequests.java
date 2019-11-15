@@ -17,6 +17,9 @@ import com.sultan.lasttest.R;
 import com.sultan.lasttest.database.request;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -80,6 +83,8 @@ public class Actrequests extends AppCompatActivity {
                             }
 
                             //open recycler view to display requests
+
+                            Collections.sort(mdate, Comparator.comparing(request::getDate));
                             RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.requestStudentRecyclerView);
                             LinearLayoutManager layoutManager = new LinearLayoutManager(Actrequests.this);
                             mRecyclerView.setLayoutManager(layoutManager);

@@ -4,19 +4,26 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sultan.lasttest.R;
 import com.sultan.lasttest.database.Course;
+import com.sultan.lasttest.database.section;
 
 import java.util.List;
 
 public class teacher_courses_adapter extends RecyclerView.Adapter<teacher_courses_adapter.MyViewHolder> {
-    private List<Course> mDataset;
+    private List<section> mDataset1;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     int s;
+    Course c;
+
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -25,21 +32,22 @@ public class teacher_courses_adapter extends RecyclerView.Adapter<teacher_course
         // each data item is just a string in this case
         public CardView textView;
         public TextView corseinfo,coursename;
-        CardView delete , edit;
-        public MyViewHolder(CardView v,TextView c,TextView f , CardView d , CardView e) {
+        CardView delete ;
+        public MyViewHolder(CardView v,TextView c,TextView f , CardView d ) {
             super(v);
             textView = v;
             this.corseinfo = c;
             this.delete = d;
-            this.edit=e;
+
             this.coursename = f;
 
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public teacher_courses_adapter(List<Course> myDataset) {
-        mDataset = myDataset;
+    public teacher_courses_adapter( List<section> myDataset1) {
+
+        this.mDataset1 = myDataset1;
     }
 
     // Create new views (invoked by the layout manager)
@@ -53,8 +61,8 @@ public class teacher_courses_adapter extends RecyclerView.Adapter<teacher_course
         TextView corseinfo = (TextView) v.findViewById(R.id._course_info);
         TextView coursename = (TextView) v.findViewById(R.id.course_code_name);
         CardView  delete = (CardView) v.findViewById(R.id.crdViewDeleteCourse);
-        CardView edit = (CardView)v.findViewById(R.id.crdViewEditCourses);
-        MyViewHolder vh = new MyViewHolder(v,corseinfo,coursename, delete,edit);
+
+        MyViewHolder vh = new MyViewHolder(v,corseinfo,coursename, delete);
 
 
         return vh;
@@ -70,8 +78,23 @@ public class teacher_courses_adapter extends RecyclerView.Adapter<teacher_course
 
 
 
-        holder.corseinfo.setText("Course: "+mDataset.get(position).courseName+ "\n"+"Section: "+ mDataset.get(position).courseID +"\n");
-        holder.coursename.setText(mDataset.get(position).courseCode);
+
+        db.collection("course").document(mDataset1.get(position).CourseID).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+
+                            c = task.getResult().toObject(Course.class);
+                            holder.corseinfo.setText("Course: "+c.courseName+ "\n"+"Section: "+mDataset1.get(position).ID +"\n");
+                            holder.coursename.setText(c.courseCode);
+                        }
+
+                    }
+                });
+
+
+
         //holder.textView.setText(mDataset.get(position).courseName);
         /*holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,6 +209,6 @@ public class teacher_courses_adapter extends RecyclerView.Adapter<teacher_course
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return mDataset1.size();
     }
 }

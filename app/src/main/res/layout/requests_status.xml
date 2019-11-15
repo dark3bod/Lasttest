@@ -50,14 +50,14 @@
 
 
             <Button
-                android:layout_width="30dp"
+                android:layout_width="40dp"
                 android:id="@+id/btnReview1"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_height="30dp"
                 android:textSize="20sp"
                 android:text="..."
-                android:background="@color/md_blue_400"
+                android:background="@drawable/mybutton"
                 android:textColor="@color/colortext"/>
 
         </RelativeLayout>

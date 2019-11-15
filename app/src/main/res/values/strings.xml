@@ -86,6 +86,9 @@
     <string name="floor">الطابق</string>
     <string name="office">المكتب</string>
     <string name="addCourse">اضافة مقرر</string>
+    <string name="newRequests">الطلبات الجديده</string>
+    <string name="cancel">الغاء المواعيد</string>
+    <string name="confirmedRequests">الطلبات التي تمت الموافقه عليها</string>
     <string name="addtheCourse">اضافة المقرر</string>
     <string name="areYou">هل انت</string>
     <string name="firstName">الاسم الأول</string>

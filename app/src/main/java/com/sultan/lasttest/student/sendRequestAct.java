@@ -80,6 +80,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,14 +119,14 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
         reasonSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               String select = adapterView.getSelectedItem().toString();
-               txtproblem=(EditText) findViewById(R.id.txtproblem);
+                String select = adapterView.getSelectedItem().toString();
+                txtproblem=(EditText) findViewById(R.id.txtproblem);
                 if(select.equals("اخرى")){
-                   txtproblem.setVisibility(View.VISIBLE);
-               }else{
-                   txtproblem.setVisibility(View.GONE);
-                   reason = select;
-               }
+                    txtproblem.setVisibility(View.VISIBLE);
+                }else{
+                    txtproblem.setVisibility(View.GONE);
+                    reason = select;
+                }
 
 
             }

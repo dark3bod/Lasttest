@@ -30,6 +30,7 @@ public class manageCourses extends AppCompatActivity {
     Teacher teacher;
 
 
+    ArrayList<section>sections = new ArrayList<>();
     String teacherid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     int i =0;
@@ -59,23 +60,14 @@ public class manageCourses extends AppCompatActivity {
                 if(task.isSuccessful()) {
                     for (QueryDocumentSnapshot q : task.getResult()) {
                         section s = q.toObject(section.class);
-                        db.collection("course").document(s.CourseID)
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            mData.add(task.getResult().toObject(Course.class));
+                        s.ID = q.getId();
+                        sections.add(s);
 
-                                            RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.TeachercourseRecyclerView);
-                                            LinearLayoutManager layoutManager = new LinearLayoutManager(manageCourses.this);
-                                            mRecyclerView.setLayoutManager(layoutManager);
-                                            teacher_courses_adapter mAdapter = new teacher_courses_adapter(mData);
-                                            mRecyclerView.setAdapter(mAdapter);
-                                        }
-                                    }
-                                });
-
+                        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.TeachercourseRecyclerView);
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(manageCourses.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        teacher_courses_adapter mAdapter = new teacher_courses_adapter( sections);
+                        mRecyclerView.setAdapter(mAdapter);
                     }
 
 

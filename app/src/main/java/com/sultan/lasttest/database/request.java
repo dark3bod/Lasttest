@@ -70,6 +70,18 @@ public class request implements Serializable {
         problem=r.problem;
     }
 
+    public String getProblem() {
+        return problem;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
     public String getStudentID() {
         return StudentID;
     }

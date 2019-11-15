@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.MyViewHolder> {
+public class CofirmedRequestsAdapter extends RecyclerView.Adapter<CofirmedRequestsAdapter.MyViewHolder> {
     private List<request> mDataset ;
     public final String TAG = "MyRequestesAdapter";
     EditText reason;
@@ -38,17 +38,16 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
         // each data item is just a string in this case
         public CardView textView;
         public TextView studentID ,time , date;
-        public CardView review , accept , reject;
-        public MyViewHolder(CardView v,TextView s,TextView t , TextView d , CardView r ,CardView a,CardView re ) {
+        public CardView  cancel;
+        public MyViewHolder(CardView v,TextView s,TextView t , TextView d ,CardView re ) {
             super(v);
 
             this.studentID = s;
             this.date = d;
             this.time=t;
             textView = v;
-            this.review = r;
-            this.accept =a;
-            this.reject=re;
+
+            cancel=re;
 
         }
 
@@ -56,26 +55,27 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyRequestesAdapter(List<request> myDataset) {
+    public CofirmedRequestsAdapter(List<request> myDataset) {
         mDataset = myDataset;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MyRequestesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                              int viewType) {
+    public CofirmedRequestsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                   int viewType) {
         // create a new view
         CardView v = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.receivedrequest,parent, false);
+                .inflate(R.layout.cancle_request,parent, false);
         //TextView corseinfo = (TextView) findViewById(R.id._course_info);
         TextView studentid = (TextView) v.findViewById(R.id.txtstudntid);
         TextView time = (TextView) v.findViewById(R.id.txttime1 );
         TextView date = (TextView) v.findViewById(R.id.txtdate1);
-        CardView accept = (CardView) v.findViewById(R.id.buttonaccpet) ;
-        CardView reject = (CardView) v.findViewById(R.id.buttonreject) ;
-        CardView review = (CardView) v.findViewById(R.id.buttonreview) ;
 
-        MyViewHolder vh = new MyViewHolder(v,studentid,time,date,review,accept,reject);
+        CardView cancel = (CardView) v.findViewById(R.id.buttonCancel) ;
+
+
+        MyViewHolder vh = new MyViewHolder(v,studentid,time,date,cancel);
+
 
 
         return vh;
@@ -86,6 +86,8 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+
+
 
 
         FirebaseFirestore dd = FirebaseFirestore.getInstance();
@@ -101,49 +103,29 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
-
-        holder.studentID.setText("معرف الطالب: "+mDataset.get(position).StudentID);
-        
-        holder.time.setText("الوقت: "+mDataset.get(position).Time);
-
-
-        holder.review.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ////making toast for student prolem
-                Toast.makeText(view.getContext(),mDataset.get(position).problem,Toast.LENGTH_LONG).show();
-
-            }
-        });
-        holder.reject.setOnClickListener(new View.OnClickListener() {
+        holder.studentID.setText("معرف الطالب: " + mDataset.get(position).StudentID);
+        holder.time.setText("الوقت: " + mDataset.get(position).Time);
+        holder.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                ////rejected request by put in status atrbute #2
-                final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle("...");
                 builder.setMessage("هل يوجد سبب (اختياري)");
                 reason = new EditText(view.getContext());
                 builder.setView(reason);
-                builder.setPositiveButton("رفض", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("تأكيد", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Map<String, Object> docData = new HashMap<>();
                         String txt  = reason.getText().toString();
-                        updateRequest.update("status","2");
+                        updateRequest.update("status","5");
                         docData.put("reason",txt);
                         updateRequest.set(docData,SetOptions.merge());
-                        Toast.makeText(view.getContext(),"تم رفض الطلب",Toast.LENGTH_LONG).show();
+                        Toast.makeText(view.getContext(),"تم إلغاء الموعد",Toast.LENGTH_LONG).show();
                         mDataset.remove(position);
                         notifyItemRemoved(position);
                         notifyItemChanged(position);
-
-                    }
-                });
-                builder.setNegativeButton("الغاء", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 });
@@ -152,37 +134,11 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
 
 
 
-            }
-        });
-        holder.accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                ////accpted request by put in status atrbute #1
-                final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle("...");
-                builder.setMessage("هل انت متأكد");
-                builder.setNegativeButton("الغاء", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                });
-                builder.setPositiveButton("نعم", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        updateRequest.update("status","1");
-                        mDataset.remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemChanged(position);
-                        Toast.makeText(view.getContext(), "تم قبول الطلب", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
 
             }
         });
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
