@@ -47,6 +47,7 @@ public class MainPageTeacher extends AppCompatActivity
     public final String TAG = "MainPageTeacher";
     public static ArrayList<Course> courses ;
     public int i ;
+    Teacher teacher;
     public static ArrayList<request>requests;
     CardView cardMangecourses;
     @Override
@@ -73,7 +74,7 @@ public class MainPageTeacher extends AppCompatActivity
             // User is logged in
         }
         Intent intent = getIntent();
-        Teacher teacher = (Teacher)intent.getSerializableExtra("teacher");
+        teacher = (Teacher)intent.getSerializableExtra("teacher");
         name.setText(teacher.name+" "+teacher.lastName);
         txtEmail.setText(teacher.email);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -344,6 +345,11 @@ public class MainPageTeacher extends AppCompatActivity
         Intent intent = new Intent(MainPageTeacher.this , manageCourses.class);
         startActivity(intent);
 
+    }
+    public void openteacherInfo(View v){
+        Intent intent = new Intent(MainPageTeacher.this, teacher_info.class);
+        intent.putExtra("teacher",teacher);
+        startActivity(intent);
     }
 
 

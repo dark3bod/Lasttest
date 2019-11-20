@@ -9,8 +9,8 @@ public class Teacher implements Serializable {
     public String lastName;
     public String  FloorNO;
     public String BuildingNO;
-    public String OfficeNO;
-    public String password , deptID;
+    public String OfficeNO, deptID;;
+    private String password ;
     public List<String> course;
     public List<Integer> timeAvailable;
     public String ID;

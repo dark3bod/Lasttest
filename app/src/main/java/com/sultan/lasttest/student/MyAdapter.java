@@ -165,7 +165,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.crdViewDeleteCourseStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 //builder.setTitle("...");
                 builder.setMessage("هل انت متأكد");
                 builder.setNegativeButton("لا", new DialogInterface.OnClickListener() {

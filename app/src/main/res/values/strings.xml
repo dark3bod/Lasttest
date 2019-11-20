@@ -103,6 +103,9 @@
     <string name="password1">الرقم السري</string>
     <string name="signUp">تسجيل جديد</string>
     <string name="sing">تسجيل</string>
+    <string name="addSection">اضافة شعبه جديده</string>
+    <string name="buildingNO">المبنى:</string>
+    <string name="floorNo">الطابق:</string>
 
 
 </resources>

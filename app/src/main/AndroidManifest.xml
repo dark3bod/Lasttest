@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".student.studentInfo"></activity>
+        <activity android:name=".teacher.teacher_info"></activity>
+        <activity android:name=".student.studentInfo" />
         <activity android:name=".admin.add_new_course_admin" />
         <activity android:name=".teacher.add_new_section_for_teacher" />
         <activity android:name=".teacher.manageCourses" />

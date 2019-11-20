@@ -89,7 +89,7 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
 
 
         FirebaseFirestore dd = FirebaseFirestore.getInstance();
-        final DocumentReference updateRequest = dd.collection("request").document(mDataset.get(position).ID);
+        DocumentReference updateRequest = dd.collection("request").document(mDataset.get(position).ID);
 
 
         try {

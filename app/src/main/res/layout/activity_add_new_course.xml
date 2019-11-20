@@ -27,7 +27,7 @@
                    android:layout_width="162dp"
                    android:layout_height="49dp"
                    android:layout_margin="40dp"
-                   android:text="@string/addnewCourse"
+                   android:text="@string/addSection"
                    android:textColor="@color/colortext"
                    android:textSize="20sp"
                    android:textStyle="bold"

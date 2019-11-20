@@ -1,8 +1,12 @@
 package com.sultan.lasttest.teacher;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -12,11 +16,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.sultan.lasttest.R;
 import com.sultan.lasttest.database.Course;
 import com.sultan.lasttest.database.section;
 
 import java.util.List;
+
+import static com.google.firebase.firestore.FieldValue.arrayRemove;
 
 public class teacher_courses_adapter extends RecyclerView.Adapter<teacher_courses_adapter.MyViewHolder> {
     private List<section> mDataset1;
@@ -86,121 +94,63 @@ public class teacher_courses_adapter extends RecyclerView.Adapter<teacher_course
                         if(task.isSuccessful()){
 
                             c = task.getResult().toObject(Course.class);
-                            holder.corseinfo.setText("Course: "+c.courseName+ "\n"+"Section: "+mDataset1.get(position).ID +"\n");
+                            holder.corseinfo.setText("اسم المقرر: "+c.courseName+ "\n"+"الشعبة: "+mDataset1.get(position).ID);
                             holder.coursename.setText(c.courseCode);
                         }
 
                     }
                 });
-
-
-
-        //holder.textView.setText(mDataset.get(position).courseName);
-        /*holder.delete.setOnClickListener(new View.OnClickListener() {
+        holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View view) {
-
-                final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle("...");
-                builder.setMessage("هل انت متأكد؟\n سيتم حذف كل شي يتعلق بالمقرر ");
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                //builder.setTitle("...");
+                builder.setMessage("هل انت متأكد");
                 builder.setNegativeButton("لا", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
+                        dialogInterface.dismiss();
                     }
                 });
                 builder.setPositiveButton("نعم", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        mDataset.remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemChanged(position);
-
-
-
-                            db.collection("request").whereEqualTo("CourseID", courseid)
-                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                                        for (QueryDocumentSnapshot q : task.getResult()) {
-                                            db.collection("request").document(q.getId()).delete()
-                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            if (task.isSuccessful()) {
-
-                                                            }
-                                                        }
-                                                    });
-
+                        db.collection("course").document(mDataset1.get(position).CourseID)
+                                .update("sections" , arrayRemove(mDataset1.get(position).ID));
+                        if(!mDataset1.get(position).studentUID.isEmpty()){
+                            for(int in=0;in<mDataset1.get(position).studentUID.size();in++){
+                                db.collection("student").whereEqualTo("StudentID" , mDataset1.get(position).studentUID.get(in))
+                                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if(task.isSuccessful()){
+                                            for(QueryDocumentSnapshot q : task.getResult()){
+                                                db.collection("student").document(q.getId()).update("course" , arrayRemove(mDataset1.get(position).CourseID));
+                                            }
                                         }
-
-
-                                    } else {
 
                                     }
-
-                                }
-                            });
-                            db.collection("teacher").document(teacher)
-                                    .update("course", FieldValue.arrayRemove(courseid))
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if(task.isSuccessful()){
-
-                                            }
-
-                                        }
-                                    });
+                                });
+                            }
 
 
-                            db.collection("student").whereArrayContains("course",courseid).get()
-                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if(task.isSuccessful()){
-                                                for(QueryDocumentSnapshot q : task.getResult()){
+                        }
+                        db.collection("section").document(mDataset1.get(position).ID).delete();
+                        mDataset1.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemChanged(position);
+                        Toast.makeText(view.getContext(), "تم حذف الشعبه بنجاح", Toast.LENGTH_SHORT).show();
 
-                                                    db.collection("student").document(q.getId())
-                                                            .update("course", FieldValue.arrayRemove(courseid));
-                                                }
-                                            }
-                                        }
-                                    });
-                            db.collection("course").document(courseid).delete()
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if(task.isSuccessful()){
-                                                Toasty.success(view.getContext(),"تم حذف المقرر").show();
-                                            }
-                                        }
-                                    });
                     }
-
-
 
                 });
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
 
-
-
-
-
-
-
             }
         });
 
-        holder.edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });*/
 
 
 

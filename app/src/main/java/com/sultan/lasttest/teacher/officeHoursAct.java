@@ -39,7 +39,7 @@ public class officeHoursAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.office_hours_activity);
          e0 =(EditText) findViewById(R.id.txtofficehours0);
-        e1 =(EditText) findViewById(R.id.txtofficehours1);
+         e1 =(EditText) findViewById(R.id.txtofficehours1);
          e2 =(EditText) findViewById(R.id.txtofficehours2);
          e3 =(EditText) findViewById(R.id.txtofficehours3);
          e4 =(EditText) findViewById(R.id.txtofficehours4);
@@ -91,10 +91,10 @@ public class officeHoursAct extends AppCompatActivity {
         try {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-            builder.setTitle("Are you sure?");
+            builder.setTitle("هل انت متأكد");
 
 
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("نعم", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     DocumentReference documentReference = db.collection("teacher").document(id);
@@ -113,38 +113,46 @@ public class officeHoursAct extends AppCompatActivity {
 
 
 
+
                     List<Integer> w1= null;
                     w1 = Arrays.asList(w);
 
 
-                    System.out.println(w1.get(9));
-                    String offic =office.getText().toString();
-                    String flr = floor.getText().toString();
-                    String build = building.getText().toString();
+                    if((w1.get(0)>24||w1.get(0)<0)||(w1.get(1)>24||w1.get(1)<0)||(w1.get(2)>24||w1.get(2)<0)||
+                            (w1.get(3)>24||w1.get(3)<0)||(w1.get(4)>24||w1.get(4)<0)||(w1.get(5)>24||w1.get(5)<0)||
+                            (w1.get(6)>24||w1.get(6)<0)||(w1.get(7)>24||w1.get(7)<0)||(w1.get(8)>24||w1.get(8)<0)||
+                            (w1.get(9)>24||w1.get(9)<0)
 
-                    Map<String, Object> updateInfo = new HashMap<>();
-                    updateInfo.put("BuildingNO",build);
-                    updateInfo.put("FloorNO",flr);
-                    updateInfo.put("OfficeNO",offic);
-                    updateInfo.put("timeAvailable",Arrays.asList(w1.get(0),w1.get(1),w1.get(2),w1.get(3),w1.get(4),w1.get(5),w1.get(6),w1.get(7),w1.get(8),w1.get(9)));
-               /* Map<String, Object> docData = new HashMap<>();
-                docData.put("timeAvailable",FieldValue.());
-                documentReference.set(docData,SetOptions.merge())*/;
-                    documentReference.update(updateInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful());
-                            Toasty.success(getApplicationContext(),"Update data success");
-                        }
-                    });
+                    ){
+                        Toasty.error(getApplicationContext(),"الرجاء التأكد من الوقت").show();
+
+                    }else{   String offic =office.getText().toString();
+                        String flr = floor.getText().toString();
+                        String build = building.getText().toString();
+
+                        Map<String, Object> updateInfo = new HashMap<>();
+                        updateInfo.put("BuildingNO",build);
+                        updateInfo.put("FloorNO",flr);
+                        updateInfo.put("OfficeNO",offic);
+                        updateInfo.put("timeAvailable",Arrays.asList(w1.get(0),w1.get(1),w1.get(2),w1.get(3),w1.get(4),w1.get(5),w1.get(6),w1.get(7),w1.get(8),w1.get(9)));
+
+                        documentReference.update(updateInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful());
+                                Toasty.success(getApplicationContext(),"تم حفظ البيانات").show();
+                            }
+                        });}
+
 
 
                 }
             });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton("لا", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
+                    dialogInterface.dismiss();
                 }
             });
             AlertDialog alertDialog = builder.create();
