@@ -71,7 +71,6 @@
                 android:layout_marginStart="23dp"
                 android:layout_toEndOf="@+id/txtsunday"
                 android:ems="10"
-                android:inputType="number"
                 android:text="11:30"
                 android:textAlignment="center"
                 android:textDirection="ltr" />
@@ -97,7 +96,6 @@
 
                 android:layout_toEndOf="@+id/txtto"
                 android:ems="10"
-                android:inputType="textPersonName"
                 android:text="12:30" />
         </RelativeLayout>
         <RelativeLayout
@@ -126,7 +124,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_toEndOf="@+id/txtmonday"
                 android:ems="10"
-                android:inputType="number"
                 android:text="11:30" />
 
             <TextView
@@ -150,8 +147,7 @@
 
                 android:layout_toEndOf="@+id/txtto1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="12:30" />
+               android:text="12:30" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -179,7 +175,6 @@
                 android:layout_toEndOf="@+id/txtthuesday"
                 android:layout_marginStart="16dp"
                 android:ems="10"
-                android:inputType="number"
                 android:text="11:30" />
 
             <TextView
@@ -203,7 +198,6 @@
 
                 android:layout_toEndOf="@+id/txtto2"
                 android:ems="10"
-                android:inputType="textPersonName"
                 android:text="12:30" />
         </RelativeLayout>
         <RelativeLayout
@@ -232,7 +226,6 @@
                 android:layout_toEndOf="@+id/txtwednesday"
 
                 android:ems="10"
-                android:inputType="number"
                 android:text="11:30" />
 
             <TextView
@@ -256,7 +249,6 @@
 
                 android:layout_toEndOf="@+id/txtto3"
                 android:ems="10"
-                android:inputType="textPersonName"
                 android:text="12:30" />
         </RelativeLayout>
         <RelativeLayout
@@ -284,7 +276,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@+id/txtthursday"
                 android:ems="10"
-                android:inputType="number"
                 android:text="11:30" />
 
             <TextView
@@ -308,7 +299,6 @@
 
                 android:layout_toEndOf="@+id/txtto4"
                 android:ems="10"
-                android:inputType="textPersonName"
                 android:text="12:30" />
         </RelativeLayout>
         <RelativeLayout

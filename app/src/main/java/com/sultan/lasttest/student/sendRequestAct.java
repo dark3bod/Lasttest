@@ -206,23 +206,23 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
                                                                                         String timeAvailable ,sun1, mon2 , tues3 , wed4,thus5;
                                                                                         if(t.timeAvailable.get(0)!= 0)
-                                                                                            sun1= "الاحد: "+ t.timeAvailable.get(0)+" الى "+t.timeAvailable.get(1);
+                                                                                            sun1= "الاحد: "+ t.timeAvailable.get(0)+":00"+" الى "+t.timeAvailable.get(1)+":00";
                                                                                         else
                                                                                             sun1="الاحد:غير متاح";
                                                                                         if(t.timeAvailable.get(2)!= 0)
-                                                                                            mon2= "الاثنين: "+ t.timeAvailable.get(2)+" الى "+t.timeAvailable.get(3);
+                                                                                            mon2= "الاثنين: "+ t.timeAvailable.get(2)+":00"+" الى "+t.timeAvailable.get(3)+":00";
                                                                                         else
                                                                                             mon2="الاثنين:غير متاح";
                                                                                         if(t.timeAvailable.get(4)!= 0)
-                                                                                            tues3= "الثلاثاء: "+ t.timeAvailable.get(4)+" الى "+t.timeAvailable.get(5);
+                                                                                            tues3= "الثلاثاء: "+ t.timeAvailable.get(4)+":00"+" الى "+t.timeAvailable.get(5)+":00";
                                                                                         else
                                                                                             tues3="الثلاثاء:غير متاح";
                                                                                         if(t.timeAvailable.get(6)!= 0)
-                                                                                            wed4= "الاربعاء: "+ t.timeAvailable.get(6)+" الى "+t.timeAvailable.get(7);
+                                                                                            wed4= "الاربعاء: "+ t.timeAvailable.get(6)+":00"+" الى "+t.timeAvailable.get(7)+":00";
                                                                                         else
                                                                                             wed4="الاربعاء:غير متاح";
                                                                                         if(t.timeAvailable.get(8)!= 0)
-                                                                                            thus5= "الخميس: "+ t.timeAvailable.get(8)+" الى "+t.timeAvailable.get(9);
+                                                                                            thus5= "الخميس: "+ t.timeAvailable.get(8)+":00"+" الى "+t.timeAvailable.get(9)+":00";
                                                                                         else
                                                                                             thus5="الخميس:غير متاح";
 
@@ -311,7 +311,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
                         timeText.setText(time);
                         if(dayOfWeek == 2){
                             System.out.println("SUNDAY"+" Teacher is Available from "+t.timeAvailable.get(0)+" to "+t.timeAvailable.get(1));
-                            if(hourOfDay<t.timeAvailable.get(0)||hourOfDay>t.timeAvailable.get(1)){
+                            if(hourOfDay<t.timeAvailable.get(0)||hourOfDay>=t.timeAvailable.get(1)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}
@@ -319,7 +319,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
                         }else if(dayOfWeek == 3){
                             System.out.println("MONDAY"+" Teacher is Available from "+t.timeAvailable.get(2)+" to "+t.timeAvailable.get(3));
-                            if(hourOfDay<t.timeAvailable.get(2)||hourOfDay>t.timeAvailable.get(3)){
+                            if(hourOfDay<t.timeAvailable.get(2)||hourOfDay>=t.timeAvailable.get(3)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}
@@ -327,7 +327,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
                         }else if(dayOfWeek == 4){
                             System.out.println("TUESDAY"+" Teacher is Available from "+t.timeAvailable.get(4)+" to "+t.timeAvailable.get(5));
-                            if(hourOfDay<t.timeAvailable.get(4)||hourOfDay>t.timeAvailable.get(5)){
+                            if(hourOfDay<t.timeAvailable.get(4)||hourOfDay>=t.timeAvailable.get(5)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}
@@ -335,7 +335,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
                         }else if(dayOfWeek == 5){
                             System.out.println("WEDENSDAY"+" Teacher is Available from "+t.timeAvailable.get(6)+" to "+t.timeAvailable.get(7));
-                            if(hourOfDay<t.timeAvailable.get(6)||hourOfDay>t.timeAvailable.get(7)){
+                            if(hourOfDay<t.timeAvailable.get(6)||hourOfDay>=t.timeAvailable.get(7)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}
@@ -343,7 +343,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
                         }else if(dayOfWeek == 6){
                             System.out.println("THURSDAY"+" Teacher is Available from "+t.timeAvailable.get(8)+" to "+t.timeAvailable.get(9));
-                            if(hourOfDay<t.timeAvailable.get(8)||hourOfDay>t.timeAvailable.get(9)){
+                            if(hourOfDay<t.timeAvailable.get(8)||hourOfDay>=t.timeAvailable.get(9)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}

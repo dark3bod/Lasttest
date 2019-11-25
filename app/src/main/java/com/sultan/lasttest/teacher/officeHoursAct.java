@@ -98,8 +98,19 @@ public class officeHoursAct extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     DocumentReference documentReference = db.collection("teacher").document(id);
+                    String[] wx = new String[ofHours.size()];
+                    wx[0]=e0.getText().toString();
+                    wx[1]=e1.getText().toString();
+                    wx[2]=e2.getText().toString();
+                    wx[3]=e3.getText().toString();
+                    wx[4]=e4.getText().toString();
+                    wx[5]=e5.getText().toString();
+                    wx[6]=e6.getText().toString();
+                    wx[7]=e7.getText().toString();
+                    wx[8]=e8.getText().toString();
+                    wx[9]=e9.getText().toString();
                     Integer[] w = new Integer[ofHours.size()];
-                    w[0]=Integer.parseInt(e0.getText().toString());
+                  /*  w[0]=Integer.parseInt(e0.getText().toString());
                     w[1]=Integer.parseInt(e1.getText().toString());
                     w[2]=Integer.parseInt(e2.getText().toString());
                     w[3]=Integer.parseInt(e3.getText().toString());
@@ -108,16 +119,72 @@ public class officeHoursAct extends AppCompatActivity {
                     w[6]=Integer.parseInt(e6.getText().toString());
                     w[7]=Integer.parseInt(e7.getText().toString());
                     w[8]=Integer.parseInt(e8.getText().toString());
-                    w[9]=Integer.parseInt(e9.getText().toString());
+                    w[9]=Integer.parseInt(e9.getText().toString());*/
 
 
 
+                  for(int i=0;i<10;i++){
+                      if(wx[i].length()>=2){
+                         char n1 = wx[i].charAt(0),n2=wx[i].charAt(1);
+                         if((n1=='1'||n1=='2'||n1=='3'||n1=='4'||n1=='5'||n1=='6'||n1=='7'||n1=='8'||n1=='9'||n1=='0')){
+                             if(n2==':'){
+                                 w[i]=Integer.parseInt(String.valueOf(n1));
+                             }
+                                 else
+                             {
+                                  String d1 = String.valueOf(n1);
+                                  String d2 = String.valueOf(n2);
+                                  w[i]=Integer.parseInt(d1+d2);
+                                 System.out.println(d1+d2);
+
+                             }
+
+                         }
+
+                      }else{
+                          w[i]=Integer.parseInt(String.valueOf(wx[i].charAt(0)));
+                      }
+                  }
 
 
                     List<Integer> w1= null;
                     w1 = Arrays.asList(w);
 
+                    /*int z=0;
+                    for(CharSequence x: wx){
+                        String s;
+                        char n1  , n2;
+                        if(x.length()>=2){
+                            if(x.charAt(0)!=':'){
+                                n1 = x.charAt(0);
+                                if(x.charAt(1)!=':'){
+                                    n2 = x.charAt(1);
+                                   s = String.valueOf(n1+n2);
+                                    w[z]=Integer.parseInt(s);
+                                    z++;
+                                    s="";
+                                    Toasty.success(getApplicationContext(), s).show();
 
+
+
+                                }
+
+                            }
+                        }else{
+                            if(x.charAt(0)!=':'){
+                                n1=x.charAt(0);
+                                s=String.valueOf(n1);
+                                w[z]=Integer.parseInt(s);
+                                z++;
+
+                                s
+                                Toasty.success(getApplicationContext(), s).show();
+
+                            }
+                        }
+
+                    }
+*/
                     if((w1.get(0)>24||w1.get(0)<0)||(w1.get(1)>24||w1.get(1)<0)||(w1.get(2)>24||w1.get(2)<0)||
                             (w1.get(3)>24||w1.get(3)<0)||(w1.get(4)>24||w1.get(4)<0)||(w1.get(5)>24||w1.get(5)<0)||
                             (w1.get(6)>24||w1.get(6)<0)||(w1.get(7)>24||w1.get(7)<0)||(w1.get(8)>24||w1.get(8)<0)||
