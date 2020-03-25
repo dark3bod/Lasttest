@@ -24,6 +24,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.sultan.lasttest.database.section;
 import com.sultan.lasttest.main.LogIn;
 import com.sultan.lasttest.R;
@@ -39,6 +41,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -304,20 +307,37 @@ public class MainPage extends AppCompatActivity
             FirebaseAuth auth = FirebaseAuth.getInstance();
             if (auth.getCurrentUser() != null) {
                 // User is logged in
+                updatToken("student",auth.getUid());
             }
             auth.signOut();
 
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    if (user == null) {
-                        // user auth state is changed - user is null
-                        // launch login activity
-                        startActivity(new Intent(MainPage.this, LogIn.class));
-                        finish();
-                    }
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user == null) {
+                // user auth state is changed - user is null
+                // launch login activity
+                startActivity(new Intent(MainPage.this, LogIn.class));
+                finish();
+            }
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+private void updatToken(String collection,String uid) {
+
+    db.collection(collection).document(uid).update("token" , "")
+            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+
+                    }
+                }
+            });
+
+
+
+}
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

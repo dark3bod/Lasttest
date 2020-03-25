@@ -66,7 +66,7 @@ public class sign_up extends AppCompatActivity {
                             strEmail = email.getText().toString();
                             strPass = pasword.getText().toString();
                             ff = txtmail.getText().toString();
-                           strEmail = strEmail + ff;
+                            strEmail = strEmail + ff;
                             strFirsname = firstname.getText().toString();
                             strLastName = lastname.getText().toString();
 
@@ -106,7 +106,7 @@ public class sign_up extends AppCompatActivity {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if(task.isSuccessful()){
-                                                                        Toasty.success(view.getContext(),"Registered Succefully, please check your email verification").show();
+                                                                        Toasty.success(view.getContext(),"تم تسجيلك بنجاح, الرجاء تأكيدة حسابك بالايميل").show();
 
                                                                         email.setText("");pasword.setText("");firstname.setText("");lastname.setText("");
                                                                     }
@@ -116,6 +116,7 @@ public class sign_up extends AppCompatActivity {
                                                             });
                                                         }
                                                         else
+
                                                             Toasty.error(view.getContext(),task.getException().getMessage()).show();
                                                     }
                                                 });
@@ -152,6 +153,7 @@ public class sign_up extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful()){
 
+
                                                 Map<String, Object> docData = new HashMap<>();
                                                 docData.put("StudentID" , email.getText().toString());
                                                 docData.put("email" , strEmail);
@@ -168,7 +170,7 @@ public class sign_up extends AppCompatActivity {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if(task.isSuccessful()){
-                                                                        Toasty.success(view.getContext(),"Registered Succefully, please check your email verification").show();
+                                                                        Toasty.success(view.getContext(),"تم تسجيلك بنجاح, الرجاء تأكيدة حسابك بالايميل").show();
                                                                         email.setText("");pasword.setText("");firstname.setText("");lastname.setText("");
                                                                     }
 

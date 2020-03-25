@@ -10,13 +10,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.sultan.lasttest.R;
+import com.sultan.lasttest.database.Student;
 import com.sultan.lasttest.database.request;
 
 import java.text.ParseException;
@@ -38,6 +44,7 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
         // each data item is just a string in this case
         public CardView textView;
         public TextView studentID ,time , date;
+
         public CardView review , accept , reject;
         public MyViewHolder(CardView v,TextView s,TextView t , TextView d , CardView r ,CardView a,CardView re ) {
             super(v);
@@ -87,9 +94,11 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
+        String studentID = mDataset.get(position).StudentID;
 
         FirebaseFirestore dd = FirebaseFirestore.getInstance();
         DocumentReference updateRequest = dd.collection("request").document(mDataset.get(position).ID);
+
 
 
         try {
@@ -138,6 +147,22 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
                         mDataset.remove(position);
                         notifyItemRemoved(position);
                         notifyItemChanged(position);
+                        dd.collection("student").whereEqualTo("StudentID" ,studentID)
+                                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                for(QueryDocumentSnapshot q : task.getResult()){
+                                    Student student = q.toObject(Student.class);
+                                    HashMap<String  , String>notify = new HashMap<>();
+                                    notify.put("tokenid" , student.token);
+                                    notify.put("title" , "تم الغاء طلبك");
+                                    notify.put("body" , "تم الغاء طلب موعدك المرسل " );
+                                    dd.collection("notification").add(notify);
+
+                                }
+                            }
+                        });
+
 
                     }
                 });
@@ -175,6 +200,24 @@ public class MyRequestesAdapter extends RecyclerView.Adapter<MyRequestesAdapter.
                         notifyItemRemoved(position);
                         notifyItemChanged(position);
                         Toast.makeText(view.getContext(), "تم قبول الطلب", Toast.LENGTH_SHORT).show();
+                        dd.collection("student").whereEqualTo("StudentID" , studentID)
+                                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+                                    for(QueryDocumentSnapshot q : task.getResult()){
+                                        Student student = q.toObject(Student.class);
+                                        HashMap<String  , String>notify = new HashMap<>();
+                                        notify.put("tokenid" , student.token);
+                                        notify.put("title" , "تم قبول طلبك");
+                                        notify.put("body" , "تم قبول طلب موعدك المرسل");
+                                        dd.collection("notification").add(notify);
+
+                                    }
+
+                                }
+                            }
+                        });
 
                     }
                 });

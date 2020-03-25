@@ -3,13 +3,21 @@ package com.sultan.lasttest.student;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Icon;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +33,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,6 +45,7 @@ import com.sultan.lasttest.database.Student;
 import com.sultan.lasttest.database.Teacher;
 import com.sultan.lasttest.database.request;
 import com.sultan.lasttest.database.section;
+import com.sultan.lasttest.teacher.MainPageTeacher;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,6 +58,9 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import es.dmoral.toasty.Toasty;
+import fcm.androidtoandroid.FirebasePush;
+import fcm.androidtoandroid.connection.PushNotificationTask;
+import fcm.androidtoandroid.model.Notification;
 
 public class sendRequestAct extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     public static final String TAG = "sendRequestAct";
@@ -89,6 +102,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
         sectionName = new ArrayList<>();
 
+
         //recept student info from class main page
         student = (Student)getIntent().getSerializableExtra("s") ;
 
@@ -104,7 +118,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
         //make catogery reasons for student problen
        db = FirebaseFirestore.getInstance();
-        DocumentReference docRef;
+
         reasonArray.add(" ");
         reasonArray.add("مشكلة اجتماعية");
         reasonArray.add("بخصوص الاختبار");
@@ -136,6 +150,7 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
 
             }
         });
+
 
 
         sectionName = new ArrayList<>();
@@ -309,45 +324,45 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         time = hourOfDay+":"+minutes;
                         timeText.setText(time);
-                        if(dayOfWeek == 2){
-                            System.out.println("SUNDAY"+" Teacher is Available from "+t.timeAvailable.get(0)+" to "+t.timeAvailable.get(1));
+                        if(dayOfWeek ==3){
+                           // System.out.println("SUNDAY"+" Teacher is Available from "+t.timeAvailable.get(0)+" to "+t.timeAvailable.get(1));
                             if(hourOfDay<t.timeAvailable.get(0)||hourOfDay>=t.timeAvailable.get(1)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}
-                            System.out.println(timeLeget);
+                           // System.out.println(timeLeget);
 
-                        }else if(dayOfWeek == 3){
-                            System.out.println("MONDAY"+" Teacher is Available from "+t.timeAvailable.get(2)+" to "+t.timeAvailable.get(3));
+                        }else if(dayOfWeek == 4){
+                           // System.out.println("MONDAY"+" Teacher is Available from "+t.timeAvailable.get(2)+" to "+t.timeAvailable.get(3));
                             if(hourOfDay<t.timeAvailable.get(2)||hourOfDay>=t.timeAvailable.get(3)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}
-                            System.out.println(timeLeget);
+                           // System.out.println(timeLeget);
 
-                        }else if(dayOfWeek == 4){
-                            System.out.println("TUESDAY"+" Teacher is Available from "+t.timeAvailable.get(4)+" to "+t.timeAvailable.get(5));
+                        }else if(dayOfWeek == 5){
+                          //  System.out.println("TUESDAY"+" Teacher is Available from "+t.timeAvailable.get(4)+" to "+t.timeAvailable.get(5));
                             if(hourOfDay<t.timeAvailable.get(4)||hourOfDay>=t.timeAvailable.get(5)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}
-                            System.out.println(timeLeget);
+                          //  System.out.println(timeLeget);
 
-                        }else if(dayOfWeek == 5){
-                            System.out.println("WEDENSDAY"+" Teacher is Available from "+t.timeAvailable.get(6)+" to "+t.timeAvailable.get(7));
+                        }else if(dayOfWeek == 6){
+                           // System.out.println("WEDENSDAY"+" Teacher is Available from "+t.timeAvailable.get(6)+" to "+t.timeAvailable.get(7));
                             if(hourOfDay<t.timeAvailable.get(6)||hourOfDay>=t.timeAvailable.get(7)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}
-                            System.out.println(timeLeget);
+                         //   System.out.println(timeLeget);
 
-                        }else if(dayOfWeek == 6){
-                            System.out.println("THURSDAY"+" Teacher is Available from "+t.timeAvailable.get(8)+" to "+t.timeAvailable.get(9));
+                        }else if(dayOfWeek == 7){
+                          //  System.out.println("THURSDAY"+" Teacher is Available from "+t.timeAvailable.get(8)+" to "+t.timeAvailable.get(9));
                             if(hourOfDay<t.timeAvailable.get(8)||hourOfDay>=t.timeAvailable.get(9)){
                                 timeLeget= false;
 
                             }else{timeLeget= true;}
-                            System.out.println(timeLeget);
+                         //   System.out.println(timeLeget);
 
                         }
                         //if(hourOfDay<teachers.get(pos).timeAvailable.get(dayyy))
@@ -399,13 +414,10 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
             dateLeget = false;
         }
 
-        if(dayOfWeek == 1|| dayOfWeek == 7){
+        if(dayOfWeek == 1|| dayOfWeek == 2){
             dateLeget = false;
 
         }
-
-
-        System.out.println(dateLeget+" "+dayOfWeek);
 
 
 
@@ -418,12 +430,15 @@ public class sendRequestAct extends AppCompatActivity implements DatePickerDialo
         @SuppressLint("DefaultLocale") String idR = String.format("%04d", random.nextInt(10000));
         return student.StudentID+sectionName.get(pos).CourseID+idR;
     }
-public void checkRequest(final View view){
+public void checkRequest( View view){
+
 
 
         if(txtproblem.getVisibility()==View.VISIBLE){
             reason = txtproblem.getText().toString();
         }
+
+
 
 
 
@@ -456,6 +471,21 @@ public void checkRequest(final View view){
                                     Log.d(TAG, "DocumentSnapshot successfully written!");
                                     //done with request seccessfull
                                     Toast.makeText(sendRequestAct.this,"تم ارسال الطلب بنجاح",Toast.LENGTH_LONG).show();
+
+
+                                    String haveRequest = "لديك طلب جديد";
+                                    String sendForYou = "ارسل اليك طلب موعد";
+
+                                  //  if(!t.token.equals("")){
+                                        HashMap<String  , String>notify = new HashMap<>();
+                                        notify.put("tokenid" , t.token);
+                                        notify.put("title" , haveRequest);
+                                        notify.put("body" , sendForYou + student.name + " " + student.lastName);
+                                        db.collection("notification").add(notify);
+                                  //  }
+
+
+                                    System.out.println(t.token);
                                     dateText.setText("حدد اليوم");
                                     timeText.setText("حدد الوقت");
                                     reasonSpinner.clearFocus();

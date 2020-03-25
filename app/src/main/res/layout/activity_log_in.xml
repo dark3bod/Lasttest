@@ -129,7 +129,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
+
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sentNotify"
+        android:textStyle="bold"
+        android:text="Send"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
     <!--android:onClick="loginBtn"-->

@@ -22,6 +22,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
 import com.sultan.lasttest.database.Student;
 import com.sultan.lasttest.database.Teacher;
 import com.sultan.lasttest.database.department;
@@ -48,12 +51,13 @@ public class MainActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         checkCurrentUser(user);
 
+
     }
     private void checkCurrentUser(FirebaseUser user) {
         // [START check_current_user]
 
         //if user that came not null
-        if (user != null ) {
+        if (user != null&& user.isEmailVerified() ) {
             //&& user.isEmailVerified()
             //splash screen is over go to main menu
             FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -71,10 +75,11 @@ public class MainActivity extends AppCompatActivity {
                             student = document.toObject(Student.class);
                             Toast.makeText(getApplicationContext(),student.StudentID, Toast.LENGTH_SHORT).show();
 
+                            updatToken("student" , docid);
                             Intent intent = new Intent(getApplicationContext(), MainPage.class);
                             intent.putExtra("student",student);
 
-                            showRegisterDialog(student.deptID,"student" , FirebaseAuth.getInstance().getCurrentUser().getUid() ,intent);
+                             showRegisterDialog(student.deptID,"student" , FirebaseAuth.getInstance().getCurrentUser().getUid() ,intent);
 
 
 
@@ -106,9 +111,11 @@ public class MainActivity extends AppCompatActivity {
                                         if (document.exists()) {
 
                                             teacher = document.toObject(Teacher.class);
+                                            updatToken("teacher" , docid);
                                             Toast.makeText(getApplicationContext(),teacher.email, Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(getApplicationContext(), MainPageTeacher.class);
                                             intent.putExtra("teacher",teacher);
+
                                             showRegisterDialog(teacher.deptID,"teacher" , FirebaseAuth.getInstance().getCurrentUser().getUid() ,intent);
 
                                           /*  startActivity(intent);
@@ -154,10 +161,30 @@ public class MainActivity extends AppCompatActivity {
         }
         // [END check_current_user]
     }
-    private void showRegisterDialog( String dep , final String collectionName , final String UID ,final Intent intent ) {
+    private void updatToken(String collection,String uid) {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if(task.isSuccessful()){
+                    String token = task.getResult().getToken();
+                    db.collection(collection).document(uid).update("token" , token)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                    }
+                                }
+                            });
+                }
+            }
+        });
 
 
-        //if user not have department this function with display form to choose hir department
+    }
+    private void showRegisterDialog( String dep , String collectionName ,  String UID , Intent intent ) {
+
+
+            //if user not have department this function with display form to choose hir department
         if(dep.equals("0")) {
             departments = new ArrayList<>();
 

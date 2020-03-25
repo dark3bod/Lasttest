@@ -155,7 +155,8 @@
                 android:clickable="true"
                 android:id="@+id/SignupCard"
                 app:cardBackgroundColor="@color/md_blue_700"
-                app:cardCornerRadius="6dp">
+                app:cardCornerRadius="6dp"
+                >
 
 
                 <TextView

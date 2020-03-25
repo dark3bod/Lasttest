@@ -15,13 +15,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.sultan.lasttest.MainActivity;
 import com.sultan.lasttest.R;
 import com.sultan.lasttest.admin.add_new_course_admin;
@@ -29,6 +38,8 @@ import com.sultan.lasttest.database.department;
 import com.sultan.lasttest.student.studentInfo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
 
@@ -39,13 +50,35 @@ public class LogIn extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button x;
     String deptid;
+    Button btnLogin , check;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
+
+        check = findViewById(R.id.sentNotify);
+        check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    db.collection("notification").get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if(task.isSuccessful()){
+                                        for(QueryDocumentSnapshot q : task.getResult()){
+
+                                            String id = q.getId();
+                                            db.collection("notification").document(id).delete();
+                                        }
+                                    }
+                                }
+                            });
+            }
+        });
 
       //  x=(Button)findViewById(R.id.openAddCourseActAdmin);
         final View vi = findViewById(R.id.activity_main_id);
@@ -81,7 +114,7 @@ public class LogIn extends AppCompatActivity {
             //is mail empty
                 if (TextUtils.isEmpty(email)) {
                     Snackbar snackbar = Snackbar
-                            .make(v, "Missing Email!", Snackbar.LENGTH_LONG);
+                            .make(v, "الرجاء كتابة الايميل", Snackbar.LENGTH_LONG);
                     snackbar.show();
                 return;
             }
@@ -89,7 +122,7 @@ public class LogIn extends AppCompatActivity {
                 //is pass empty
                 if (TextUtils.isEmpty(password)) {
                     Snackbar snackbar = Snackbar
-                            .make(v, "Missing Password!", Snackbar.LENGTH_LONG);
+                            .make(v, "الرجاء كتابة الرقم السري", Snackbar.LENGTH_LONG);
                     snackbar.show();
                 return;
             }
@@ -97,6 +130,7 @@ public class LogIn extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
 
             //authenticate user
+
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(LogIn.this, new OnCompleteListener<AuthResult>() {
                 @Override
@@ -112,29 +146,33 @@ public class LogIn extends AppCompatActivity {
                         } else {
 
                             Snackbar snackbar = Snackbar
-                                    .make(v, "Wrong Email and Password combination!", Snackbar.LENGTH_LONG);
+                                    .make(v, "خطأ في الايميل او الرقم السري", Snackbar.LENGTH_LONG);
                             snackbar.show();
                         }
                     } else {
 
-                        /*if(auth.getCurrentUser().isEmailVerified()) {*/
-                        //go to mainActivity class
+                        if(auth.getCurrentUser().isEmailVerified()) {
+                        //go to mainActivity clas
                             Intent intent = new Intent(LogIn.this, MainActivity.class);
                             startActivity(intent);
                             finish();
-                        /*}
+                        }
                         else{
-                            Toasty.error(getApplicationContext(),"Please verify your email").show();
-                        }*/
+                            Toasty.error(getApplicationContext(),"الرجاء تأكيد حسابك").show();
+                        }
                     }
                 }
             });
         }
         });
     }
+
+
+
     ///disable back button while logged out
     @Override
     public void onBackPressed() {
+
 
     }
     public void openSignUpAct(View v){

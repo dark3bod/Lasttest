@@ -4,17 +4,18 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Student implements Serializable {
-    public String email,name,lastName,StudentID , deptID;
+    public String email,name,lastName,StudentID , deptID ,  token;
 
     public List<String> course;
 
-    public Student(String email, String name, String lastName, String studentID, List<String> course, List<String> section ,String deptID) {
+    public Student(String email, String name, String lastName, String studentID, List<String> course, List<String> section ,String deptID , String token) {
         this.email = email;
         this.name = name;
         this.lastName = lastName;
         StudentID = studentID;
         this.course = course;
         this.section = section;
+        this.token = token;
         this.deptID=deptID;
     }
 
@@ -32,6 +33,7 @@ public class Student implements Serializable {
         this.course= student.course;
         this.section = student.section;
         this.deptID = student.deptID;
+        this.token = student.token;
 
 
     }

@@ -4,20 +4,20 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Teacher implements Serializable {
-    public String email;
+    public String email , token;
     public String name;
     public String lastName;
     public String  FloorNO;
     public String BuildingNO;
     public String OfficeNO, deptID;;
     private String password ;
-    public List<String> course;
+    public List<String> course ;
     public List<Integer> timeAvailable;
     public String ID;
 
    // public List<String> section;
 
-    public Teacher(String email, String name, String lastName, String FloorNO, String BuildingNO, String OfficeNO, String password, List<String> course, List<Integer> timeAvailable , String deptID) {
+    public Teacher(String email, String name, String lastName, String FloorNO, String BuildingNO, String OfficeNO, String password, List<String> course, List<Integer> timeAvailable , String deptID , String token) {
         this.email = email;
         this.name = name;
         this.lastName = lastName;
@@ -28,6 +28,7 @@ public class Teacher implements Serializable {
         this.course = course;
         this.timeAvailable = timeAvailable;
         this.deptID = deptID;
+        this.token = token;
 
     }
 

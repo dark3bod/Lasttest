@@ -128,7 +128,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         for(int x1=0;x1<teachers.size();x1++){
                             if(teachers.get(x1).ID.equals(myDataset1.get(i).teacherUID)){
                                 Teacher teacher = teachers.get(x1);
-                                r.setText("  "+teachernameAr + teacher.name +" "+teacher.lastName +"\n"+"  " + mailArabic + teacher.email +"\n"+"  "+buildingArabic
+                                r.setText("  "+teachernameAr + teacher.name +" "+teacher.lastName +"\n"+"  " + mailArabic + teacher.email.toLowerCase() +"\n"+"  "+buildingArabic
                                         + teacher.BuildingNO+"     " + floorArabic + teacher.FloorNO +"\n"+"  "+officeArabic +teacher.OfficeNO);
 
 

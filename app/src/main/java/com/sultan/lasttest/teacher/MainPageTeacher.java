@@ -21,6 +21,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.sultan.lasttest.main.LogIn;
 import com.sultan.lasttest.R;
 import com.sultan.lasttest.database.Teacher;
@@ -33,6 +35,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -76,7 +79,7 @@ public class MainPageTeacher extends AppCompatActivity
         Intent intent = getIntent();
         teacher = (Teacher)intent.getSerializableExtra("teacher");
         name.setText(teacher.name+" "+teacher.lastName);
-        txtEmail.setText(teacher.email);
+        txtEmail.setText(teacher.email.toLowerCase());
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef;
 
@@ -256,6 +259,7 @@ public class MainPageTeacher extends AppCompatActivity
             FirebaseAuth auth = FirebaseAuth.getInstance();
             if (auth.getCurrentUser() != null) {
                 // User is logged in
+                updatToken("teacher" ,auth.getUid());
             }
             auth.signOut();
 
@@ -299,6 +303,23 @@ public class MainPageTeacher extends AppCompatActivity
     public void saveCourse(){
 
     }
+private void updatToken(String collection,String uid) {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    db.collection(collection).document(uid).update("token" , "")
+            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+
+                    }
+                }
+            });
+
+
+
+}
     public void openRecentRequstsAct(View view){
         ArrayList<request> c = new ArrayList<>();
 
