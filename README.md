@@ -4,9 +4,9 @@
 - [x] LOGIN ACTIVITY
 - [x] FORGOT PASS ACIVITY
 - [x] Main Activity design and mapping
-- [ ] Database design and mapping
-- [ ] UML design 
-- [ ] Settings Activity
+- [x] Database design and mapping
+- [x] UML design 
+- [x] Settings Activity
 - [x] LOGOUT
 - [ ] Uranus
 - [ ] Neptune
